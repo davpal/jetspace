@@ -13,9 +13,9 @@ public class Laser extends GameObject  {
 		super(x, y);
 		gunx = x;
 		guny = y;
-		width = 8;
-		height = 30;
-		speed = 5;
+		collisionWidth = width = 8;
+		collisionHeight = height = 30;
+		speed = 6;
 		
 		beam = ResourceLoader.getImage("/player/laser.png");
 	}

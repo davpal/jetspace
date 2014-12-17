@@ -9,6 +9,7 @@ import app.MainClass;
 public abstract class GameObject {
     protected int x, y, radius, speed;
     protected int width, height, collisionWidth, collisionHeight;
+    protected boolean left, right, up, down;
 	protected boolean dead;
     
     protected GameObject(int x, int y){

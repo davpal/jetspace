@@ -65,19 +65,21 @@ public class Player extends GameObject implements KeyListener {
 		}
 		
 		for(int i = 0; i < lasers.size(); ++i){
-			if(lasers.get(i).isDead())
-			  lasers.remove(i--);
 			lasers.get(i).update(mc);
+			if(lasers.get(i).isDead()){
+				lasers.remove(i--);
+			}
 		}
 	}
 	
 	public void checkAttack(ArrayList<Enemy> enemies){
-		if(shooting)
-			for(Enemy e:enemies){
-			    for(Laser l:lasers){
-				    if(e.intersect(l)) e.setDead();
-			    }
+		for(int i = 0; i < enemies.size(); ++i){
+			for(int j = 0; j < lasers.size(); ++j){
+				if(lasers.get(j).intersect(enemies.get(i))){
+				   enemies.get(i).setHit();
+				}
 			}
+		}
 	}
 
 	@Override

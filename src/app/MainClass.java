@@ -53,8 +53,11 @@ public class MainClass extends Applet implements Runnable {
 	
 	public void update(Graphics g){
 		player.update(this);
-		for(Enemy e:enemies){
-			e.update(this);
+		for(int i = 0; i < enemies.size(); ++i){
+			enemies.get(i).update(this);
+			if(enemies.get(i).isHit()){
+				enemies.remove(i--);
+			}
 		}
 		
 		player.checkAttack(enemies);
