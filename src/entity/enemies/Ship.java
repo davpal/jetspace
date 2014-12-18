@@ -34,7 +34,8 @@ public class Ship extends Enemy {
 	public void paint(Graphics g) {
 		if(crash) explosion.paint(g);
 		else {
-			g.setColor(Color.GREEN);
+			g.setColor(new Color((10 - health) * 25, health * 25, 0, 220));
+			
 			g.fillRect(x + (width - 50) / 2, y - 10, 5 * health, 5);
 			g.drawImage(skin, x, y, width, height, null);
 		}
