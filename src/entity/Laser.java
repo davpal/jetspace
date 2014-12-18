@@ -26,6 +26,8 @@ public class Laser extends GameObject  {
 
 	public void update(MainClass mc){
 		y -= speed;
+		
+		if(y < 0) dead = false;
 	}
 }
 	

@@ -32,7 +32,7 @@ public class Player extends GameObject implements KeyListener {
 		collisionWidth = 58;
 		collisionHeight = 70;
 		
-		speed = 2;
+		speed = 10;
 		
 		ship = ResourceLoader.getImage("/player/ship.png");
 		
@@ -72,14 +72,18 @@ public class Player extends GameObject implements KeyListener {
 		}
 	}
 	
-	public void checkAttack(ArrayList<Enemy> enemies){
+	public boolean checkAttack(ArrayList<Enemy> enemies){
+		boolean hit = false;
 		for(int i = 0; i < enemies.size(); ++i){
 			for(int j = 0; j < lasers.size(); ++j){
 				if(!lasers.get(j).isDead() && lasers.get(j).intersect(enemies.get(i))){
 				   enemies.get(i).setHit();
+				   lasers.get(j).setDead();
+				   hit = true;
 				}
 			}
 		}
+		return hit;
 	}
 
 	@Override
@@ -94,7 +98,7 @@ public class Player extends GameObject implements KeyListener {
 				break;				
 			}
 			case KeyEvent.VK_UP:{
-				dy= -speed;
+				dy = -speed;
 				break;
 			}					
 			case KeyEvent.VK_DOWN:{
@@ -103,7 +107,7 @@ public class Player extends GameObject implements KeyListener {
 			}				
 			case KeyEvent.VK_SPACE:{
 				shooting = true;
-				break;	
+				break;
 			}		
 		}
 	}

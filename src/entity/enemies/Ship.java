@@ -2,6 +2,7 @@ package entity.enemies;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 
@@ -14,9 +15,9 @@ public class Ship extends Enemy {
 	public Ship(int x, int y){
 		super(x, y);
 		
-		collisionWidth = 70;
+		collisionWidth = 60;
 		width = 79;
-		collisionHeight = 58;
+		collisionHeight = 48;
 		height = 68;
 		speed = 1;
 		
@@ -33,6 +34,26 @@ public class Ship extends Enemy {
 
 	@Override
 	public void update(MainClass mc) {
+		if(collision){
+			collision = false;
+			
+			if(right){
+				left = true;
+				right = false;
+			} else if(left){
+				left = false;
+				right = true;
+			}
+			
+			if(up){
+				down = true;
+				up = false;
+			} else if(down){
+				down = false;
+				up = true;
+			}
+		}
+		
 		if(right) x += speed;
 		else if(left) x -= speed;
 		if(down) y += speed;
@@ -54,4 +75,5 @@ public class Ship extends Enemy {
 			down = true;
 		}
 	}
+
 }
