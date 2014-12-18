@@ -57,6 +57,7 @@ public class MainClass extends Applet implements Runnable {
 	
 	public void update(Graphics g){
 		player.update(this);
+		player.checkCollision(enemies);
 		
 		for(int i = 0; i < enemies.size(); ++i){
 			enemies.get(i).checkCollision(enemies);
@@ -68,12 +69,7 @@ public class MainClass extends Applet implements Runnable {
 		
 		
 		
-		if(player.checkAttack(enemies)){
-			enemies.add(new Ship(100, 100));
-			enemies.add(new Ship(50, 50));
-			enemies.add(new Ship(200, 200));
-			enemies.add(new Ship(150, 300));		
-		}
+		player.checkAttack(enemies);
 		
 		paint(g);
 	}

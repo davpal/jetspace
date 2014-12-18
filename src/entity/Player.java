@@ -14,7 +14,7 @@ import app.ResourceLoader;
 
 
 public class Player extends GameObject implements KeyListener {
-
+    private boolean collision;
 	private int dx = 0;
 	private int dy = 0;
 	
@@ -32,7 +32,7 @@ public class Player extends GameObject implements KeyListener {
 		collisionWidth = 58;
 		collisionHeight = 70;
 		
-		speed = 10;
+		speed = 5;
 		
 		ship = ResourceLoader.getImage("/player/ship.png");
 		
@@ -47,6 +47,10 @@ public class Player extends GameObject implements KeyListener {
 	}
 
 	public void update(MainClass mc){
+		if(collision){
+			
+		}
+		
 		x += dx;
 		y += dy;	
 		
@@ -68,6 +72,15 @@ public class Player extends GameObject implements KeyListener {
 			lasers.get(i).update(mc);
 			if(lasers.get(i).isDead()){
 				lasers.remove(i--);
+			}
+		}
+	}
+	
+	public void checkCollision(ArrayList<Enemy> enemies){
+		for(int i = 0; i < enemies.size(); ++i){
+			if(enemies.get(i).intersect(this)){
+				collision = true;
+				enemies.get(i).setHit();
 			}
 		}
 	}
