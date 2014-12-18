@@ -17,6 +17,7 @@ public class Player extends GameObject implements KeyListener {
     private boolean collision;
 	private int dx = 0;
 	private int dy = 0;
+	private int health, maxHealth;
 	
 	private BufferedImage ship;
 	
@@ -26,13 +27,14 @@ public class Player extends GameObject implements KeyListener {
 	public Player(int x, int y){
 		super(x, y);
 		
-		width = 68;
-		height = 79;
+		width = 79;
+		height = 68;
 		
 		collisionWidth = 58;
 		collisionHeight = 70;
 		
-		speed = 5;
+		speed = 3;
+		maxHealth = health = 10;
 		
 		ship = ResourceLoader.getImage("/player/ship.png");
 		
@@ -42,6 +44,9 @@ public class Player extends GameObject implements KeyListener {
 	public void paint (Graphics g)
 	{
 		g.drawImage(ship, x, y, null);
+		g.setColor(new Color((10 - health) * 25, health * 25, 0, 220));
+		g.fillRect(x + (width - 50) / 2, y + height - 2, 5 * health, 5);
+		
 		for(Laser l:lasers)
 			l.paint(g);
 	}
@@ -149,4 +154,8 @@ public class Player extends GameObject implements KeyListener {
 	}
 		
 	public void keyTyped(KeyEvent arg0) {}
+
+	public int getWidth() {
+		return width;
+	}
 }

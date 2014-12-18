@@ -26,9 +26,9 @@ public class MainClass extends Applet implements Runnable {
 		player = new Player(315 / 2 - 34, 600 - 80);
 		background = ResourceLoader.getImage("/backgrounds/level1.png");
 		
-		enemies.add(new Ship(50, 50));
+		enemies.add(new Ship(25, 50));
 		enemies.add(new Ship(200, 100));
-		enemies.add(new Ship(50, 150));
+		enemies.add(new Ship(100, 150));
 
 		this.addKeyListener(player);
 	};
@@ -60,6 +60,7 @@ public class MainClass extends Applet implements Runnable {
 		
 		for(int i = 0; i < enemies.size(); ++i){
 			enemies.get(i).checkCollision(enemies);
+			enemies.get(i).fire(player);
 			enemies.get(i).update(this);
 			if(enemies.get(i).isDead()){
 				enemies.remove(i--);

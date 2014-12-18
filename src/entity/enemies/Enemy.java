@@ -3,6 +3,7 @@ package entity.enemies;
 import java.util.ArrayList;
 
 import entity.GameObject;
+import entity.Player;
 
 public abstract class Enemy extends GameObject  {
 	public boolean hit, collision;
@@ -31,6 +32,8 @@ public abstract class Enemy extends GameObject  {
 			}
 		}
 	}
+
+	public abstract void fire(Player player);
 }
 
 
