@@ -6,6 +6,7 @@ import entity.GameObject;
 
 public abstract class Enemy extends GameObject  {
 	public boolean hit, collision;
+	int health;
 	
 	Enemy(int x, int y) {
 		super(x, y);
