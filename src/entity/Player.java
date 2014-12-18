@@ -75,7 +75,7 @@ public class Player extends GameObject implements KeyListener {
 	public void checkAttack(ArrayList<Enemy> enemies){
 		for(int i = 0; i < enemies.size(); ++i){
 			for(int j = 0; j < lasers.size(); ++j){
-				if(lasers.get(j).intersect(enemies.get(i))){
+				if(!lasers.get(j).isDead() && lasers.get(j).intersect(enemies.get(i))){
 				   enemies.get(i).setHit();
 				}
 			}

@@ -27,6 +27,9 @@ public class MainClass extends Applet implements Runnable {
 		background = ResourceLoader.getImage("/backgrounds/level1.png");
 		
 		enemies.add(new Ship(100, 100));
+		enemies.add(new Ship(50, 50));
+		enemies.add(new Ship(200, 200));
+		enemies.add(new Ship(300, 300));
 
 		this.addKeyListener(player);
 	};
