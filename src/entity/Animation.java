@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class Animation {
@@ -7,10 +8,15 @@ public class Animation {
 	private int currentFrame;
 	private long startTime;
 	private long delay;
+	private int x, y;
 	
 	private boolean playedOnce;
+	private int height;
+	private int width;
 	
-	public Animation(){
+	public Animation(int width, int height){
+		this.width = width;
+		this.height = height;
 		playedOnce = false;
 	}
 	
@@ -55,5 +61,14 @@ public class Animation {
 	
 	public boolean hasPlayedOnce() {
 		return playedOnce;
+	}
+	
+	public void setPosition(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void paint(Graphics g){
+		g.drawImage(frames[currentFrame], x, y, width, height, null);
 	}
 }

@@ -4,13 +4,13 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import javax.annotation.Resource;
-
+import entity.Animation;
 import app.MainClass;
 import app.ResourceLoader;
 
 public class Ship extends Enemy {
 	BufferedImage skin;
+	Animation explosion;
 	
 	public Ship(int x, int y){
 		super(x, y);
@@ -22,14 +22,20 @@ public class Ship extends Enemy {
 		speed = 1;
 		
 		skin = ResourceLoader.getImage("/enemy/ship.png");
+		explosion = ResourceLoader.getAnimation("/enemy/explosion.png", 64, 64, 5, 50);
 		
 		right = true;
 		down = true;
 	}
 
-	@Override
 	public void paint(Graphics g) {
-		g.drawImage(skin, x, y, width, height, null);
+		if(hit) explosion.paint(g);
+		else g.drawImage(skin, x, y, width, height, null);
+	}
+	
+	public void setHit(){	
+		explosion.setPosition(x, y);
+		hit = true;
 	}
 
 	@Override
@@ -56,8 +62,15 @@ public class Ship extends Enemy {
 		
 		if(right) x += speed;
 		else if(left) x -= speed;
-		if(down) y += speed;
-		else if(up) y -= speed;
+		if(down) y += speed; 
+		
+		if(hit){
+			explosion.update();
+			if(explosion.hasPlayedOnce()){
+				dead = true;
+				hit = false;
+			}
+		}
 		
 		if(x > mc.getWidth() - width){
 			left = true;
@@ -67,13 +80,7 @@ public class Ship extends Enemy {
 			left = false;
 		}
 		
-		if(y > mc.getHeight() - height){
-			up = true;
-			down = false;
-		} else if(y < 0){
-			up = false;
-			down = true;
-		}
+		if(y > 600) setDead();
 	}
 
 }
