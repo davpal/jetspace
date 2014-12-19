@@ -3,6 +3,7 @@ import java.applet.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 import entity.Player;
 import entity.enemies.*;
@@ -19,6 +20,7 @@ public class MainClass extends Applet implements Runnable {
 	ArrayList <Enemy> enemies = new ArrayList<Enemy>();
 	private Image buffer;
 	private BufferedImage background;
+	Random rand = new Random();
 	
 	public void init(){
 		setSize(315, 600);
@@ -57,7 +59,7 @@ public class MainClass extends Applet implements Runnable {
 		player.update(this);
 		
 		if(!player.isDead()){
-			player.checkCollision(enemies);
+		    player.checkCollision(enemies);
 			player.checkAttack(enemies);
 		}
 		
@@ -75,6 +77,7 @@ public class MainClass extends Applet implements Runnable {
 		
 		paint(g);
 	}
+	
 	
 	public void paint(Graphics screen){
 		buffer = this.createImage(getWidth(), getHeight());

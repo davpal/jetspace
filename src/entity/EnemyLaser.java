@@ -4,8 +4,8 @@ import app.MainClass;
 import app.ResourceLoader;
 
 public class EnemyLaser extends Laser {
-	public EnemyLaser(int x, int y) {
-		super(x, y);
+	public EnemyLaser(double d, double e) {
+		super(d, e);
 		beam = ResourceLoader.getImage("/enemy/laser.png");
 	}
 	

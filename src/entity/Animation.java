@@ -8,7 +8,8 @@ public class Animation {
 	private int currentFrame;
 	private long startTime;
 	private long delay;
-	private int x, y;
+	double x;
+	private double y;
 	
 	private boolean playedOnce;
 	private int height;
@@ -63,12 +64,12 @@ public class Animation {
 		return playedOnce;
 	}
 	
-	public void setPosition(int x, int y){
-		this.x = x;
-		this.y = y;
+	public void setPosition(double x2, double y2){
+		this.x = x2;
+		this.y = y2;
 	}
 	
 	public void paint(Graphics g){
-		g.drawImage(frames[currentFrame], x, y, width, height, null);
+		g.drawImage(frames[currentFrame], (int)x, (int)y, width, height, null);
 	}
 }

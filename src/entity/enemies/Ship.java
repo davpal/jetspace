@@ -16,7 +16,6 @@ import app.ResourceLoader;
 public class Ship extends Enemy {
 	BufferedImage skin;
 	Animation explosion;
-	boolean crash;
 	boolean shooting;
 	int fireRate;
 	
@@ -30,37 +29,36 @@ public class Ship extends Enemy {
 		width = 79;
 		collisionHeight = 48;
 		height = 68;
-		speed = 1;
+		speed = 0.5;
 		health = 10;
 		fireRate = 1000;
 		
 		skin = ResourceLoader.getImage("/enemy/ship.png");
 		explosion = ResourceLoader.getAnimation("/enemy/explosion.png", 64, 64, 5, 50);
 		
-		right = true;
 		down = true;
+		left = true;
 	}
 
 	public void paint(Graphics g) {
 		if(crash) explosion.paint(g);
 		else {
-			g.setColor(new Color((10 - health) * 25, health * 25, 0, 220));
+			g.setColor(new Color((10 - health) * 25, health * 25, 0, 230));
 			
-			g.fillRect(x + (width - 50) / 2, y - 10, 5 * health, 5);
-			g.drawImage(skin, x, y, width, height, null);
+			g.fillRect((int)x + (width - 50) / 2, (int)y - 10, 5 * health, 5);
+			g.drawImage(skin, (int)x, (int)y, width, height, null);
 		}
 		for(Laser l:lasers) l.paint(g);
 	}
 	
 	public void setHit(){
-        explosion.setPosition(x, y);
-        hit = true;
+	     hit = true;
 	}
 
 	public void fire(Player p){
 		long elapsed = (System.nanoTime() - shootTime) / 1000000;
 		Random rand = new Random();
-		if(elapsed > rand.nextInt() % 200 + 1000){
+		if(elapsed > rand.nextInt() % 200 + 1500){
 			if(x >= p.getX() && x <= p.getX() + p.getWidth() ||
 				p.getX() >= x && p.getX() <= x + width)
 				shooting = true;
@@ -70,6 +68,7 @@ public class Ship extends Enemy {
 	
 	@Override
 	public void update(MainClass mc) {
+		explosion.setPosition(x, y);	
 		if(shooting){
 			lasers.add(new EnemyLaser(x + 4, y + 30));
 			lasers.add(new EnemyLaser(x + 68, y + 30));

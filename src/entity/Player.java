@@ -15,8 +15,7 @@ import app.ResourceLoader;
 
 public class Player extends GameObject implements KeyListener {
     private boolean collision, hit, crash;
-	private int dx = 0;
-	private int dy = 0;
+	private double dx, dy;
 	private int health, maxHealth;
 	
 	Animation explosion;
@@ -38,7 +37,7 @@ public class Player extends GameObject implements KeyListener {
 		height = 68;
 		
 		collisionWidth = 58;
-		collisionHeight = 70;
+		collisionHeight = 60;
 		
 		speed = 3;
 		maxHealth = health = 10;
@@ -52,9 +51,9 @@ public class Player extends GameObject implements KeyListener {
 	public void paint (Graphics g)
 	{
 		if(!crash){
-			g.drawImage(ship, x, y, null);
+			g.drawImage(ship, (int)x, (int)y, null);
 			g.setColor(new Color((10 - health) * 25, health * 25, 0, 220));
-			g.fillRect(x + (width - 50) / 2, y + height - 2, 5 * health, 5);
+			g.fillRect((int)x + (width - 50) / 2, (int)y + height - 2, 5 * health, 5);
 		}
 		else {
 			explosion.paint(g);
@@ -65,13 +64,9 @@ public class Player extends GameObject implements KeyListener {
 	}
 
 	public void update(MainClass mc){
-		if(health <= 0){
-			crash = true;
-			explosion.update();
-			if(explosion.hasPlayedOnce()){
-				dead = true;
-				hit = false;
-			}
+		if(collision){
+			collision = false;
+			setHit();
 		}
 		
 		if(hit){
@@ -79,8 +74,13 @@ public class Player extends GameObject implements KeyListener {
 			hit = false;
 		}
 		
-		if(collision){
-			
+		if(health <= 0){
+			crash = true;
+			explosion.update();
+			if(explosion.hasPlayedOnce()){
+				dead = true;
+				hit = false;
+			}
 		}
 		
 		x += dx;
@@ -112,7 +112,7 @@ public class Player extends GameObject implements KeyListener {
 		for(int i = 0; i < enemies.size(); ++i){
 			if(enemies.get(i).intersect(this)){
 				collision = true;
-				enemies.get(i).setHit();
+				enemies.get(i).setCrash();
 			}
 		}
 	}

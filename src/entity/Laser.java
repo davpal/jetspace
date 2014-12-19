@@ -7,12 +7,9 @@ import app.MainClass;
 import app.ResourceLoader;
 public class Laser extends GameObject  {
 	BufferedImage beam;
-	int gunx, guny;
 	
-	Laser(int x, int y) {
-		super(x, y);
-		gunx = x;
-		guny = y;
+	Laser(double d, double e) {
+		super(d, e);
 		collisionWidth = width = 8;
 		collisionHeight = height = 30;
 		speed = 6;
@@ -21,7 +18,7 @@ public class Laser extends GameObject  {
 	}
 
 	public void paint (Graphics g){
-		g.drawImage(beam, x, y, width, height, null);
+		g.drawImage(beam, (int)x, (int)y, width, height, null);
 	}
 
 	public void update(MainClass mc){

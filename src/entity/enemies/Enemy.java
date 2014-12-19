@@ -8,6 +8,7 @@ import entity.Player;
 public abstract class Enemy extends GameObject  {
 	public boolean hit, collision;
 	int health;
+	protected boolean crash;
 	
 	Enemy(int x, int y) {
 		super(x, y);
@@ -35,6 +36,11 @@ public abstract class Enemy extends GameObject  {
 
 	public abstract void fire(Player player);
 	public abstract void checkAttack(Player player);
+
+	public void setCrash() {
+		health = 0;
+		crash = true;
+	}
 }
 
 

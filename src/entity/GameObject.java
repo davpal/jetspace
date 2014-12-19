@@ -7,22 +7,22 @@ import app.MainClass;
 
 
 public abstract class GameObject {
-    protected int x, y, radius, speed;
+    protected double x, y, speed;
     protected int width, height, collisionWidth, collisionHeight;
     protected boolean left, right, up, down;
 	protected boolean dead;
 	protected Animation animation;
     
-    protected GameObject(int x, int y){
-    	this.x = x;
-    	this.y = y;
+    protected GameObject(double d, double e){
+    	this.x = d;
+    	this.y = e;
     }
 
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 	
@@ -36,15 +36,15 @@ public abstract class GameObject {
 	
 	public boolean intersect(GameObject o){
 		Rectangle a = new Rectangle(
-							x, 
-							y, 
-							collisionWidth, 
-							collisionHeight);
+							(int)x, 
+							(int)y, 
+							(int)collisionWidth, 
+							(int)collisionHeight);
 		Rectangle b = new Rectangle(
-							o.x, 
-							o.y, 
-							o.collisionWidth, 
-							o.collisionHeight);
+							(int)o.x, 
+							(int)o.y, 
+							(int)o.collisionWidth, 
+							(int)o.collisionHeight);
 		return a.intersects(b);
 	}
 	
