@@ -111,8 +111,10 @@ public class Player extends GameObject implements KeyListener {
 	public void checkCollision(ArrayList<Enemy> enemies){
 		for(int i = 0; i < enemies.size(); ++i){
 			if(enemies.get(i).intersect(this)){
-				collision = true;
-				enemies.get(i).setCrash();
+				if(!enemies.get(i).isCrash()){
+					collision = true;
+					enemies.get(i).setCrash();
+				}
 			}
 		}
 	}
