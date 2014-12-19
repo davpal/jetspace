@@ -14,16 +14,23 @@ import app.ResourceLoader;
 
 
 public class Player extends GameObject implements KeyListener {
-    private boolean collision;
+    private boolean collision, hit, crash;
 	private int dx = 0;
 	private int dy = 0;
 	private int health, maxHealth;
+	
+	Animation explosion;
 	
 	private BufferedImage ship;
 	
 	public boolean shooting = false;
 	private ArrayList<Laser> lasers;
 
+	public void setHit(){
+		explosion.setPosition(x, y);
+		hit = true;
+	}
+	
 	public Player(int x, int y){
 		super(x, y);
 		
@@ -37,21 +44,41 @@ public class Player extends GameObject implements KeyListener {
 		maxHealth = health = 10;
 		
 		ship = ResourceLoader.getImage("/player/ship.png");
+		explosion = ResourceLoader.getAnimation("/enemy/explosion.png", 64, 64, 5, 50);
 		
 		lasers = new ArrayList<Laser>();
 	}
 
 	public void paint (Graphics g)
 	{
-		g.drawImage(ship, x, y, null);
-		g.setColor(new Color((10 - health) * 25, health * 25, 0, 220));
-		g.fillRect(x + (width - 50) / 2, y + height - 2, 5 * health, 5);
+		if(!crash){
+			g.drawImage(ship, x, y, null);
+			g.setColor(new Color((10 - health) * 25, health * 25, 0, 220));
+			g.fillRect(x + (width - 50) / 2, y + height - 2, 5 * health, 5);
+		}
+		else {
+			explosion.paint(g);
+		}
 		
 		for(Laser l:lasers)
 			l.paint(g);
 	}
 
 	public void update(MainClass mc){
+		if(health <= 0){
+			crash = true;
+			explosion.update();
+			if(explosion.hasPlayedOnce()){
+				dead = true;
+				hit = false;
+			}
+		}
+		
+		if(hit){
+			health -= 1;
+			hit = false;
+		}
+		
 		if(collision){
 			
 		}

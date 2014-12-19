@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 import entity.Animation;
 import entity.EnemyLaser;
@@ -58,7 +59,8 @@ public class Ship extends Enemy {
 
 	public void fire(Player p){
 		long elapsed = (System.nanoTime() - shootTime) / 1000000;
-		if(elapsed > fireRate){
+		Random rand = new Random();
+		if(elapsed > rand.nextInt() % 200 + 1000){
 			if(x >= p.getX() && x <= p.getX() + p.getWidth() ||
 				p.getX() >= x && p.getX() <= x + width)
 				shooting = true;
@@ -137,6 +139,16 @@ public class Ship extends Enemy {
 		}
 		
 		if(y > 600) setDead();
+	}
+
+	@Override
+	public void checkAttack(Player player) {
+		for(int i = 0; i < lasers.size(); ++i){
+			if(lasers.get(i).intersect(player)){
+				player.setHit();
+				lasers.get(i).setDead();
+			}
+		}
 	}
 
 }

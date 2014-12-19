@@ -34,6 +34,7 @@ public abstract class Enemy extends GameObject  {
 	}
 
 	public abstract void fire(Player player);
+	public abstract void checkAttack(Player player);
 }
 
 

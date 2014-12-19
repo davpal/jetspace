@@ -55,12 +55,18 @@ public class MainClass extends Applet implements Runnable {
 	
 	public void update(Graphics g){
 		player.update(this);
-		player.checkCollision(enemies);
-		player.checkAttack(enemies);
+		
+		if(!player.isDead()){
+			player.checkCollision(enemies);
+			player.checkAttack(enemies);
+		}
 		
 		for(int i = 0; i < enemies.size(); ++i){
 			enemies.get(i).checkCollision(enemies);
-			enemies.get(i).fire(player);
+			if(!player.isDead()){
+				enemies.get(i).fire(player);
+				enemies.get(i).checkAttack(player);
+			}
 			enemies.get(i).update(this);
 			if(enemies.get(i).isDead()){
 				enemies.remove(i--);
@@ -76,7 +82,7 @@ public class MainClass extends Applet implements Runnable {
 		
 		g.drawImage(background, 0, 0, null);
 		
-		player.paint(g);
+		if(!player.isDead()) player.paint(g);
 		for(Enemy e:enemies){
 			e.paint(g);
 		}
