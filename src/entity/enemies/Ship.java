@@ -54,16 +54,22 @@ public class Ship extends Enemy {
 	public void setHit(){
 	     hit = true;
 	}
+	
+	
 
 	public void fire(Player p){
 		long elapsed = (System.nanoTime() - shootTime) / 1000000;
 		Random rand = new Random();
 		if(elapsed > rand.nextInt() % 200 + 1500){
-			if(x >= p.getX() && x <= p.getX() + p.getWidth() ||
-				p.getX() >= x && p.getX() <= x + width)
+			if(inFireRange(p))
 				shooting = true;
 			shootTime = System.nanoTime();
 		}	
+	}
+
+	private boolean inFireRange(Player p) {
+		return (x >= p.getX() && x <= p.getX() + p.getWidth() ||
+			p.getX() >= x && p.getX() <= x + width) && y < p.getY();
 	}	
 	
 	@Override
