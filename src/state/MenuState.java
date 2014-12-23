@@ -7,11 +7,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import app.Game;
+
 public class MenuState extends GameState implements KeyListener {
 	ArrayList<String> menuItems = new ArrayList<String>();
 	int selected;
 
-	public MenuState(){
+	public MenuState(Game g){
+		super(g);
+
 		menuItems.add("Start game");
 		menuItems.add("Options");
 		menuItems.add("Quit");
@@ -42,7 +46,17 @@ public class MenuState extends GameState implements KeyListener {
 	}
 
 	public void keyReleased(KeyEvent e){
-		if(e.getKeyCode() == KeyEvent.VK_DOWN)
+		if(e.getKeyCode() == KeyEvent.VK_ENTER){
+			switch(selected){
+				case 0:
+					game.removeKeyListener(this);
+					game.setState(new Level1State(game));
+					break;
+				case 2:
+					System.exit(0);
+			}
+		}
+		else if(e.getKeyCode() == KeyEvent.VK_DOWN)
 			++selected;
 		else if(e.getKeyCode() == KeyEvent.VK_UP)
 			--selected;
@@ -52,6 +66,12 @@ public class MenuState extends GameState implements KeyListener {
 	}
 
 	public void keyTyped(KeyEvent e){
+
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
 
 	}
 }

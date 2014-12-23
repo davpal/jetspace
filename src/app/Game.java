@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import state.GameState;
+import state.Level1State;
 import state.MenuState;
 import entity.enemies.Enemy;
 
@@ -30,18 +31,14 @@ public class Game extends JFrame implements Runnable {
 	public void init(){
 		setSize(315, 600);
 		setTitle("JetSpace v0.1");
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		//player = new Player(315 / 2 - 34, 600 - 80);
 		background = ResourceLoader.getImage("/backgrounds/level1.png");
-
-		//enemies.add(new Ship(100, 100));
-
-		//this.addKeyListener(player);
 
 		setVisible(true);
 		setResizable(false);
 
-		gameState = new MenuState();
+		gameState = new MenuState(this);
 		addKeyListener(gameState);
 	};
 
@@ -64,15 +61,7 @@ public class Game extends JFrame implements Runnable {
 	}
 
 	public void update(Graphics g){
-		//player.update(this);
-		//for(int i = 0; i < enemies.size(); ++i){
-		//	enemies.get(i).update(this);
-		//	if(enemies.get(i).isHit()){
-		//		enemies.remove(i--);
-		//	}
-		//}
-
-		//player.checkAttack(enemies);
+		gameState.update();
 
 		paint(g);
 	}
@@ -83,10 +72,7 @@ public class Game extends JFrame implements Runnable {
 
 		g.drawImage(background, 0, 0, null);
 
-		//player.paint(g);
-		//for(Enemy e:enemies){
-		//	e.paint(g);
-		//}
+
 
 		gameState.paint(g);
 
@@ -95,5 +81,9 @@ public class Game extends JFrame implements Runnable {
 
 	public static void main(String[] args){
 		new Game();
+	}
+
+	public void setState(GameState state) {
+		gameState = state;
 	}
 }
