@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import entity.enemies.Enemy;
-import app.MainClass;
+import app.Game;
 import app.ResourceLoader;
 
 
@@ -63,7 +63,7 @@ public class Player extends GameObject implements KeyListener {
 			l.paint(g);
 	}
 
-	public void update(MainClass mc){
+    public void update(Game mc){
 		if(collision){
 			collision = false;
 			setHit();

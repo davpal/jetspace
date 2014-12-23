@@ -10,7 +10,7 @@ import entity.Animation;
 import entity.EnemyLaser;
 import entity.Laser;
 import entity.Player;
-import app.MainClass;
+import app.Game;
 import app.ResourceLoader;
 
 public class Ship extends Enemy {
@@ -73,7 +73,7 @@ public class Ship extends Enemy {
 	}	
 	
 	@Override
-	public void update(MainClass mc) {
+    public void update(Game mc) {
 		explosion.setPosition(x, y);	
 		if(shooting){
 			lasers.add(new EnemyLaser(x + 4, y + 30));
@@ -122,7 +122,7 @@ public class Ship extends Enemy {
 				up = true;
 			}
 		}
-		
+
 		if(right) x += speed;
 		else if(left) x -= speed;
 		if(down) y += speed; 

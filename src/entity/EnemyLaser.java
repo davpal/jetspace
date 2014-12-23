@@ -1,6 +1,6 @@
 package entity;
 
-import app.MainClass;
+import app.Game;
 import app.ResourceLoader;
 
 public class EnemyLaser extends Laser {
@@ -9,7 +9,7 @@ public class EnemyLaser extends Laser {
 		beam = ResourceLoader.getImage("/enemy/laser.png");
 	}
 	
-	public void update(MainClass mc){
+	public void update(Game mc){
 		y += 5;
 	}
 

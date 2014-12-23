@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import app.MainClass;
+import app.Game;
 
 
 public abstract class GameObject {
@@ -50,5 +50,5 @@ public abstract class GameObject {
 	
 	public abstract void paint(Graphics g);
 
-	public abstract void update(MainClass mc);
+	public abstract void update(Game mc);
 }

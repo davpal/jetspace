@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import app.MainClass;
+import app.Game;
 import app.ResourceLoader;
 public class Laser extends GameObject  {
 	BufferedImage beam;
@@ -21,7 +21,7 @@ public class Laser extends GameObject  {
 		g.drawImage(beam, (int)x, (int)y, width, height, null);
 	}
 
-	public void update(MainClass mc){
+	public void update(Game mc){
 		y -= speed;
 		
 		if(y < 0) dead = false;
