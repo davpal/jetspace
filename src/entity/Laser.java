@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import app.Game;
 import app.ResourceLoader;
-public class Laser extends GameObject  {
+public class Laser extends Weapon {
     BufferedImage beam;
     
     Laser(double d, double e) {

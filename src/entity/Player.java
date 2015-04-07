@@ -20,7 +20,7 @@ public class Player extends GameObject implements KeyListener {
     private BufferedImage ship;
     
     public boolean shooting = false;
-    private ArrayList<Laser> lasers;
+    private ArrayList<Weapon> lasers;
 
     public void setHit(){
         explosion.setPosition(x, y);
@@ -42,7 +42,7 @@ public class Player extends GameObject implements KeyListener {
         ship = ResourceLoader.getImage("/player/ship.png");
         explosion = ResourceLoader.getAnimation("/enemy/explosion.png", 64, 64, 5, 50);
         
-        lasers = new ArrayList<Laser>();
+        lasers = new ArrayList<Weapon>();
     }
 
     public void paint (Graphics g)
@@ -56,7 +56,7 @@ public class Player extends GameObject implements KeyListener {
             explosion.paint(g);
         }
         
-        for(Laser l:lasers)
+        for(Weapon l:lasers)
             l.paint(g);
     }
 
