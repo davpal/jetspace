@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 import app.Game;
 import entity.Player;
-import entity.enemies.Enemy;
-import entity.enemies.Ship;
+import entity.enemies.*;
 
 public class Level1State extends GameState {
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
@@ -17,9 +16,9 @@ public class Level1State extends GameState {
         super(g);
         
         player = new Player(315 / 2 - 34, 600 - 80);
-        enemies.add(new Ship(25, 50));
-        enemies.add(new Ship(200, 100));
-        enemies.add(new Ship(100, 150));
+        enemies.add(new Bomber(25, 50));
+        enemies.add(new Bomber(200, 100));
+        enemies.add(new Bomber(100, 150));
         
         g.addKeyListener(player);
     }
