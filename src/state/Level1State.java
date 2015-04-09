@@ -15,7 +15,7 @@ public class Level1State extends GameState {
     Level1State(Game g){
         super(g);
         
-        player = new Player(315 / 2 - 34, 600 - 80);
+        player = new Player(g.getWidth() / 2 - 100, g.getHeight() / 2);
         enemies.add(new Bomber(25, 50));
         enemies.add(new Bomber(200, 100));
         enemies.add(new Bomber(100, 150));

@@ -84,10 +84,10 @@ public class Player extends GameObject implements KeyListener {
         y += dy;
 
         if(x < 0) x = 0;
-        else if(x > 315 - width - 10) x = 315 - width - 10;
+        else if(x > g.getWidth() - width - 20) x = g.getWidth() - width - 20;
 
         if(y < 0) y = 0;
-        else if(y > 600 - height) y = 600 - height;
+        else if(y > g.getHeight() - height) y = g.getHeight() - height;
 
         if(shooting)
         {
