@@ -93,6 +93,8 @@ public class Player extends GameObject implements KeyListener {
         {
             weapons.add(new Laser(x + 4, y - 2));
             weapons.add(new Laser(x + 48, y - 2));
+            weapons.add(new Laser(x + 14, y + 6));
+            weapons.add(new Laser(x + 38, y + 6));
 
             shooting = false;
         }
