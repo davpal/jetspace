@@ -25,7 +25,7 @@ public class Game extends JFrame implements Runnable {
     }
     
     public void init(){
-        setSize(315, 600);
+        setSize(640, 480);
         setTitle("JetSpace v0.1");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
