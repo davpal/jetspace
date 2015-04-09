@@ -14,35 +14,35 @@ public class Player extends GameObject implements KeyListener {
     private boolean collision, hit, crash;
     private double dx, dy;
     private int health, maxHealth;
-    
+
     Animation explosion;
-    
+
     private BufferedImage ship;
-    
+
     public boolean shooting = false;
-    private ArrayList<Weapon> lasers;
+    private ArrayList<Weapon> weapons;
 
     public void setHit(){
         explosion.setPosition(x, y);
         hit = true;
     }
-    
+
     public Player(int x, int y){
         super(x, y);
-        
-        width = 79;
-        height = 68;
-        
-        collisionWidth = 58;
-        collisionHeight = 60;
-        
+
+        width = 65;
+        height = 92;
+
+        collisionWidth = 60;
+        collisionHeight = 80;
+
         speed = 3;
         maxHealth = health = 10;
-        
+
         ship = ResourceLoader.getImage("/player/ship.png");
         explosion = ResourceLoader.getAnimation("/enemy/explosion.png", 64, 64, 5, 50);
-        
-        lasers = new ArrayList<Weapon>();
+
+        weapons = new ArrayList<Weapon>();
     }
 
     public void paint (Graphics g)
@@ -55,9 +55,9 @@ public class Player extends GameObject implements KeyListener {
         else {
             explosion.paint(g);
         }
-        
-        for(Weapon l:lasers)
-            l.paint(g);
+
+        for(Weapon w:weapons)
+            w.paint(g);
     }
 
     public void update(Game g){
@@ -65,12 +65,12 @@ public class Player extends GameObject implements KeyListener {
             collision = false;
             setHit();
         }
-        
+
         if(hit){
             health -= 1;
             hit = false;
         }
-        
+
         if(health <= 0){
             crash = true;
             explosion.update();
@@ -79,32 +79,32 @@ public class Player extends GameObject implements KeyListener {
                 hit = false;
             }
         }
-        
+
         x += dx;
-        y += dy;    
-        
+        y += dy;
+
         if(x < 0) x = 0;
         else if(x > 315 - width - 10) x = 315 - width - 10;
-        
+
         if(y < 0) y = 0;
         else if(y > 600 - height) y = 600 - height;
-        
+
         if(shooting)
         {
-            lasers.add(new Laser(x + 4, y - 2));
-            lasers.add(new Laser(x + 68, y - 2));
-            
+            weapons.add(new Laser(x + 4, y - 2));
+            weapons.add(new Laser(x + 48, y - 2));
+
             shooting = false;
         }
-        
-        for(int i = 0; i < lasers.size(); ++i){
-            lasers.get(i).update(g);
-            if(lasers.get(i).isDead()){
-                lasers.remove(i--);
+
+        for(int i = 0; i < weapons.size(); ++i){
+            weapons.get(i).update(g);
+            if(weapons.get(i).isDead()){
+                weapons.remove(i--);
             }
         }
     }
-    
+
     public void checkCollision(ArrayList<Enemy> enemies){
         for(int i = 0; i < enemies.size(); ++i){
             if(enemies.get(i).intersect(this)){
@@ -115,14 +115,14 @@ public class Player extends GameObject implements KeyListener {
             }
         }
     }
-    
+
     public boolean checkAttack(ArrayList<Enemy> enemies){
         boolean hit = false;
         for(int i = 0; i < enemies.size(); ++i){
-            for(int j = 0; j < lasers.size(); ++j){
-                if(!lasers.get(j).isDead() && lasers.get(j).intersect(enemies.get(i))){
-                    enemies.get(i).setHit();
-                    lasers.get(j).setDead();
+            for(int j = 0; j < weapons.size(); ++j){
+                if(!weapons.get(j).isDead() && weapons.get(j).intersect(enemies.get(i))){
+                   enemies.get(i).setHit();
+                   weapons.get(j).setDead();
                 }
             }
         }
@@ -138,20 +138,20 @@ public class Player extends GameObject implements KeyListener {
             }
             case KeyEvent.VK_LEFT:{
                 dx = -speed;
-                break;                
+                break;
             }
             case KeyEvent.VK_UP:{
                 dy = -speed;
                 break;
-            }                    
+            }
             case KeyEvent.VK_DOWN:{
                 dy= speed;
                 break;
-            }                
+            }
             case KeyEvent.VK_SPACE:{
                 shooting = true;
-                break;    
-            }        
+                break;
+            }
         }
     }
 
@@ -159,12 +159,12 @@ public class Player extends GameObject implements KeyListener {
         switch(e.getKeyCode()){
             case KeyEvent.VK_RIGHT:{
                 dx=0;
-                break;        
+                break;
             }
             case KeyEvent.VK_LEFT:{
                 dx=0;
                 break;
-            }                    
+            }
             case KeyEvent.VK_UP:{
                 dy=0;
                 break;
@@ -173,11 +173,11 @@ public class Player extends GameObject implements KeyListener {
                 dy=0;
                 break;
             }
-            
+
         }
-            
+
     }
-        
+
     public void keyTyped(KeyEvent arg0) {}
 
     public int getWidth() {
