@@ -21,6 +21,8 @@ public class Level1State extends GameState {
         enemies.add(new Bomber(100, 150));
         
         g.addKeyListener(player);
+        g.addMouseMotionListener(player);
+        g.addMouseListener(player);
     }
     
     public void update(){

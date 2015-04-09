@@ -1,19 +1,25 @@
 package entity;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import entity.enemies.Enemy;
 import app.Game;
 import app.ResourceLoader;
+import entity.enemies.Enemy;
 
 
-public class Player extends GameObject implements KeyListener {
+public class Player extends GameObject implements KeyListener, MouseMotionListener, MouseListener {
     private boolean collision, hit, crash;
     private double dx, dy;
     private int health, maxHealth;
+    double angle;
 
     Animation explosion;
 
@@ -48,9 +54,11 @@ public class Player extends GameObject implements KeyListener {
     public void paint (Graphics g)
     {
         if(!crash){
-            g.drawImage(ship, (int)x, (int)y, null);
-            g.setColor(new Color((10 - health) * 25, health * 25, 0, 220));
             g.fillRect((int)x + (width - 50) / 2, (int)y + height - 2, 5 * health, 5);
+            Graphics2D gship = (Graphics2D) g.create();
+            gship.rotate(angle, x + width / 2, y + width / 2);
+            gship.drawImage(ship, (int)x, (int)y, null);
+            gship.setColor(new Color((10 - health) * 25, health * 25, 0, 220));
         }
         else {
             explosion.paint(g);
@@ -95,6 +103,7 @@ public class Player extends GameObject implements KeyListener {
             weapons.add(new Laser(x + 48, y - 2));
             weapons.add(new Laser(x + 14, y + 6));
             weapons.add(new Laser(x + 38, y + 6));
+            for(Weapon w:weapons) w.setAngle(angle);
 
             shooting = false;
         }
@@ -134,19 +143,19 @@ public class Player extends GameObject implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch(e.getKeyCode()){
-            case KeyEvent.VK_RIGHT:{
+            case KeyEvent.VK_D:{
                 dx = speed;
                 break;
             }
-            case KeyEvent.VK_LEFT:{
+            case KeyEvent.VK_A:{
                 dx = -speed;
                 break;
             }
-            case KeyEvent.VK_UP:{
+            case KeyEvent.VK_W:{
                 dy = -speed;
                 break;
             }
-            case KeyEvent.VK_DOWN:{
+            case KeyEvent.VK_S:{
                 dy= speed;
                 break;
             }
@@ -159,19 +168,19 @@ public class Player extends GameObject implements KeyListener {
 
     public void keyReleased(KeyEvent e) {
         switch(e.getKeyCode()){
-            case KeyEvent.VK_RIGHT:{
+            case KeyEvent.VK_D:{
                 dx=0;
                 break;
             }
-            case KeyEvent.VK_LEFT:{
+            case KeyEvent.VK_A:{
                 dx=0;
                 break;
             }
-            case KeyEvent.VK_UP:{
+            case KeyEvent.VK_W:{
                 dy=0;
                 break;
             }
-            case KeyEvent.VK_DOWN:{
+            case KeyEvent.VK_S:{
                 dy=0;
                 break;
             }
@@ -184,5 +193,49 @@ public class Player extends GameObject implements KeyListener {
 
     public int getWidth() {
         return width;
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent m) {
+        // TODO Auto-generated method stub
+        angle = -Math.atan2((x + width / 2) - m.getX(), 
+                (y + height / 2)- m.getY());
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+        for(Weapon w:weapons) w.setAngle(angle);
+        shooting = true;
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+        
     }
 }
