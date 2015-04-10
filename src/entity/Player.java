@@ -1,16 +1,14 @@
 package entity;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import app.Game;
+import org.newdawn.slick.geom.*;
+import org.newdawn.slick.*;
+
 import app.ResourceLoader;
 import entity.enemies.Enemy;
 
@@ -23,7 +21,7 @@ public class Player extends GameObject implements KeyListener, MouseMotionListen
 
     Animation explosion;
 
-    private BufferedImage ship;
+    private Image ship;
 
     public boolean shooting = false;
     private ArrayList<Weapon> weapons;
@@ -45,30 +43,22 @@ public class Player extends GameObject implements KeyListener, MouseMotionListen
         speed = 3;
         maxHealth = health = 10;
 
-        ship = ResourceLoader.getImage("/player/ship.png");
+        try {
+            ship = new Image("player/ship.png");
+        } catch (SlickException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         explosion = ResourceLoader.getAnimation("/enemy/explosion.png", 64, 64, 5, 50);
 
         weapons = new ArrayList<Weapon>();
     }
 
-    public void paint (Graphics g)
-    {
-        if(!crash){
-            g.fillRect((int)x + (width - 50) / 2, (int)y + height - 2, 5 * health, 5);
-            Graphics2D gship = (Graphics2D) g.create();
-            gship.rotate(angle, x + width / 2, y + width / 2);
-            gship.drawImage(ship, (int)x, (int)y, null);
-            gship.setColor(new Color((10 - health) * 25, health * 25, 0, 220));
-        }
-        else {
-            explosion.paint(g);
-        }
-
-        for(Weapon w:weapons)
-            w.paint(g);
+    public void paint (Graphics g){
+        
     }
 
-    public void update(Game g){
+    public void update(GameContainer g){
         if(collision){
             collision = false;
             setHit();
@@ -96,14 +86,27 @@ public class Player extends GameObject implements KeyListener, MouseMotionListen
 
         if(y < 0) y = 0;
         else if(y > g.getHeight() - height) y = g.getHeight() - height;
+        
+        int mx = g.getInput().getMouseX();
+        int my = g.getInput().getMouseY();
+        
+        angle = -Math.atan2((x + width / 2) - mx, 
+                (y + height / 2) - my);
 
         if(shooting)
         {
-            weapons.add(new Laser(x + 4, y - 2));
-            weapons.add(new Laser(x + 48, y - 2));
-            weapons.add(new Laser(x + 14, y + 6));
-            weapons.add(new Laser(x + 38, y + 6));
-            for(Weapon w:weapons) w.setAngle(angle);
+            Laser[] lasers = new Laser[]{
+                 new Laser(x + 4, y - 2),
+                 new Laser(x + 48, y - 2),
+                 new Laser(x + 14, y + 6),
+                 new Laser(x + 38, y + 6)     
+            };
+            
+            for(Weapon w:lasers){
+                w.setAngle(angle);
+                w.setShipPosition(new Point((float)x, (float)y));
+                weapons.add(w);
+            }
 
             shooting = false;
         }
@@ -140,102 +143,172 @@ public class Player extends GameObject implements KeyListener, MouseMotionListen
         return hit;
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        switch(e.getKeyCode()){
-            case KeyEvent.VK_D:{
-                dx = speed;
-                break;
-            }
-            case KeyEvent.VK_A:{
-                dx = -speed;
-                break;
-            }
-            case KeyEvent.VK_W:{
-                dy = -speed;
-                break;
-            }
-            case KeyEvent.VK_S:{
-                dy= speed;
-                break;
-            }
-            case KeyEvent.VK_SPACE:{
-                shooting = true;
-                break;
-            }
-        }
-    }
-
-    public void keyReleased(KeyEvent e) {
-        switch(e.getKeyCode()){
-            case KeyEvent.VK_D:{
-                dx=0;
-                break;
-            }
-            case KeyEvent.VK_A:{
-                dx=0;
-                break;
-            }
-            case KeyEvent.VK_W:{
-                dy=0;
-                break;
-            }
-            case KeyEvent.VK_S:{
-                dy=0;
-                break;
-            }
-
-        }
-
-    }
-
-    public void keyTyped(KeyEvent arg0) {}
+    public void keyTyped(java.awt.event.KeyEvent arg0) {}
 
     public int getWidth() {
         return width;
     }
 
-    @Override
     public void mouseDragged(MouseEvent arg0) {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
     public void mouseMoved(MouseEvent m) {
         // TODO Auto-generated method stub
         angle = -Math.atan2((x + width / 2) - m.getX(), 
                 (y + height / 2)- m.getY());
+        
     }
 
-    @Override
     public void mouseClicked(MouseEvent arg0) {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
     public void mouseEntered(MouseEvent arg0) {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
     public void mouseExited(MouseEvent arg0) {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
-    public void mousePressed(MouseEvent arg0) {
+    public void mouseReleased(MouseEvent arg0) {
         // TODO Auto-generated method stub
-        for(Weapon w:weapons) w.setAngle(angle);
+        
+    }
+
+    @Override
+    public void inputEnded() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void inputStarted() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public boolean isAcceptingInput() {
+        return true;
+    }
+
+    @Override
+    public void setInput(Input arg0) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseClicked(int arg0, int arg1, int arg2, int arg3) {
         shooting = true;
     }
 
     @Override
-    public void mouseReleased(MouseEvent arg0) {
+    public void mouseDragged(int arg0, int arg1, int arg2, int arg3) {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public void mouseMoved(int arg0, int arg1, int mx, int my) {
+        angle = -Math.atan2((x + width / 2) - mx, 
+            (y + height / 2) - my);
+    }
+
+    @Override
+    public void mouseWheelMoved(int arg0) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void keyPressed(int key, char arg1) {
+        switch(key){
+            case Input.KEY_D:{
+                dx = speed;
+                break;
+            }
+            case Input.KEY_A:{
+                dx = -speed;
+                break;
+            }
+            case Input.KEY_W:{
+                dy = -speed;
+                break;
+            }
+            case Input.KEY_S:{
+                dy= speed;
+                break;
+            }
+            case Input.KEY_SPACE:{
+                shooting = true;
+                break;
+            }
+        }
+    }
+    
+    @Override
+    public void keyReleased(int key, char arg1) {
+        switch(key){
+            case Input.KEY_D:{
+                dx = 0;
+                break;
+            }
+            case Input.KEY_A:{
+                dx = 0;
+                break;
+            }
+            case Input.KEY_W:{
+                dy = 0;
+                break;
+            }
+            case Input.KEY_S:{
+                dy= 0;
+                break;
+            }
+            case Input.KEY_SPACE:{
+                shooting = false;
+                break;
+            }
+        }     
+    }
+
+    @Override
+    public void mousePressed(int arg0, int arg1, int arg2) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseReleased(int arg0, int arg1, int arg2) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    
+
+    public void render(org.newdawn.slick.Graphics g) {
+        if(!crash){
+            g.pushTransform();
+            g.rotate((float)x + width / 2, (float)y + height / 2, (float)Math.toDegrees(angle));
+            g.drawImage(ship, (int)x, (int)y, null);
+            g.popTransform();
+            g.pushTransform();
+            g.setColor(new Color((10 - health) * 25, health * 25, 0, 220));
+            g.fillRect((int)x + (width - 50) / 2, (int)y + height - 2, 5 * health, 5);
+            g.popTransform();
+        }
+        else {
+            //explosion.paint(g);
+        }
+
+        for(Weapon w:weapons)
+            w.render(g);
     }
 }

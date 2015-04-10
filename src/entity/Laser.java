@@ -3,10 +3,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import app.Game;
+import org.newdawn.slick.*;
+
 import app.ResourceLoader;
 public class Laser extends Weapon {
-    BufferedImage beam;
+    Image beam;
     
     Laser(double d, double e) {
         super(d, e);
@@ -14,17 +15,24 @@ public class Laser extends Weapon {
         collisionHeight = height = 30;
         speed = 6;
         
-        beam = ResourceLoader.getImage("/player/laser.png");
+        try {
+            beam = new Image("player/laser.png");
+        } catch (SlickException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
     }
 
-    public void paint (Graphics g){
-        Graphics2D gb = (Graphics2D) g.create();
-        gb.rotate(angle, x + width / 2, y + width / 2);
-        gb.drawImage(beam, (int)x, (int)y, width, height, null);
+    public void update(GameContainer g){
+        x += Math.cos(angle);
+        y += x * Math.sin(angle);
     }
 
-    public void update(Game g){
-        x += speed * Math.cos(angle);
-        y += speed * Math.sin(angle);
+    @Override
+    public void render(org.newdawn.slick.Graphics g) {
+        g.pushTransform();
+        g.rotate((float)shipPos.getX() + 65 / 2, (float)shipPos.getY() + 92 / 2, (float)Math.toDegrees(angle));
+        g.drawImage(beam, (int)x, (int)y, null);
+        g.popTransform();
     }
 }

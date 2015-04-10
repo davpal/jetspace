@@ -1,7 +1,5 @@
 package entity.enemies;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
@@ -10,12 +8,13 @@ import entity.Animation;
 import entity.EnemyLaser;
 import entity.Laser;
 import entity.Player;
-import app.Game;
+
+import org.newdawn.slick.*;
 
 import app.ResourceLoader;
 
 public class Bomber extends Enemy {
-	BufferedImage skin;
+	Image skin;
 	Animation explosion;
 	boolean shooting;
 	int fireRate;
@@ -34,29 +33,35 @@ public class Bomber extends Enemy {
 		health = 10;
 		fireRate = 1000;
 
-		skin = ResourceLoader.getImage("/enemy/bomber.png");
+		try {
+            skin = new Image("enemy/bomber.png");
+        } catch (SlickException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 		explosion = ResourceLoader.getAnimation("/enemy/explosion.png", 64, 64, 5, 50);
 
 		down = true;
 		left = true;
 	}
 
-	public void paint(Graphics g) {
-		if(crash) explosion.paint(g);
+	public void render(Graphics g) {
+		if(crash) ;//explosion.paint(g);
 		else {
+		    g.pushTransform();
+			g.drawImage(skin, (int)x, (int)y, null);
+			g.popTransform();
+			g.pushTransform();
 			g.setColor(new Color((10 - health) * 25, health * 25, 0, 230));
-
-			g.fillRect((int)x + (width - 50) / 2, (int)y - 10, 5 * health, 5);
-			g.drawImage(skin, (int)x, (int)y, width, height, null);
+            g.fillRect((int)x + (width - 50) / 2, (int)y - 10, 5 * health, 5);
+            g.popTransform();
 		}
-		for(Laser l:lasers) l.paint(g);
+		for(Laser l:lasers) l.render(g);
 	}
 
 	public void setHit(){
 	     hit = true;
 	}
-
-
 
 	public void fire(Player p){
 		long elapsed = (System.nanoTime() - shootTime) / 1000000;
@@ -73,7 +78,7 @@ public class Bomber extends Enemy {
 			p.getX() >= x && p.getX() <= x + width) && y < p.getY();
 	}
 
-	public void update(Game g) {
+	public void update(GameContainer g) {
 		explosion.setPosition(x, y);
 		if(shooting){
 			lasers.add(new EnemyLaser(x + 4, y + 30));
@@ -147,5 +152,4 @@ public class Bomber extends Enemy {
 			}
 		}
 	}
-
 }

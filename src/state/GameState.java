@@ -1,17 +1,19 @@
 package state;
 
-import java.awt.Graphics;
-import java.awt.event.KeyListener;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.KeyListener;
 
-import app.Game;
+import org.newdawn.slick.*;
 
 public abstract class GameState implements KeyListener {
-    Game game;
+    GameContainer game;
+    GameContainer gc;
     
-    GameState(Game g){
-        game = g;
+    public GameState(GameContainer gc) {
+        this.gc = gc;
     }
-    
-    public abstract void paint(Graphics g);
+
     public abstract void update();
+    public abstract void render(GameContainer gc, Graphics g); 
 }

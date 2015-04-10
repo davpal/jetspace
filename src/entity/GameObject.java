@@ -2,8 +2,7 @@ package entity;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import app.Game;
-
+import org.newdawn.slick.*;
 
 public abstract class GameObject {
     protected double x, y, speed;
@@ -46,8 +45,7 @@ public abstract class GameObject {
                             (int)o.collisionHeight);
         return a.intersects(b);
     }
-    
-    public abstract void paint(Graphics g);
-
-    public abstract void update(Game g);
+   
+    public abstract void update(GameContainer g);
+    public abstract void render(org.newdawn.slick.Graphics g);
 }
