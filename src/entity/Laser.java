@@ -26,7 +26,7 @@ public class Laser extends Weapon {
     public void update(GameContainer g){
         double dx = Math.cos(angle);
         x += dx;
-        y += Math.sqrt(speed * speed - dx * dx);
+        y += -Math.sqrt(speed * speed - dx * dx);
     }
 
     @Override
