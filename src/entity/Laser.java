@@ -1,11 +1,5 @@
 package entity;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-
 import org.newdawn.slick.*;
-
-import app.ResourceLoader;
 public class Laser extends Weapon {
     Image beam;
     
@@ -18,7 +12,6 @@ public class Laser extends Weapon {
         try {
             beam = new Image("player/laser.png");
         } catch (SlickException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
     }

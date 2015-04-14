@@ -45,8 +45,6 @@ public abstract class Enemy extends GameObject  {
     public boolean isCrash() {
         return crash;
     }
-
-   
 }
 
 

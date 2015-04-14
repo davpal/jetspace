@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 
-import org.newdawn.slick.*;
 import entity.Player;
 import entity.enemies.Bomber;
 import entity.enemies.Enemy;
@@ -34,7 +33,6 @@ public class Level1State extends GameState {
             player.checkCollision(enemies);
             player.checkAttack(enemies);
         } else {
-            //game.setState(new GameOverState(game));
             gc.getInput().removeAllKeyListeners();
         }
         

@@ -67,7 +67,6 @@ public class MenuState extends GameState implements KeyListener {
 
     @Override
     public void update() {
-        // TODO Auto-generated method stub
     }
     
     public void render(GameContainer gc, Graphics g){
@@ -93,14 +92,10 @@ public class MenuState extends GameState implements KeyListener {
 
     @Override
     public void inputEnded() {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
     public void inputStarted() {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
@@ -110,8 +105,6 @@ public class MenuState extends GameState implements KeyListener {
 
     @Override
     public void setInput(Input arg0) {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override

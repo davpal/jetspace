@@ -1,10 +1,5 @@
 package entity;
 
-import java.awt.Graphics;
-
-import org.newdawn.slick.*;
-import org.newdawn.slick.geom.Point;
-
 public abstract class Weapon extends GameObject {
     double angle;
     double startX, startY, targetX, targetY;

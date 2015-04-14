@@ -1,19 +1,16 @@
 package entity;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import org.newdawn.slick.geom.*;
 import org.newdawn.slick.*;
 
 import app.ResourceLoader;
 import entity.enemies.Enemy;
 
 
-public class Player extends GameObject implements KeyListener, MouseMotionListener, MouseListener {
+public class Player extends GameObject implements KeyListener, MouseListener {
     private boolean collision, hit, crash;
     private double dx, dy;
     private int health, maxHealth;
@@ -147,48 +144,12 @@ public class Player extends GameObject implements KeyListener, MouseMotionListen
         return width;
     }
 
-    public void mouseDragged(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void mouseMoved(MouseEvent m) {
-        // TODO Auto-generated method stub
-        angle = -Math.atan2((x + width / 2) - m.getX(), 
-                (y + height / 2)- m.getY());
-        
-    }
-
-    public void mouseClicked(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void mouseEntered(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void mouseExited(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void mouseReleased(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-        
-    }
-
     @Override
     public void inputEnded() {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
     public void inputStarted() {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
@@ -198,8 +159,6 @@ public class Player extends GameObject implements KeyListener, MouseMotionListen
 
     @Override
     public void setInput(Input arg0) {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
@@ -221,8 +180,6 @@ public class Player extends GameObject implements KeyListener, MouseMotionListen
 
     @Override
     public void mouseWheelMoved(int arg0) {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
@@ -241,7 +198,7 @@ public class Player extends GameObject implements KeyListener, MouseMotionListen
                 break;
             }
             case Input.KEY_S:{
-                dy= speed;
+                dy = speed;
                 break;
             }
             case Input.KEY_SPACE:{
@@ -267,7 +224,7 @@ public class Player extends GameObject implements KeyListener, MouseMotionListen
                 break;
             }
             case Input.KEY_S:{
-                dy= 0;
+                dy = 0;
                 break;
             }
             case Input.KEY_SPACE:{
@@ -279,17 +236,11 @@ public class Player extends GameObject implements KeyListener, MouseMotionListen
 
     @Override
     public void mousePressed(int arg0, int arg1, int arg2) {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
     public void mouseReleased(int arg0, int arg1, int arg2) {
-        // TODO Auto-generated method stub
-        
     }
-
-    
 
     public void render(org.newdawn.slick.Graphics g) {
         if(!crash){
@@ -303,7 +254,6 @@ public class Player extends GameObject implements KeyListener, MouseMotionListen
             g.popTransform();
         }
         else {
-            //explosion.paint(g);
         }
 
         for(Weapon w:weapons)

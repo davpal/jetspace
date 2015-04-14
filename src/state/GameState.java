@@ -4,8 +4,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.KeyListener;
 
-import org.newdawn.slick.*;
-
 public abstract class GameState implements KeyListener {
     GameContainer game;
     GameContainer gc;

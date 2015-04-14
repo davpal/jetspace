@@ -1,5 +1,4 @@
 package entity;
-import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import org.newdawn.slick.*;
