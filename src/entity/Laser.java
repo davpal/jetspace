@@ -34,7 +34,7 @@ public class Laser extends Weapon {
         System.out.println(angle);
         g.pushTransform();
         g.rotate((float)startX + 65 / 2, (float)startY + 92 / 2, (float)Math.toDegrees(angle));
-        g.drawImage(beam, (int)x, (int)y, null);
+        g.drawImage(beam, (float)x, (float)y);
         g.popTransform();
     }
 }

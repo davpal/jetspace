@@ -49,7 +49,7 @@ public class Bomber extends Enemy {
 		if(crash) ;//explosion.paint(g);
 		else {
 		    g.pushTransform();
-			g.drawImage(skin, (int)x, (int)y, null);
+			g.drawImage(skin, (float)x, (float)y);
 			g.popTransform();
 			g.pushTransform();
 			g.setColor(new Color((10 - health) * 25, health * 25, 0, 230));

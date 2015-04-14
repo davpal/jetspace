@@ -295,7 +295,7 @@ public class Player extends GameObject implements KeyListener, MouseMotionListen
         if(!crash){
             g.pushTransform();
             g.rotate((float)x + width / 2, (float)y + height / 2, (float)Math.toDegrees(angle));
-            g.drawImage(ship, (int)x, (int)y, null);
+            g.drawImage(ship, (float)x, (float)y);
             g.popTransform();
             g.pushTransform();
             g.setColor(new Color((10 - health) * 25, health * 25, 0, 220));
