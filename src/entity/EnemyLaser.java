@@ -5,8 +5,8 @@ import org.newdawn.slick.*;
 import app.ResourceLoader;
 
 public class EnemyLaser extends Laser {
-    public EnemyLaser(double d, double e) {
-        super(d, e);
+    public EnemyLaser(double x, double y, double sx, double sy, double tx, double ty, double angle) {
+        super(x, y, sx, sy, tx, ty, angle);
         try {
             beam = new Image("enemy/laser.png");
         } catch (SlickException e1) {

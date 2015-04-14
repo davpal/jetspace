@@ -7,20 +7,14 @@ import org.newdawn.slick.geom.Point;
 
 public abstract class Weapon extends GameObject {
     double angle;
-    Point shipPos;
+    double startX, startY, targetX, targetY;
     
-    protected Weapon(double x, double y) {
+    protected Weapon(double x, double y, double sx, double sy, double tx, double ty, double a) {
         super(x, y);
-    }
-
-    public abstract void update(GameContainer g);
-
-    public void setAngle(double a) {
+        startX = sx;
+        startY = sy;
+        targetX = tx;
+        targetY = ty;
         angle = a;
     }
-    
-    public void setShipPosition(Point p){
-        shipPos = p;
-    }
-
 }

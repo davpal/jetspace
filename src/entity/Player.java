@@ -87,8 +87,8 @@ public class Player extends GameObject implements KeyListener, MouseMotionListen
         if(y < 0) y = 0;
         else if(y > g.getHeight() - height) y = g.getHeight() - height;
         
-        int mx = g.getInput().getMouseX();
-        int my = g.getInput().getMouseY();
+        double mx = g.getInput().getMouseX();
+        double my = g.getInput().getMouseY();
         
         angle = -Math.atan2((x + width / 2) - mx, 
                 (y + height / 2) - my);
@@ -96,15 +96,13 @@ public class Player extends GameObject implements KeyListener, MouseMotionListen
         if(shooting)
         {
             Laser[] lasers = new Laser[]{
-                 new Laser(x + 4, y - 2),
-                 new Laser(x + 48, y - 2),
-                 new Laser(x + 14, y + 6),
-                 new Laser(x + 38, y + 6)     
+                 new Laser(x + 4, y - 2, x, y, mx, my, angle),
+                 new Laser(x + 48, y - 2, x, y, mx, my, angle),
+                 new Laser(x + 14, y + 6, x, y, mx, my, angle),
+                 new Laser(x + 38, y + 6, x, y, mx, my, angle),
             };
             
             for(Weapon w:lasers){
-                w.setAngle(angle);
-                w.setShipPosition(new Point((float)x, (float)y));
                 weapons.add(w);
             }
 

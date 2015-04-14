@@ -81,8 +81,8 @@ public class Bomber extends Enemy {
 	public void update(GameContainer g) {
 		explosion.setPosition(x, y);
 		if(shooting){
-			lasers.add(new EnemyLaser(x + 4, y + 30));
-			lasers.add(new EnemyLaser(x + 68, y + 30));
+			lasers.add(new EnemyLaser(x + 4, y + 30, x, y, 0, 0, 0));
+			lasers.add(new EnemyLaser(x + 68, y + 30, x, y, 0, 0, 0));
 
 			shooting = false;
 		}
