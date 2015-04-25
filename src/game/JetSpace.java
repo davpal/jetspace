@@ -16,6 +16,7 @@ public class JetSpace extends BasicGame {
         try{
             AppGameContainer app = new AppGameContainer(new JetSpace());
             app.setDisplayMode(640, 480, false);
+            app.setTargetFrameRate(60);
             app.start();
         }
         catch (SlickException e){
