@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import entity.Animation;
-import entity.EnemyLaser;
 import entity.Laser;
 import entity.Player;
+import entity.Weapon;
 
 import org.newdawn.slick.*;
 
@@ -18,11 +18,11 @@ public class Bomber extends Enemy {
     boolean shooting;
     int fireRate;
 
-    ArrayList<EnemyLaser> lasers = new ArrayList<EnemyLaser>();
+    ArrayList<Weapon> lasers = new ArrayList<Weapon>();
     private long shootTime;
 
-    public Bomber(int x, int y){
-        super(x, y);
+    public Bomber(double x, double y, double a){
+        super(x, y, a);
 
         collisionWidth = 60;
         width = 79;
@@ -51,7 +51,7 @@ public class Bomber extends Enemy {
         g.setColor(new Color((10 - health) * 25, health * 25, 0, 230));
         g.fillRect((int)x + (width - 50) / 2, (int)y - 10, 5 * health, 5);
         g.popTransform();
-        for(Laser l:lasers) l.render(g);
+        for(Weapon l:lasers) l.render(g);
     }
 
     public void setHit(){
@@ -76,8 +76,8 @@ public class Bomber extends Enemy {
     public void update(GameContainer g) {
         explosion.setPosition(x, y);
         if(shooting){
-            lasers.add(new EnemyLaser(x + 4, y + 30, x, y, 0, 0, 0));
-            lasers.add(new EnemyLaser(x + 68, y + 30, x, y, 0, 0, 0));
+            lasers.add(new Laser(x + 4, y + 30, this));
+            lasers.add(new Laser(x + 68, y + 30, this));
 
             shooting = false;
         }

@@ -18,9 +18,9 @@ public class Level1State extends GameState {
         super(gc);
         
         player = new Player(gc.getWidth() / 2 - 100, gc.getHeight() / 2);
-        enemies.add(new Bomber(25, 50));
-        enemies.add(new Bomber(200, 100));
-        enemies.add(new Bomber(100, 150));
+        enemies.add(new Bomber(25, 50, 0));
+        enemies.add(new Bomber(200, 100, 0));
+        enemies.add(new Bomber(100, 150, 0));
         
         gc.getInput().addKeyListener(player);
         gc.getInput().addMouseListener(player);

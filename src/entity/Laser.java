@@ -2,12 +2,21 @@ package entity;
 import org.newdawn.slick.*;
 public class Laser extends Weapon {
     Image beam;
+    double sourceX, sourceY, dx, dy;
     
-    Laser(double x, double y, double sx, double sy, double tx, double ty, double angle) {
-        super(x, y, sx, sy, tx, ty, angle);
+    public Laser(double x, double y, GameObject owner) {
+        super(x, y, owner);
         collisionWidth = width = 8;
         collisionHeight = height = 30;
-        speed = 6;
+        speed = 4;
+        
+        sourceX = owner.getX();
+        sourceY = owner.getY();
+        
+        dx = Math.cos(angle);
+        dy = -Math.sqrt(speed * speed - dx * dx);
+        
+        System.out.println((int)dx + " " + (int)dy);
         
         try {
             beam = new Image("player/laser.png");
@@ -17,16 +26,15 @@ public class Laser extends Weapon {
     }
 
     public void update(GameContainer g){
-        double dx = Math.cos(angle);
         x += dx;
-        y += -Math.sqrt(speed * speed - dx * dx);
+        y += dy;
     }
 
     @Override
     public void render(org.newdawn.slick.Graphics g) {
-        System.out.println(angle);
+        g.drawRect((float)x, (float)y, (float)collisionWidth, (float)collisionHeight);
         g.pushTransform();
-        g.rotate((float)startX + 65 / 2, (float)startY + 92 / 2, (float)Math.toDegrees(angle));
+        g.rotate((float)sourceX + 65 / 2, (float)sourceY + 92 / 2, (float)Math.toDegrees(angle));
         g.drawImage(beam, (float)x, (float)y);
         g.popTransform();
     }

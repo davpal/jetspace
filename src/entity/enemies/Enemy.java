@@ -10,8 +10,8 @@ public abstract class Enemy extends GameObject  {
     int health;
     protected boolean crash;
     
-    Enemy(int x, int y) {
-        super(x, y);
+    Enemy(double x, double y, double a) {
+        super(x, y, a);
     }
     
     public void setHit(){

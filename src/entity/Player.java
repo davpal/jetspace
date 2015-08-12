@@ -14,7 +14,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
     private boolean collision, hit, crash;
     private double dx, dy;
     private int health, maxHealth;
-    double angle;
 
     Animation explosion;
 
@@ -28,8 +27,8 @@ public class Player extends GameObject implements KeyListener, MouseListener {
         hit = true;
     }
 
-    public Player(int x, int y){
-        super(x, y);
+    public Player(double x, double y){
+        super(x, y, Math.toRadians(90));
 
         width = 65;
         height = 92;

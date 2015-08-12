@@ -24,6 +24,10 @@ public abstract class GameObject {
         return y;
     }
     
+    public double getAngle(){
+        return angle;
+    }
+    
     public boolean isDead(){
         return dead;
     }
