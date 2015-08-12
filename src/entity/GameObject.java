@@ -4,15 +4,16 @@ import java.awt.Rectangle;
 import org.newdawn.slick.*;
 
 public abstract class GameObject {
-    protected double x, y, speed;
+    protected double x, y, speed, angle;
     protected int width, height, collisionWidth, collisionHeight;
     protected boolean left, right, up, down;
     protected boolean dead;
     protected Animation animation;
     
-    protected GameObject(double d, double e){
+    protected GameObject(double d, double e, double a){
         this.x = d;
         this.y = e;
+        angle = a;
     }
 
     public double getX() {
