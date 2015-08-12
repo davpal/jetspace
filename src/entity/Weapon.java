@@ -2,14 +2,11 @@ package entity;
 
 public abstract class Weapon extends GameObject {
     double angle;
-    double startX, startY, targetX, targetY;
+    private GameObject owner;
     
-    protected Weapon(double x, double y, double sx, double sy, double tx, double ty, double a) {
+    protected Weapon(double x, double y, double a, GameObject o) {
         super(x, y);
-        startX = sx;
-        startY = sy;
-        targetX = tx;
-        targetY = ty;
         angle = a;
+        owner = o;
     }
 }
