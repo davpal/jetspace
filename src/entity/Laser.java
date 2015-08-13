@@ -23,9 +23,7 @@ public class Laser extends Weapon {
         
         dx = speed * Math.sin(angle);
         dy = - speed * Math.cos(angle);
-        
-        System.out.println((int)dx + " " + (int)dy + ", angle = " + Math.toDegrees(angle));
-        
+
         try {
             beam = new Image("player/laser.png");
         } catch (SlickException e1) {
