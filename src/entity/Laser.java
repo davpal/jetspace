@@ -31,6 +31,9 @@ public class Laser extends Weapon {
     public void update(GameContainer g){
         x += dx;
         y += dy;
+        
+        if(x > g.getWidth() || y > g.getHeight() || x < 0 || y < 0)
+            setDead();
     }
 
     @Override
