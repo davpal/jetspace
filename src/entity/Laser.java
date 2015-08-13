@@ -9,12 +9,9 @@ public class Laser extends Weapon {
         collisionWidth = width = 8;
         collisionHeight = height = 30;
         speed = 6;
-        
-        sourceX = owner.getX();
-        sourceY = owner.getY();
-        
-        double centerX = sourceX + owner.getWidth() / 2;
-        double centerY = sourceY + owner.getHeight() / 2;
+
+        double centerX = owner.getCenterX();
+        double centerY = owner.getCenterY();
    
         this.x = centerX + (x-centerX)*Math.cos(angle) - 
                  (y-centerY)*Math.sin(angle) - width / 2;
