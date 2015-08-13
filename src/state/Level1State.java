@@ -42,6 +42,7 @@ public class Level1State extends GameState {
                 enemies.get(i).fire(player);
                 enemies.get(i).checkAttack(player);
             }
+            enemies.get(i).faceTo(player);
             enemies.get(i).update(gc);
             if(enemies.get(i).isDead()){
                 enemies.remove(i--);

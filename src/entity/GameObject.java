@@ -24,6 +24,14 @@ public abstract class GameObject {
         return y;
     }
     
+    public double getCenterX(){
+        return x + width / 2;
+    }
+    
+    public double getCenterY(){
+        return y + height / 2;
+    }
+    
     public double getWidth(){
         return width;
     }

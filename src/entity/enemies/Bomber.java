@@ -28,7 +28,7 @@ public class Bomber extends Enemy {
         width = 79;
         collisionHeight = 48;
         height = 68;
-        speed = 0.5;
+        speed = 0.2;
         health = 10;
         fireRate = 1000;
 
@@ -45,6 +45,7 @@ public class Bomber extends Enemy {
 
     public void render(Graphics g) {
         g.pushTransform();
+        g.rotate((float)x + width / 2, (float)y + height / 2, (float)Math.toDegrees(angle));
         g.drawImage(skin, (float)x, (float)y);
         g.popTransform();
         g.pushTransform();

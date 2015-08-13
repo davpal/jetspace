@@ -45,6 +45,10 @@ public abstract class Enemy extends GameObject  {
     public boolean isCrash() {
         return crash;
     }
+    
+    public void faceTo(GameObject o){
+        angle = -Math.atan2(o.getCenterX() - x, o.getCenterY() - y);
+    }
 }
 
 
