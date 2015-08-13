@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import entity.Animation;
+import entity.EnemyLaser;
 import entity.Laser;
 import entity.Player;
 import entity.Weapon;
@@ -63,8 +64,7 @@ public class Bomber extends Enemy {
         long elapsed = (System.nanoTime() - shootTime) / 1000000;
         Random rand = new Random();
         if(elapsed > rand.nextInt() % 200 + 1500){
-            if(inFireRange(p))
-                shooting = true;
+            shooting = true;
             shootTime = System.nanoTime();
         }
     }
@@ -77,8 +77,8 @@ public class Bomber extends Enemy {
     public void update(GameContainer g) {
         explosion.setPosition(x, y);
         if(shooting){
-            lasers.add(new Laser(x + 4, y + 30, this));
-            lasers.add(new Laser(x + 68, y + 30, this));
+            lasers.add(new EnemyLaser(x + 4, y + 30, this));
+            lasers.add(new EnemyLaser(x + 68, y + 30, this));
 
             shooting = false;
         }
