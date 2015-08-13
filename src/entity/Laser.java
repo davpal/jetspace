@@ -42,10 +42,6 @@ public class Laser extends Weapon {
     public void render(org.newdawn.slick.Graphics g) {
         g.pushTransform();
         g.rotate((float)x + width / 2, (float)y + height / 2, (float)Math.toDegrees(angle));
-        g.drawRect((float)x, (float)y, (float)collisionWidth, (float)collisionHeight);
-        g.popTransform();
-        g.pushTransform();
-        g.rotate((float)x + width / 2, (float)y + height / 2, (float)Math.toDegrees(angle));
         g.drawImage(beam, (float)x, (float)y);
         g.popTransform();
     }
