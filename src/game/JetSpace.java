@@ -35,6 +35,8 @@ public class JetSpace extends BasicGame {
         background = new Image("backgrounds/level1.png");
         gameState = new Level1State(gc);
         gc.getInput().addKeyListener(gameState);
+        Image cursor = new Image("player/crosshair.png");
+        gc.setMouseCursor(cursor, 16, 16);
     }
 
     @Override
