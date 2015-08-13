@@ -92,7 +92,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
         if(shooting)
         {
             Laser[] lasers = new Laser[]{
-                 new Laser(x + 4, y - 2, this)
+                 new Laser(x + 10, y - 1, this)
             };
             
             for(Weapon w:lasers){
