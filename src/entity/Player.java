@@ -136,10 +136,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
     public void keyTyped(java.awt.event.KeyEvent arg0) {}
 
-    public int getWidth() {
-        return width;
-    }
-
     @Override
     public void inputEnded() {
     }
