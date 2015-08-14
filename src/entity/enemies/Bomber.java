@@ -3,7 +3,6 @@ package entity.enemies;
 import java.util.ArrayList;
 import java.util.Random;
 
-import entity.Animation;
 import entity.EnemyLaser;
 import entity.Laser;
 import entity.Player;
@@ -38,21 +37,27 @@ public class Bomber extends Enemy {
         } catch (SlickException e) {
             e.printStackTrace();
         }
-        explosion = ResourceLoader.getAnimation("/enemy/explosion.png", 64, 64, 5, 50);
-
+        explosion = ResourceLoader.getAnimation("/enemy/explosion.png", 64, 64, 5, 20);
+        explosion.setAutoUpdate(true);
+            
         down = true;
         left = true;
     }
 
     public void render(Graphics g) {
-        g.pushTransform();
-        g.rotate((float)x + width / 2, (float)y + height / 2, (float)Math.toDegrees(angle));
-        g.drawImage(skin, (float)x, (float)y);
-        g.popTransform();
-        g.pushTransform();
-        g.setColor(new Color((10 - health) * 25, health * 25, 0, 230));
-        g.fillRect((int)x + (width - 50) / 2, (int)y - 10, 5 * health, 5);
-        g.popTransform();
+        if(isCrash()){
+            explosion.draw((float)x, (float)y);
+            return;
+        } else {
+            g.pushTransform();
+            g.rotate((float)x + width / 2, (float)y + height / 2, (float)Math.toDegrees(angle));
+            g.drawImage(skin, (float)x, (float)y);
+            g.popTransform();
+            g.pushTransform();
+            g.setColor(new Color((10 - health) * 25, health * 25, 0, 230));
+            g.fillRect((int)x + (width - 50) / 2, (int)y - 10, 5 * health, 5);
+            g.popTransform();
+        }
         for(Weapon l:lasers) l.render(g);
     }
 
@@ -75,7 +80,6 @@ public class Bomber extends Enemy {
     }
 
     public void update(GameContainer g) {
-        explosion.setPosition(x, y);
         if(shooting){
             lasers.add(new EnemyLaser(x + 4, y + 30, this));
             lasers.add(new EnemyLaser(x + 68, y + 30, this));
@@ -92,11 +96,12 @@ public class Bomber extends Enemy {
 
         if(health <= 0){
             crash = true;
-            explosion.update();
-            if(explosion.hasPlayedOnce()){
+            hit = false;
+            explosion.setLooping(false);
+            explosion.start();
+            if(explosion.isStopped())
                 dead = true;
-                hit = false;
-            }
+            hit = false;
         }
 
         if(hit){

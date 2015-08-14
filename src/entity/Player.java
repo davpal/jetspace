@@ -23,7 +23,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
     private ArrayList<Weapon> weapons;
 
     public void setHit(){
-        explosion.setPosition(x, y);
         hit = true;
     }
 
@@ -45,7 +44,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        explosion = ResourceLoader.getAnimation("/enemy/explosion.png", 64, 64, 5, 50);
+        explosion = ResourceLoader.getAnimation("/enemy/explosion.png", 64, 64, 5, 20);
 
         weapons = new ArrayList<Weapon>();
     }
@@ -67,11 +66,11 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
         if(health <= 0){
             crash = true;
-            explosion.update();
-            if(explosion.hasPlayedOnce()){
+            explosion.setLooping(false);
+            explosion.start();
+            if(explosion.isStopped())
                 dead = true;
-                hit = false;
-            }
+            hit = false;
         }
 
         x += dx;
@@ -249,6 +248,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
             g.popTransform();
         }
         else {
+            explosion.draw((float)x, (float)y);
         }
 
         for(Weapon w:weapons)
