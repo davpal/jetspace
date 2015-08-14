@@ -2,7 +2,7 @@ package entity;
 import org.newdawn.slick.*;
 public class Laser extends Weapon {
     Image beam;
-    double sourceX, sourceY, dx, dy;
+    double dx, dy;
     
     public Laser(double x, double y, GameObject owner) {
         super(x, y, owner);
