@@ -27,6 +27,23 @@ public class Laser extends Weapon {
             e1.printStackTrace();
         }
     }
+    
+    public Laser(double x, double y, double tx, double ty, GameObject owner) {
+        this(x, y, owner);
+
+        double centerX = owner.getCenterX();
+        double centerY = owner.getCenterY();
+        
+        this.x = centerX + (x-centerX)*Math.cos(angle) - 
+                 (y-centerY)*Math.sin(angle) - width / 2;
+        this.y = centerY + (x-centerX)*Math.sin(angle) + 
+                 (y-centerY)*Math.cos(angle) - height / 2;  
+
+        angle = -Math.atan2(getCenterX() - tx, getCenterY() - ty);
+        
+        dx = speed * Math.sin(angle);
+        dy = - speed * Math.cos(angle);
+    }
 
     public void update(GameContainer g){
         x += dx;
