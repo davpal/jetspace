@@ -6,6 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -14,13 +15,6 @@ public class GameOverState extends BasicGameState {
     
     GameOverState(StateBasedGame g) {
         game = g;
-    }
-
-    public void keyPressed(KeyEvent e) {
-    }
-
-    public void keyReleased(KeyEvent e) {
-        game.enterState(0);
     }
 
     public void keyTyped(KeyEvent e) {
@@ -32,6 +26,7 @@ public class GameOverState extends BasicGameState {
 
     @Override
     public void keyReleased(int arg0, char arg1) {
+        game.enterState(0);
     }
 
     @Override
@@ -44,7 +39,7 @@ public class GameOverState extends BasicGameState {
 
     @Override
     public boolean isAcceptingInput() {
-        return false;
+        return true;
     }
 
     @Override
@@ -59,10 +54,13 @@ public class GameOverState extends BasicGameState {
     }
 
     @Override
-    public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
+    public void render(GameContainer gc, StateBasedGame game, Graphics g)
             throws SlickException {
-        // TODO Auto-generated method stub
-        
+        java.awt.Font f = new java.awt.Font("Palatino", java.awt.Font.BOLD, 30);
+        TrueTypeFont ttf = new TrueTypeFont(f, true);
+        g.setFont(ttf);
+        g.drawString("Game Over", 
+                (gc.getWidth() - 220) / 2, (gc.getHeight() - 180) / 2);
     }
 
     @Override
@@ -74,7 +72,6 @@ public class GameOverState extends BasicGameState {
 
     @Override
     public int getID() {
-        // TODO Auto-generated method stub
         return 2;
     }
 }

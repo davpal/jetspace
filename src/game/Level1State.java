@@ -86,8 +86,26 @@ public class Level1State extends BasicGameState {
     public void setInput(Input arg0) {    
     }
 
-    public void init(GameContainer arg0, StateBasedGame arg1)
-            throws SlickException {   
+    public void init(GameContainer gc, StateBasedGame game)
+            throws SlickException {
+        try {
+            background = new Image("backgrounds/level1.png");
+            Image cursor = new Image("player/crosshair.png");
+            gc.setMouseCursor(cursor, 16, 16);
+        } catch(SlickException e){
+            
+        } 
+    }
+    
+    @Override
+    public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
+        enemies.clear();
+        player = new Player(gc.getWidth() / 2 - 100, gc.getHeight() / 2);
+        gc.getInput().addKeyListener(player);
+        gc.getInput().addMouseListener(player);
+        enemies.add(new Bomber(25, 50, 0));
+        enemies.add(new Bomber(200, 100, 0));
+        enemies.add(new Bomber(100, 150, 0));
     }
 
     public int getID() {
