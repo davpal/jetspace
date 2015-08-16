@@ -4,8 +4,6 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class JetSpace extends StateBasedGame {
-    GameState gameState;
-    
     Image background;
     
     JetSpace(){
@@ -26,7 +24,9 @@ public class JetSpace extends StateBasedGame {
 
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
+        addState(new MenuState(gc, this));
         addState(new Level1State(gc));
+        addState(new GameOverState(this));
         
         enterState(0);
     }

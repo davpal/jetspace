@@ -4,14 +4,17 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
 
-public class MenuState extends GameState implements KeyListener {
+public class MenuState extends BasicGameState {
     ArrayList<String> menuItems = new ArrayList<String>();  
     int selected;
     
-    public MenuState(GameContainer gc) {
-        super(gc);
-        
+    StateBasedGame game;
+    
+    public MenuState(GameContainer gc, StateBasedGame g) {
+        game = g;
         menuItems.add("Start game");
         menuItems.add("Options");
         menuItems.add("Quit");
@@ -45,8 +48,7 @@ public class MenuState extends GameState implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
             switch(selected){
                 case 0:
-                    gc.getInput().removeAllKeyListeners();
-                    //game.setState(new Level1State(game));
+                    game.enterState(1);
                     break;
                 case 2:
                     System.exit(0);
@@ -64,12 +66,10 @@ public class MenuState extends GameState implements KeyListener {
     public void keyTyped(KeyEvent e){
         
     }
-
-    @Override
-    public void update() {
-    }
     
-    public void render(GameContainer gc, Graphics g){
+    @Override
+    public void render(GameContainer gc, StateBasedGame game1, Graphics g)
+            throws SlickException {
         g.setColor(new Color(255, 255, 255, 100));
         g.fillRect((gc.getWidth() - 300) / 2,
                 (gc.getHeight() - 200) / 2, 300, 200);
@@ -112,7 +112,7 @@ public class MenuState extends GameState implements KeyListener {
         if(key == Input.KEY_RETURN){
             switch(selected){
                 case 0:
-                    gc.getInput().removeAllKeyListeners();
+                    game.enterState(1);
                     break;
                 case 2:
                     System.exit(0);
@@ -130,5 +130,26 @@ public class MenuState extends GameState implements KeyListener {
     @Override
     public void keyReleased(int key, char c) {
         
+    }
+
+    @Override
+    public void init(GameContainer arg0, StateBasedGame arg1)
+            throws SlickException {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
+    @Override
+    public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
+            throws SlickException {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public int getID() {
+        return 0;
     }
 }

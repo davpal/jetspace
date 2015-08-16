@@ -104,6 +104,6 @@ public class Level1State extends BasicGameState {
     }
 
     public int getID() {
-        return 0;
+        return 1;
     }
 }
