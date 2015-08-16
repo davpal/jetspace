@@ -20,35 +20,25 @@ public class Level1State extends BasicGameState {
     private Player player;
     private Image background;
     
-    public Level1State(GameContainer gc){
-        player = new Player(gc.getWidth() / 2 - 100, gc.getHeight() / 2);
-        enemies.add(new Bomber(25, 50, 0));
-        enemies.add(new Bomber(200, 100, 0));
-        enemies.add(new Bomber(100, 150, 0));
-        gc.getInput().addKeyListener(player);
-        gc.getInput().addMouseListener(player);
-        
-        try {
-            background = new Image("backgrounds/level1.png");
-            Image cursor = new Image("player/crosshair.png");
-            gc.setMouseCursor(cursor, 16, 16);
-        } catch(SlickException e){
-            
-        }  
+    public Level1State(GameContainer gc){ 
     }
     
     @Override
-    public void update(GameContainer gc, StateBasedGame sbg, int delta){
+    public void update(GameContainer gc, StateBasedGame game, int delta){
         player.update(gc);
         
         if(!player.isDead()){
             player.checkCollision(enemies);
             player.checkAttack(enemies);
         } else {
-            gc.getInput().removeAllKeyListeners();
+            game.enterState(2);
+            return;
         }
         
         for(int i = 0; i < enemies.size(); ++i){
+            if(enemies.get(i).isDead()){
+                enemies.remove(i--);
+            }
             enemies.get(i).checkCollision(enemies);
             if(!player.isDead()){
                 enemies.get(i).fire(player);
@@ -56,9 +46,6 @@ public class Level1State extends BasicGameState {
             }
             enemies.get(i).faceTo(player);
             enemies.get(i).update(gc);
-            if(enemies.get(i).isDead()){
-                enemies.remove(i--);
-            }
         }
     }
     

@@ -54,6 +54,11 @@ public class Player extends GameObject implements KeyListener, MouseListener {
     }
 
     public void update(GameContainer g){
+        if(crash && explosion.isStopped()){
+            dead = true;
+            return;
+        }
+        
         if(collision){
             collision = false;
             setHit();
@@ -68,8 +73,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
             crash = true;
             explosion.setLooping(false);
             explosion.start();
-            if(explosion.isStopped())
-                dead = true;
             hit = false;
         }
 
