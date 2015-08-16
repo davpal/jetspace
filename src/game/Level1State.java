@@ -36,9 +36,6 @@ public class Level1State extends BasicGameState {
         }
         
         for(int i = 0; i < enemies.size(); ++i){
-            if(enemies.get(i).isDead()){
-                enemies.remove(i--);
-            }
             enemies.get(i).checkCollision(enemies);
             if(!player.isDead()){
                 enemies.get(i).fire(player);
@@ -46,6 +43,9 @@ public class Level1State extends BasicGameState {
             }
             enemies.get(i).faceTo(player);
             enemies.get(i).update(gc);
+            if(enemies.get(i).isDead()){
+                enemies.remove(i--);
+            }
         }
     }
     

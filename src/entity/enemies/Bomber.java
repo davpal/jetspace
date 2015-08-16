@@ -80,6 +80,9 @@ public class Bomber extends Enemy {
     }
 
     public void update(GameContainer g) {
+        if(crash && explosion.isStopped())
+            dead = true;
+        
         if(shooting){
             lasers.add(new EnemyLaser(x + 4, y + 30, this));
             lasers.add(new EnemyLaser(x + 68, y + 30, this));
@@ -99,8 +102,6 @@ public class Bomber extends Enemy {
             hit = false;
             explosion.setLooping(false);
             explosion.start();
-            if(explosion.isStopped())
-                dead = true;
             hit = false;
         }
 
