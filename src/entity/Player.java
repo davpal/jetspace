@@ -49,10 +49,6 @@ public class Player extends GameObject implements KeyListener, MouseListener {
         weapons = new ArrayList<Weapon>();
     }
 
-    public void paint (Graphics g){
-        
-    }
-
     public void update(GameContainer g){
         if(crash && explosion.isStopped()){
             dead = true;
