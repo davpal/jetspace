@@ -6,8 +6,9 @@ import org.newdawn.slick.*;
 public abstract class GameObject {
     protected double x, y, speed, angle;
     protected int width, height, collisionWidth, collisionHeight;
+    protected int health, maxHealth;
     protected boolean left, right, up, down;
-    protected boolean dead;
+    protected boolean dead, crashing;
 
     protected GameObject(double d, double e, double a){
         this.x = d;
@@ -22,35 +23,47 @@ public abstract class GameObject {
     public double getY() {
         return y;
     }
-    
+
     public double getCenterX(){
         return x + width / 2;
     }
-    
+
     public double getCenterY(){
         return y + height / 2;
     }
-    
+
     public double getWidth(){
         return width;
     }
-    
+
     public double getHeight(){
         return height;
     }
-    
+
     public double getAngle(){
         return angle;
     }
-    
+
+    public int getHealth(){
+        return health;
+    }
+
     public boolean isDead(){
         return dead;
     }
-    
-    public void setDead(){
+
+    public void kill(){
         dead = true;
     }
+
+    public boolean isCrashing(){
+        return crashing;
+    }
     
+    public void setCrashing(){
+        crashing = true;
+    }
+
     public boolean intersect(GameObject o){
         Rectangle a = new Rectangle(
                             (int)x, 

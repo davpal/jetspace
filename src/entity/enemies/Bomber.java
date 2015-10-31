@@ -45,7 +45,7 @@ public class Bomber extends Enemy {
     }
 
     public void render(Graphics g) {
-        if(isCrash()){
+        if(isCrashing()){
             explosion.draw((float)x, (float)y);
             return;
         } else {
@@ -137,7 +137,7 @@ public class Bomber extends Enemy {
             left = false;
         }
 
-        if(y > 600) setDead();
+        if(y > 600) kill();
     }
 
     @Override
@@ -145,7 +145,7 @@ public class Bomber extends Enemy {
         for(int i = 0; i < lasers.size(); ++i){
             if(lasers.get(i).intersect(player)){
                 player.setHit();
-                lasers.get(i).setDead();
+                lasers.get(i).kill();
             }
         }
     }

@@ -11,16 +11,11 @@ import entity.enemies.Enemy;
 
 
 public class Player extends GameObject implements KeyListener, MouseListener {
-    private boolean collision, hit, crash;
+    private boolean collision, hit;
     private double dx, dy;
-    private int health, maxHealth;
-
-    Animation explosion;
-
-    private Image ship;
 
     public boolean shooting = false;
-    private ArrayList<Weapon> weapons;
+    private ArrayList<Weapon> weapons = new ArrayList<Weapon>();
 
     public void setHit(){
         hit = true;
@@ -37,24 +32,9 @@ public class Player extends GameObject implements KeyListener, MouseListener {
 
         speed = 3;
         maxHealth = health = 10;
-
-        try {
-            ship = new Image("player/ship.png");
-        } catch (SlickException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        explosion = ResourceLoader.getAnimation("/enemy/explosion.png", 64, 64, 5, 20);
-
-        weapons = new ArrayList<Weapon>();
     }
 
     public void update(GameContainer g){
-        if(crash && explosion.isStopped()){
-            dead = true;
-            return;
-        }
-        
         if(collision){
             collision = false;
             setHit();
@@ -66,9 +46,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
         }
 
         if(health <= 0){
-            crash = true;
-            explosion.setLooping(false);
-            explosion.start();
+            setCrashing();
             hit = false;
         }
 
@@ -114,9 +92,9 @@ public class Player extends GameObject implements KeyListener, MouseListener {
     public void checkCollision(ArrayList<Enemy> enemies){
         for(int i = 0; i < enemies.size(); ++i){
             if(enemies.get(i).intersect(this)){
-                if(!enemies.get(i).isCrash()){
+                if(!enemies.get(i).isCrashing()){
                     collision = true;
-                    enemies.get(i).setCrash();
+                    enemies.get(i).setCrashing();
                 }
             }
         }
@@ -128,7 +106,7 @@ public class Player extends GameObject implements KeyListener, MouseListener {
             for(int j = 0; j < weapons.size(); ++j){
                 if(!weapons.get(j).isDead() && weapons.get(j).intersect(enemies.get(i))){
                    enemies.get(i).setHit();
-                   weapons.get(j).setDead();
+                   weapons.get(j).kill();
                 }
             }
         }
@@ -236,21 +214,9 @@ public class Player extends GameObject implements KeyListener, MouseListener {
     }
 
     public void render(org.newdawn.slick.Graphics g) {
-        if(!crash){
-            g.pushTransform();
-            g.rotate((float)x + width / 2, (float)y + height / 2, (float)Math.toDegrees(angle));
-            g.drawImage(ship, (float)x, (float)y);
-            g.popTransform();
-            g.pushTransform();
-            g.setColor(new Color((10 - health) * 25, health * 25, 0, 220));
-            g.fillRect((int)x + (width - 50) / 2, (int)y + height - 2, 5 * health, 5);
-            g.popTransform();
-        }
-        else {
-            explosion.draw((float)x, (float)y);
-        }
+    }
 
-        for(Weapon w:weapons)
-            w.render(g);
+    public ArrayList<Weapon> getWeapons() {
+        return weapons;
     }
 }

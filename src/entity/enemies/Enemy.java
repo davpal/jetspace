@@ -37,12 +37,12 @@ public abstract class Enemy extends GameObject  {
     public abstract void fire(Player player);
     public abstract void checkAttack(Player player);
 
-    public void setCrash() {
+    public void setCrashing() {
         health = 0;
         crash = true;
     }
 
-    public boolean isCrash() {
+    public boolean isCrashing() {
         return crash;
     }
     

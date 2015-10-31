@@ -50,7 +50,7 @@ public class Laser extends Weapon {
         y += dy;
         
         if(x > g.getWidth() || y > g.getHeight() || x < 0 || y < 0)
-            setDead();
+            kill();
     }
 
     @Override

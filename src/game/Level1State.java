@@ -14,11 +14,13 @@ import org.newdawn.slick.state.StateBasedGame;
 import entity.Player;
 import entity.enemies.Bomber;
 import entity.enemies.Enemy;
+import rendering.Renderer;
 
 public class Level1State extends BasicGameState {
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private Player player;
     private Image background;
+    private Renderer renderer = new Renderer();
     
     public Level1State(GameContainer gc){ 
     }
@@ -52,7 +54,7 @@ public class Level1State extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, org.newdawn.slick.Graphics g) {
         background.draw(0, 0);
-        if(!player.isDead()) player.render(g);
+        renderer.render(g, player);
         for(Enemy e:enemies){
             e.render(g);
         }
