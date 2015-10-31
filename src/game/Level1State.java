@@ -12,6 +12,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import entity.Player;
 import entity.enemies.Bomber;
 import entity.enemies.Enemy;
+import input.PlayerInputListener;
 import rendering.Renderer;
 
 public class Level1State extends BasicGameState {
@@ -19,8 +20,8 @@ public class Level1State extends BasicGameState {
     private Player player;
     private Image background;
     private Renderer renderer = new Renderer();
-
-    public Level1State(GameContainer gc) {
+    
+    public Level1State(GameContainer gc){ 
     }
 
     public void update(GameContainer gc, StateBasedGame game, int delta) {
@@ -63,20 +64,19 @@ public class Level1State extends BasicGameState {
 
     public void init(GameContainer gc, StateBasedGame game)
             throws SlickException {
-        try {
-            background = new Image("backgrounds/level1.png");
-            Image cursor = new Image("player/crosshair.png");
-            gc.setMouseCursor(cursor, 16, 16);
-        } catch(SlickException e){
-        }
+
+        background = ImageLoader.loadImage("backgrounds/level1.png");
+        Image cursor = ImageLoader.loadImage("player/crosshair.png");
+        gc.setMouseCursor(cursor, 16, 16);
     }
 
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
         enemies.clear();
         player = new Player(gc.getWidth() / 2 - 100, gc.getHeight() / 2);
-        gc.getInput().addKeyListener(player);
-        gc.getInput().addMouseListener(player);
+        PlayerInputListener playerListener = new PlayerInputListener(player);
+        gc.getInput().addKeyListener(playerListener);
+        gc.getInput().addMouseListener(playerListener);
         enemies.add(new Bomber(25, 50, 0));
         enemies.add(new Bomber(200, 100, 0));
         enemies.add(new Bomber(100, 150, 0));

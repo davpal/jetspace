@@ -21,7 +21,7 @@ public class Bomber extends Enemy {
     ArrayList<Weapon> lasers = new ArrayList<Weapon>();
     private long shootTime;
 
-    public Bomber(double x, double y, double a){
+    public Bomber(double x, double y, double a) {
         super(x, y, a);
 
         collisionWidth = 60;
@@ -39,7 +39,7 @@ public class Bomber extends Enemy {
         }
         explosion = ResourceLoader.getAnimation("/enemy/explosion.png", 64, 64, 5, 20);
         explosion.setAutoUpdate(true);
-            
+
         down = true;
         left = true;
     }
@@ -50,49 +50,49 @@ public class Bomber extends Enemy {
             return;
         } else {
             g.pushTransform();
-            g.rotate((float)x + width / 2, (float)y + height / 2, (float)Math.toDegrees(angle));
-            g.drawImage(skin, (float)x, (float)y);
+            g.rotate((float) x + width / 2, (float) y + height / 2, (float) Math.toDegrees(angle));
+            g.drawImage(skin, (float) x, (float) y);
             g.popTransform();
             g.pushTransform();
             g.setColor(new Color((10 - health) * 25, health * 25, 0, 230));
-            g.fillRect((int)x + (width - 50) / 2, (int)y - 10, 5 * health, 5);
+            g.fillRect((int) x + (width - 50) / 2, (int) y - 10, 5 * health, 5);
             g.popTransform();
         }
-        for(Weapon l:lasers) l.render(g);
+        for (Weapon l : lasers) l.render(g);
     }
 
-    public void setHit(){
-         hit = true;
+    public void setHit() {
+        hit = true;
     }
 
-    public void fire(Player p){
+    public void fire(Player p) {
         long elapsed = (System.nanoTime() - shootTime) / 1000000;
         Random rand = new Random();
-        if(elapsed > rand.nextInt() % 200 + 1500){
+        if (elapsed > rand.nextInt() % 200 + 1500) {
             shooting = true;
             shootTime = System.nanoTime();
         }
     }
 
     public void update(GameContainer g) {
-        if(crash && explosion.isStopped())
+        if (crash && explosion.isStopped())
             dead = true;
-        
-        if(shooting){
+
+        if (shooting) {
             lasers.add(new EnemyLaser(x + 4, y + 30, this));
             lasers.add(new EnemyLaser(x + 68, y + 30, this));
 
             shooting = false;
         }
 
-        for(int i = 0; i < lasers.size(); ++i){
+        for (int i = 0; i < lasers.size(); ++i) {
             lasers.get(i).update(g);
-            if(lasers.get(i).isDead()){
+            if (lasers.get(i).isDead()) {
                 lasers.remove(i--);
             }
         }
 
-        if(health <= 0){
+        if (health <= 0) {
             crash = true;
             hit = false;
             explosion.setLooping(false);
@@ -100,39 +100,39 @@ public class Bomber extends Enemy {
             hit = false;
         }
 
-        if(hit){
+        if (hit) {
             health -= 1;
             hit = false;
         }
 
-        if(collision){
+        if (collision) {
             collision = false;
 
-            if(right){
+            if (right) {
                 left = true;
                 right = false;
-            } else if(left){
+            } else if (left) {
                 left = false;
                 right = true;
             }
 
-            if(up){
+            if (up) {
                 down = true;
                 up = false;
-            } else if(down){
+            } else if (down) {
                 down = false;
                 up = true;
             }
         }
 
-        if(right) x += speed;
-        else if(left) x -= speed;
-        if(down) y += speed;
+        if (right) x += speed;
+        else if (left) x -= speed;
+        if (down) y += speed;
 
-        if(x > g.getWidth() - width){
+        if (x > g.getWidth() - width) {
             left = true;
             right = false;
-        } else if(x < 0){
+        } else if (x < 0) {
             right = true;
             left = false;
         }
@@ -142,9 +142,9 @@ public class Bomber extends Enemy {
 
     @Override
     public void checkAttack(Player player) {
-        for(int i = 0; i < lasers.size(); ++i){
-            if(lasers.get(i).intersect(player)){
-                player.setHit();
+        for (int i = 0; i < lasers.size(); ++i) {
+            if (lasers.get(i).intersect(player)) {
+                player.setHit(true);
                 lasers.get(i).kill();
             }
         }
