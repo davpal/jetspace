@@ -33,14 +33,6 @@ public abstract class GameObject {
         this.height = height;
     }
 
-    public void kill(boolean dead) {
-        this.dead = dead;
-    }
-
-    public void setCrashing(boolean crashing) {
-        this.crashing = crashing;
-    }
-
     protected boolean dead, crashing;
 
     protected GameObject(double d, double e, double a) {

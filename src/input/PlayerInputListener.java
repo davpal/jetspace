@@ -2,7 +2,6 @@ package input;
 
 import org.newdawn.slick.*;
 
-import entity.GameObject;
 import entity.Player;
 
 public class PlayerInputListener extends InputAdapter {

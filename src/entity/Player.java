@@ -2,9 +2,7 @@ package entity;
 
 import java.util.ArrayList;
 import org.newdawn.slick.*;
-import app.ResourceLoader;
 import entity.enemies.Enemy;
-import input.PlayerInputListener;
 
 public class Player extends GameObject {
     private boolean collision;

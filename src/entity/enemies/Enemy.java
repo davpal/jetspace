@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import entity.GameObject;
 import entity.Player;
 
-public abstract class Enemy extends GameObject  {
-    public boolean hit, collision;
+public abstract class Enemy extends GameObject {
+    protected boolean collision;
     int health;
-    protected boolean crash;
-    
+
     Enemy(double x, double y, double a) {
         super(x, y, a);
     }
@@ -37,16 +36,7 @@ public abstract class Enemy extends GameObject  {
     public abstract void fire(Player player);
     public abstract void checkAttack(Player player);
 
-    public void setCrashing() {
-        health = 0;
-        crash = true;
-    }
-
-    public boolean isCrashing() {
-        return crash;
-    }
-    
-    public void faceTo(GameObject o){
+    public void faceTo(GameObject o) {
         angle = -Math.atan2(o.getCenterX() - x, o.getCenterY() - y);
     }
 }

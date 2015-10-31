@@ -2,21 +2,18 @@ package entity.enemies;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 import entity.EnemyLaser;
-import entity.Laser;
+import entity.ImageLoader;
 import entity.Player;
 import entity.Weapon;
-
 import org.newdawn.slick.*;
-
 import app.ResourceLoader;
 
 public class Bomber extends Enemy {
     Image skin;
     Animation explosion;
-    boolean shooting;
     int fireRate;
+    private boolean shooting;
 
     ArrayList<Weapon> lasers = new ArrayList<Weapon>();
     private long shootTime;
@@ -24,20 +21,18 @@ public class Bomber extends Enemy {
     public Bomber(double x, double y, double a) {
         super(x, y, a);
 
-        collisionWidth = 60;
         width = 79;
-        collisionHeight = 48;
         height = 68;
+        collisionWidth = 70;
+        collisionHeight = 60;
+        
         speed = 0.2;
         health = 10;
         fireRate = 1000;
 
-        try {
-            skin = new Image("enemy/bomber.png");
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
-        explosion = ResourceLoader.getAnimation("/enemy/explosion.png", 64, 64, 5, 20);
+        skin = ImageLoader.loadImage("enemy/bomber.png");
+
+        explosion = ResourceLoader.getAnimation("enemy/explosion.png", 64, 64, 5, 20);
         explosion.setAutoUpdate(true);
 
         down = true;
@@ -61,10 +56,6 @@ public class Bomber extends Enemy {
         for (Weapon l : lasers) l.render(g);
     }
 
-    public void setHit() {
-        hit = true;
-    }
-
     public void fire(Player p) {
         long elapsed = (System.nanoTime() - shootTime) / 1000000;
         Random rand = new Random();
@@ -75,7 +66,7 @@ public class Bomber extends Enemy {
     }
 
     public void update(GameContainer g) {
-        if (crash && explosion.isStopped())
+        if (crashing && explosion.isStopped())
             dead = true;
 
         if (shooting) {
@@ -93,16 +84,16 @@ public class Bomber extends Enemy {
         }
 
         if (health <= 0) {
-            crash = true;
-            hit = false;
+            setCrashing();
+            setHit(false);
             explosion.setLooping(false);
             explosion.start();
-            hit = false;
+            setHit(false);
         }
 
-        if (hit) {
+        if (isHit()) {
             health -= 1;
-            hit = false;
+            setHit(false);
         }
 
         if (collision) {
@@ -142,8 +133,8 @@ public class Bomber extends Enemy {
 
     @Override
     public void checkAttack(Player player) {
-        for (int i = 0; i < lasers.size(); ++i) {
-            if (lasers.get(i).intersect(player)) {
+        for(int i = 0; i < lasers.size(); ++i){
+            if(lasers.get(i).intersect(player)){
                 player.setHit(true);
                 lasers.get(i).kill();
             }
