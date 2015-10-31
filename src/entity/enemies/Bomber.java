@@ -74,11 +74,6 @@ public class Bomber extends Enemy {
         }
     }
 
-    private boolean inFireRange(Player p) {
-        return (x >= p.getX() && x <= p.getX() + p.getWidth() ||
-            p.getX() >= x && p.getX() <= x + width) && y < p.getY();
-    }
-
     public void update(GameContainer g) {
         if(crash && explosion.isStopped())
             dead = true;
