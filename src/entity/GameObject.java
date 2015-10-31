@@ -8,8 +8,7 @@ public abstract class GameObject {
     protected int width, height, collisionWidth, collisionHeight;
     protected boolean left, right, up, down;
     protected boolean dead;
-    protected Animation animation;
-    
+
     protected GameObject(double d, double e, double a){
         this.x = d;
         this.y = e;
