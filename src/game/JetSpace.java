@@ -4,7 +4,6 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class JetSpace extends StateBasedGame {
-    Image background;
     
     JetSpace(){
         super("JetSpace");

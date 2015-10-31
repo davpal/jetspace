@@ -8,63 +8,36 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class MenuState extends BasicGameState {
-    ArrayList<String> menuItems = new ArrayList<String>();  
+    ArrayList<String> menuItems = new ArrayList<String>();
     int selected;
-    
+
     StateBasedGame game;
-    
+
     public MenuState(GameContainer gc, StateBasedGame g) {
         game = g;
         menuItems.add("Start game");
         menuItems.add("Options");
         menuItems.add("Quit");
-        
+
         selected = 0;
     }
 
-    public void paint(java.awt.Graphics g){
-        g.setColor(new java.awt.Color(255, 255, 255, 100));
-        g.fillRect((315 - 300) / 2,
-                (600 - 200) / 2, 300, 200);
-        g.setFont(new java.awt.Font("Palatino", java.awt.Font.BOLD, 30));
-        g.drawString("JetSpace v0.1", 50, 230);
-        
-        g.setFont(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 20));
-        
-        int position = 260;
-        for(int i = 0; i < menuItems.size(); ++i){
-            String label = menuItems.get(i);
-            if(selected == i) label = "> " + label;
-            g.drawString(label, 20, position);
-            position += 40;
-        }
-    }
-    
-    public void keyPressed(KeyEvent e){
-        
-    }
-    
-    public void keyReleased(KeyEvent e){
-        if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            switch(selected){
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            switch (selected) {
                 case 0:
                     game.enterState(1);
                     break;
                 case 2:
                     System.exit(0);
-            } 
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_DOWN)
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN)
             ++selected;
-        else if(e.getKeyCode() == KeyEvent.VK_UP)
+        else if (e.getKeyCode() == KeyEvent.VK_UP)
             --selected;
-        
-        if(selected < 0) selected = menuItems.size() - 1;
-        else if(selected > menuItems.size() - 1) selected = 0;
-    }
-    
-    public void keyTyped(KeyEvent e){
-        
+
+        if (selected < 0) selected = menuItems.size() - 1;
+        else if (selected > menuItems.size() - 1) selected = 0;
     }
     
     @Override
@@ -76,60 +49,37 @@ public class MenuState extends BasicGameState {
         java.awt.Font f = new java.awt.Font("Palatino", java.awt.Font.BOLD, 30);
         TrueTypeFont ttf = new TrueTypeFont(f, true);
         g.setFont(ttf);
-        g.drawString("JetSpace v0.1", 
+        g.drawString("JetSpace v0.1",
                 (gc.getWidth() - 220) / 2, (gc.getHeight() - 180) / 2);
-        
+
         g.setFont(ttf);
-        
+
         int position = (gc.getHeight() - 100) / 2;
-        for(int i = 0; i < menuItems.size(); ++i){
+        for (int i = 0; i < menuItems.size(); ++i) {
             String label = menuItems.get(i);
-            if(selected == i) label = "> " + label;
+            if (selected == i) label = "> " + label;
             g.drawString(label, (gc.getWidth() - 250) / 2, position);
             position += 40;
         }
     }
 
     @Override
-    public void inputEnded() {
-    }
-
-    @Override
-    public void inputStarted() {
-    }
-
-    @Override
-    public boolean isAcceptingInput() {
-        return true;
-    }
-
-    @Override
-    public void setInput(Input arg0) {
-    }
-
-    @Override
     public void keyPressed(int key, char c) {
-        if(key == Input.KEY_RETURN){
-            switch(selected){
+        if (key == Input.KEY_RETURN) {
+            switch (selected) {
                 case 0:
                     game.enterState(1);
                     break;
                 case 2:
                     System.exit(0);
-            } 
-        }
-        else if(key == Input.KEY_DOWN)
+            }
+        } else if (key == Input.KEY_DOWN)
             ++selected;
-        else if(key == Input.KEY_UP)
+        else if (key == Input.KEY_UP)
             --selected;
-        
-        if(selected < 0) selected = menuItems.size() - 1;
-        else if(selected > menuItems.size() - 1) selected = 0;
-    }
 
-    @Override
-    public void keyReleased(int key, char c) {
-        
+        if (selected < 0) selected = menuItems.size() - 1;
+        else if (selected > menuItems.size() - 1) selected = 0;
     }
 
     @Override
