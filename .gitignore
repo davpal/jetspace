@@ -7,3 +7,6 @@ out/
 /jar
 /build/
 /jetspace.iml
+.project
+build.xml
+nbproject/
