@@ -1,3 +1,6 @@
 bin/
 .settings/
 .classpath
+/native
+/jar
+/build/
