@@ -7,7 +7,7 @@ import entity.ImageLoader;
 import entity.Player;
 import entity.Weapon;
 import org.newdawn.slick.*;
-import app.ResourceLoader;
+import resource.ResourceLoader;
 
 public class Bomber extends Enemy {
     Image skin;

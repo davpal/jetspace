@@ -1,4 +1,4 @@
-package app;
+package resource;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -9,18 +9,16 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
 public class ResourceLoader {
-    public static BufferedImage getImage(String resource){
-        BufferedImage image = null;
+    public static org.newdawn.slick.Image getImage(String path) {
+        Image image = null;
         try {
-            image = ImageIO.read(
-                        ResourceLoader.class.getResourceAsStream(resource));
-        } catch (IOException e) {
-            e.printStackTrace();
+            image = new Image(path);
+        } catch (SlickException sE) {
+            sE.printStackTrace();
         }
-        
         return image;
     }
-    
+
     public static Animation getAnimation(String resource, int width, int height, int framesNum, int delay){
         Animation animation = null;
         
@@ -28,7 +26,7 @@ public class ResourceLoader {
         try {
             t = TextureLoader.getTexture("PNG",
                     org.newdawn.slick.util.ResourceLoader
-                   .getResourceAsStream("enemy/explosion.png"));
+                   .getResourceAsStream(resource));
         } catch (IOException e1) {
             e1.printStackTrace();
         }
