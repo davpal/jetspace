@@ -1,6 +1,9 @@
 bin/
+out/
+/.idea
 .settings/
 .classpath
 /native
 /jar
 /build/
+/jetspace.iml
