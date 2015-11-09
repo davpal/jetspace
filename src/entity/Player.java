@@ -3,6 +3,7 @@ package entity;
 import java.util.ArrayList;
 import org.newdawn.slick.*;
 import entity.enemies.Enemy;
+import rendering.Renderer;
 
 public class Player extends GameObject {
     private boolean collision;
@@ -113,6 +114,10 @@ public class Player extends GameObject {
         return hit;
     }
 
+    public void render(Renderer r) {
+        r.renderPlayer(this);
+    }
+    
     public void render(org.newdawn.slick.Graphics g) {
     }
 

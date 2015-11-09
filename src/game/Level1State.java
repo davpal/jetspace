@@ -52,7 +52,7 @@ public class Level1State extends BasicGameState {
 
     public void render(GameContainer gc, StateBasedGame sbg, org.newdawn.slick.Graphics g) {
         background.draw(0, 0);
-        renderer.render(player);
+        player.render(renderer);
         for(Enemy e:enemies){
             e.render(g);
         }

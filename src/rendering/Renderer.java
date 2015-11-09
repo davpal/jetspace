@@ -21,7 +21,7 @@ public class Renderer {
         g = graphics;
     }
 
-    public void render(Player player) {
+    public void renderPlayer(Player player) {
         if (!player.isCrashing()) {
             g.pushTransform();
             g.rotate((float) player.getCenterX(), (float) player.getCenterY(),
