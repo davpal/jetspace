@@ -10,17 +10,18 @@ import entity.Weapon;
 import resource.ResourceFactory;
 
 public class Renderer {
-
+    private Graphics g;
+    
     private Image playerShip = ResourceFactory.getPlayerShip();
     private Animation explosion = ResourceFactory.getExplosion();
 
     private boolean explosionRunning;
 
-    public Renderer() {
-
+    public Renderer(Graphics graphics) {
+        g = graphics;
     }
 
-    public void render(Graphics g, Player player) {
+    public void render(Player player) {
         if (!player.isCrashing()) {
             g.pushTransform();
             g.rotate((float) player.getCenterX(), (float) player.getCenterY(),

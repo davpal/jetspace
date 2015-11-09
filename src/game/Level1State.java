@@ -19,9 +19,10 @@ public class Level1State extends BasicGameState {
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private Player player;
     private Image background;
-    private Renderer renderer = new Renderer();
+    private Renderer renderer;
     
-    public Level1State(GameContainer gc){ 
+    public Level1State(GameContainer gc){
+        renderer = new Renderer(gc.getGraphics());
     }
 
     public void update(GameContainer gc, StateBasedGame game, int delta) {
@@ -51,7 +52,7 @@ public class Level1State extends BasicGameState {
 
     public void render(GameContainer gc, StateBasedGame sbg, org.newdawn.slick.Graphics g) {
         background.draw(0, 0);
-        renderer.render(g, player);
+        renderer.render(player);
         for(Enemy e:enemies){
             e.render(g);
         }
