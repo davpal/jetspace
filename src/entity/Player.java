@@ -117,9 +117,6 @@ public class Player extends GameObject {
     public void render(Renderer r) {
         r.renderPlayer(this);
     }
-    
-    public void render(org.newdawn.slick.Graphics g) {
-    }
 
     public ArrayList<Weapon> getWeapons() {
         return weapons;

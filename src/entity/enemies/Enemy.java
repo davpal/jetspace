@@ -12,15 +12,11 @@ public abstract class Enemy extends GameObject {
     Enemy(double x, double y, double a) {
         super(x, y, a);
     }
+
+    public int getHealth(){
+        return health;
+    }
     
-    public void setHit(){
-        hit = true;
-    }
-
-    public boolean isHit() {
-        return hit;
-    }
-
     public void setCollision() {
         collision = true;        
     }

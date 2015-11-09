@@ -7,6 +7,9 @@ import org.newdawn.slick.SlickException;
 public class ResourceFactory {
     static Animation explosion;
     static Image ship = null;
+    static Image playerLaser = null;
+    static Image enemyLaser = null;
+    static Image bomberShip = null;
 	
     public static Animation getExplosion() {
 	if(explosion == null){
@@ -22,5 +25,26 @@ public class ResourceFactory {
             ship = ResourceLoader.getImage("player/ship.png");
 	}
         return ship;
+    }
+
+    public static Image getPlayerLaser() {
+        if(playerLaser == null){
+            playerLaser = ResourceLoader.getImage("player/laser.png");
+        }
+        return playerLaser;
+    }
+    
+    public static Image getEnemyLaser() {
+        if(enemyLaser == null){
+            enemyLaser = ResourceLoader.getImage("enemy/laser.png");
+        }
+        return enemyLaser;
+    }
+
+    public static Image getBomberShip() {
+        if(bomberShip == null){
+            bomberShip = ResourceLoader.getImage("enemy/bomber.png");
+        }
+        return bomberShip;
     }
 }

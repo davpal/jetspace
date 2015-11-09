@@ -54,7 +54,7 @@ public class Level1State extends BasicGameState {
         background.draw(0, 0);
         player.render(renderer);
         for(Enemy e:enemies){
-            e.render(g);
+            e.render(renderer);
         }
     }
 

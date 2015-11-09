@@ -1,7 +1,8 @@
 package entity;
 import org.newdawn.slick.*;
+import rendering.Renderer;
+
 public class Laser extends Weapon {
-    Image beam;
     double dx, dy;
     
     public Laser(double x, double y, GameObject owner) {
@@ -16,7 +17,6 @@ public class Laser extends Weapon {
 
         setCoordinates(x, y, centerX, centerY);
         setDerivatives();
-        getBeam();
     }
 
     private void setCoordinates(double x, double y, double centerX, double centerY) {
@@ -27,14 +27,6 @@ public class Laser extends Weapon {
     private void setDerivatives() {
         dx = speed * Math.sin(angle);
         dy = -speed * Math.cos(angle);
-    }
-
-    private void getBeam() {
-	try {
-            beam = new Image("player/laser.png");
-        } catch (SlickException e1) {
-            e1.printStackTrace();
-        }
     }
 
     public Laser(double x, double y, double tx, double ty, GameObject owner) {
@@ -58,11 +50,7 @@ public class Laser extends Weapon {
             kill();
     }
 
-    @Override
-    public void render(org.newdawn.slick.Graphics g) {
-        g.pushTransform();
-        g.rotate((float)getCenterX(), (float)getCenterY(), (float)Math.toDegrees(angle));
-        g.drawImage(beam, (float)x, (float)y);
-        g.popTransform();
+    public void render(Renderer r) {
+        r.renderPlayerLaser(this);
     }
 }

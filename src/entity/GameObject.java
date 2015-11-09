@@ -3,6 +3,7 @@ package entity;
 import java.awt.Rectangle;
 
 import org.newdawn.slick.*;
+import rendering.Renderer;
 
 public abstract class GameObject {
     protected double x, y, dx, dy, speed, angle;
@@ -122,5 +123,5 @@ public abstract class GameObject {
     }
 
     public abstract void update(GameContainer g);
-    public abstract void render(org.newdawn.slick.Graphics g);
+    public abstract void render(Renderer r);
 }

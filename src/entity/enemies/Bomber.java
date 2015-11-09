@@ -7,16 +7,19 @@ import entity.ImageLoader;
 import entity.Player;
 import entity.Weapon;
 import org.newdawn.slick.*;
+import rendering.Renderer;
 import resource.ResourceLoader;
 
 public class Bomber extends Enemy {
-    Image skin;
-    Animation explosion;
     int fireRate;
     private boolean shooting;
 
     ArrayList<Weapon> lasers = new ArrayList<Weapon>();
     private long shootTime;
+    
+    public ArrayList<Weapon> getWeapons(){
+        return lasers;
+    }
 
     public Bomber(double x, double y, double a) {
         super(x, y, a);
@@ -30,30 +33,12 @@ public class Bomber extends Enemy {
         health = 10;
         fireRate = 1000;
 
-        skin = ImageLoader.loadImage("enemy/bomber.png");
-
-        explosion = ResourceLoader.getAnimation("enemy/explosion.png", 64, 64, 5, 20);
-        explosion.setAutoUpdate(true);
-
         down = true;
         left = true;
     }
 
-    public void render(Graphics g) {
-        if(isCrashing()){
-            explosion.draw((float)x, (float)y);
-            return;
-        } else {
-            g.pushTransform();
-            g.rotate((float) x + width / 2, (float) y + height / 2, (float) Math.toDegrees(angle));
-            g.drawImage(skin, (float) x, (float) y);
-            g.popTransform();
-            g.pushTransform();
-            g.setColor(new Color((10 - health) * 25, health * 25, 0, 230));
-            g.fillRect((int) x + (width - 50) / 2, (int) y - 10, 5 * health, 5);
-            g.popTransform();
-        }
-        for (Weapon l : lasers) l.render(g);
+    public void render(Renderer r) {
+        r.renderBomber(this);
     }
 
     public void fire(Player p) {
@@ -66,9 +51,6 @@ public class Bomber extends Enemy {
     }
 
     public void update(GameContainer g) {
-        if (crashing && explosion.isStopped())
-            dead = true;
-
         if (shooting) {
             lasers.add(new EnemyLaser(x + 4, y + 30, this));
             lasers.add(new EnemyLaser(x + 68, y + 30, this));
@@ -85,9 +67,6 @@ public class Bomber extends Enemy {
 
         if (health <= 0) {
             setCrashing();
-            setHit(false);
-            explosion.setLooping(false);
-            explosion.start();
             setHit(false);
         }
 
