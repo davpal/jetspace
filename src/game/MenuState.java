@@ -24,6 +24,20 @@ public class MenuState extends BasicGameState {
 
         selected = 0;
     }
+    
+    public int getSelected(){
+        return selected;
+    }
+    
+    public void nextItem(){
+        ++selected;
+        if (selected > menuItems.size() - 1) selected = 0;
+    }
+    
+    public void prevItem(){
+        --selected;
+        if (selected < 0) selected = menuItems.size() - 1;
+    }
 
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
