@@ -17,7 +17,8 @@ public class MenuState extends BasicGameState {
 
     public MenuState(GameContainer gc, StateBasedGame g) {
         game = g;
-        menuItems.add("Start game");
+        menuItems.add("Single player");
+        menuItems.add("Multi player");
         menuItems.add("Options");
         menuItems.add("Quit");
 
@@ -77,7 +78,7 @@ public class MenuState extends BasicGameState {
                 case 0:
                     game.enterState(1);
                     break;
-                case 2:
+                case 3:
                     System.exit(0);
             }
         } else if (key == Input.KEY_DOWN)
