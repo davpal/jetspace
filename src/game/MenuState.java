@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import resource.ResourceLoader;
 
 public class MenuState extends BasicGameState {
     ArrayList<String> menuItems = new ArrayList<String>();
     int selected;
+    Image background = ResourceLoader.getImage("backgrounds/menu.png");
 
     StateBasedGame game;
 
@@ -43,23 +45,28 @@ public class MenuState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame game1, Graphics g)
             throws SlickException {
-        g.setColor(new Color(255, 255, 255, 100));
-        g.fillRect((gc.getWidth() - 300) / 2,
-                (gc.getHeight() - 200) / 2, 300, 200);
-        java.awt.Font f = new java.awt.Font("Palatino", java.awt.Font.BOLD, 30);
+        background.draw(0, 0);
+        g.setColor(new Color(190, 210, 220, 255));
+        java.awt.Font f = new java.awt.Font("Candara", java.awt.Font.BOLD, 30);
         TrueTypeFont ttf = new TrueTypeFont(f, true);
         g.setFont(ttf);
-        g.drawString("JetSpace v0.1",
-                (gc.getWidth() - 220) / 2, (gc.getHeight() - 180) / 2);
+        g.drawString("JetSpace v0.2",
+                (gc.getWidth() - 220) / 2, (gc.getHeight() - 400) / 2);
 
         g.setFont(ttf);
 
         int position = (gc.getHeight() - 100) / 2;
         for (int i = 0; i < menuItems.size(); ++i) {
+            g.setColor(new Color(0, 0, 0, 200));
+            g.fillRect((gc.getWidth() - 300) / 2, position - 20, 300, 50);
+            g.setColor(new Color(190, 210, 220, 255));
             String label = menuItems.get(i);
-            if (selected == i) label = "> " + label;
-            g.drawString(label, (gc.getWidth() - 250) / 2, position);
-            position += 40;
+            if (selected == i){
+                g.setColor(new Color(255, 0, 0, 255));
+            }
+            g.drawRect((gc.getWidth() - 300) / 2, position - 20, 300, 50);
+            g.drawString(label, (gc.getWidth() - 250) / 2, position - 10);
+            position += 60;
         }
     }
 
