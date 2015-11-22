@@ -22,7 +22,7 @@ public class Level1State extends BasicGameState {
     private Renderer renderer;
     
     public Level1State(GameContainer gc){
-        renderer = new Renderer(gc.getGraphics());
+        renderer = new Renderer(gc);
     }
 
     public void update(GameContainer gc, StateBasedGame game, int delta) {

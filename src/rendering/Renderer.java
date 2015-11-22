@@ -13,6 +13,7 @@ import entity.enemies.Bomber;
 import resource.ResourceFactory;
 
 public class Renderer {
+    private GameContainer gc;
     private Graphics g;
     
     private Image playerShip = ResourceFactory.getPlayerShip();
@@ -23,8 +24,9 @@ public class Renderer {
 
     private boolean explosionRunning;
 
-    public Renderer(Graphics graphics) {
-        g = graphics;
+    public Renderer(GameContainer gc) {
+        this.gc = gc;
+        this.g = gc.getGraphics();
     }
 
     public void renderPlayer(Player player) {
