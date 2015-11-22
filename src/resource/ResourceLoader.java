@@ -2,6 +2,7 @@ package resource;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 import org.newdawn.slick.*;
@@ -17,6 +18,21 @@ public class ResourceLoader {
             sE.printStackTrace();
         }
         return image;
+    }
+
+    public static org.newdawn.slick.Font getFont(String path, float size){
+        Font font = null;
+        try {
+            InputStream inputStream =
+                org.newdawn.slick.util.ResourceLoader.getResourceAsStream(path);
+            java.awt.Font awtFont =
+                java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, inputStream);
+            font = new TrueTypeFont(awtFont.deriveFont(size), true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return font;
     }
 
     public static Animation getAnimation(String resource, int width, int height, int framesNum, int delay){
