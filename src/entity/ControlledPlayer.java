@@ -1,10 +1,7 @@
 package entity;
 
-import entity.enemies.Enemy;
 import org.newdawn.slick.GameContainer;
 import rendering.Renderer;
-
-import java.util.ArrayList;
 
 public class ControlledPlayer extends Player {
 
@@ -76,31 +73,6 @@ public class ControlledPlayer extends Player {
                 weapons.remove(i--);
             }
         }
-    }
-    //TODO move this method to the Player class
-    public void checkCollision(ArrayList<Enemy> enemies) {
-        for (int i = 0; i < enemies.size(); ++i) {
-            if (enemies.get(i).intersect(this)) {
-                if (!enemies.get(i).isCrashing()) {
-                    collision = true;
-                    enemies.get(i).setCrashing();
-                }
-            }
-        }
-    }
-    //TODO move this method to the Player class
-    public boolean checkAttack(ArrayList<Enemy> enemies) {
-        boolean hit = false;
-        for (int i = 0; i < enemies.size(); ++i) {
-            for (int j = 0; j < weapons.size(); ++j) {
-                if (!weapons.get(j).isDead()
-                        && weapons.get(j).intersect(enemies.get(i))) {
-                    enemies.get(i).setHit(true);
-                    weapons.get(j).kill();
-                }
-            }
-        }
-        return hit;
     }
 
     public void render(Renderer r) {
