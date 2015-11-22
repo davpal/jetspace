@@ -40,20 +40,8 @@ public class MenuState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame game1, Graphics g)
             throws SlickException {
-        Font titleFont = null;
-        Font itemFont = null;
-        try {
-            InputStream inputStream = 
-                org.newdawn.slick.util.ResourceLoader.getResourceAsStream("fonts/modern_caveman.ttf");
-
-            java.awt.Font awtFont2 = 
-                java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, inputStream);
-            awtFont2 = awtFont2.deriveFont(32f); // set font size
-            itemFont = new TrueTypeFont(awtFont2.deriveFont(24f), true);
-            titleFont = new TrueTypeFont(awtFont2, true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }	
+        Font titleFont = ResourceLoader.getFont("fonts/modern_caveman.ttf", 36f);
+        Font itemFont  = ResourceLoader.getFont("fonts/modern_caveman.ttf", 28f);
         
         background.draw(0, 0);
         g.setColor(new Color(190, 210, 220, 255));
