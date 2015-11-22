@@ -31,7 +31,7 @@ public abstract class Player extends GameObject {
     public void checkCollision(ArrayList<? extends GameObject> enemies) {
         for (int i = 0; i < enemies.size(); ++i) {
             if (enemies.get(i).intersect(this)) {
-                if (!enemies.get(i).isCrashing()) {
+                if (!enemies.get(i).isCrashing() && !enemies.get(i).isDead()) {
                     collision = true;
                     enemies.get(i).setCrashing();
                 }

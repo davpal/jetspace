@@ -95,6 +95,7 @@ public abstract class GameObject {
     }
 
     public void kill() {
+        crashing = false;
         dead = true;
     }
 

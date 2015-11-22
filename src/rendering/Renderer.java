@@ -5,6 +5,7 @@ import entity.EnemyLaser;
 import entity.Laser;
 import entity.Weapon;
 import entity.enemies.Bomber;
+import java.util.ArrayList;
 import menu.Menu;
 import menu.MenuItem;
 import org.newdawn.slick.*;
@@ -22,13 +23,11 @@ public class Renderer {
     private Image bomberShip = ResourceFactory.getBomberShip();
     private Image playerLaser = ResourceFactory.getPlayerLaser();
     private Image enemyLaser = ResourceFactory.getEnemyLaser();
-    private Animation explosion = ResourceFactory.getExplosion();
     private Font titleFont = ResourceLoader.getFont("fonts/modern_caveman.ttf", 36f);
     private Font itemFont  = ResourceLoader.getFont("fonts/modern_caveman.ttf", 28f);
     Image cursor = ResourceLoader.getImage("player/crosshair.png");
 
-    private boolean explosionRunningForEnemy;
-    private boolean explosionRunningForPlayer;
+    private ArrayList<Explosion> explosions = new ArrayList<>();
 
     public Renderer(GameContainer gc) {
         this.gc = gc;
@@ -36,7 +35,7 @@ public class Renderer {
     }
 
     public void renderPlayer(ControlledPlayer controlledPlayer) {
-        if (!controlledPlayer.isCrashing()) {
+        if (!controlledPlayer.isDead()) {
             g.pushTransform();
             g.rotate((float) controlledPlayer.getCenterX(), (float) controlledPlayer.getCenterY(),
                     (float) Math.toDegrees(controlledPlayer.getAngle()));
@@ -48,15 +47,6 @@ public class Renderer {
                     (int) (controlledPlayer.getY() + controlledPlayer.getHeight() - 2),
                     5 * controlledPlayer.getHealth(), 5);
             g.popTransform();
-        } else {
-            if (explosionRunningForPlayer) {
-                explosion.start();
-                explosionRunningForPlayer = true;
-            }
-            explosion.draw((float) controlledPlayer.getX(), (float) controlledPlayer.getY());
-            if (explosion.isStopped()) {
-                controlledPlayer.kill();
-            }
         }
 
         for (Weapon w : controlledPlayer.getWeapons()) {
@@ -85,7 +75,7 @@ public class Renderer {
     }
 
     public void renderBomber(Bomber bomber){
-        if(!bomber.isCrashing()) {
+        if(!bomber.isDead()) {
             g.pushTransform();
             g.rotate((float) bomber.getCenterX(), (float) bomber.getCenterY(),
                     (float) Math.toDegrees(bomber.getAngle()));
@@ -97,16 +87,6 @@ public class Renderer {
                     (int) (bomber.getY() + bomber.getHeight() - 2),
                     5 * bomber.getHealth(), 5);
             g.popTransform();
-        }
-        else {
-            if (explosionRunningForEnemy) {
-                explosion.start();
-                explosionRunningForEnemy = true;
-            }
-            explosion.draw((float) bomber.getX(), (float) bomber.getY());
-            if (explosion.isStopped()) {
-                bomber.kill();
-            }
         }
 
         for (Weapon w : bomber.getWeapons()) w.render(this);
@@ -135,5 +115,11 @@ public class Renderer {
             g.drawString(item.toString(), (gc.getWidth() - 250) / 2, position - 10);
             position += 60;
         }
+    }
+
+    public void renderExplosion(Explosion e) {
+        Animation a = e.getAnimation();
+        if(!e.done())
+            a.draw((float)e.getOwner().getX(), (float)e.getOwner().getY());
     }
 }

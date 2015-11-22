@@ -13,10 +13,12 @@ import org.newdawn.slick.state.StateBasedGame;
 import rendering.Renderer;
 
 import java.util.ArrayList;
+import rendering.Explosion;
 import resource.ResourceLoader;
 
 public class Level1State extends BasicGameState {
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    private ArrayList<Explosion> explosions = new ArrayList<Explosion>();
     private ControlledPlayer controlledPlayer;
     private Image background;
     private Renderer renderer;
@@ -26,14 +28,18 @@ public class Level1State extends BasicGameState {
     }
 
     public void update(GameContainer gc, StateBasedGame game, int delta) {
-        controlledPlayer.update(gc);
-
-        if (!controlledPlayer.isDead()) {
-            controlledPlayer.checkCollision(enemies);
-            controlledPlayer.checkAttack(enemies);
-        } else {
+        if(controlledPlayer.isCrashing()){
+            explosions.add(new Explosion(controlledPlayer));
+            controlledPlayer.kill();
+        }
+        if (controlledPlayer.isDead()) {
+            if(!explosions.isEmpty()) return;
             game.enterState(2);
             return;
+        } else {
+            controlledPlayer.checkCollision(enemies);
+            controlledPlayer.checkAttack(enemies);
+            controlledPlayer.update(gc);
         }
 
         for (int i = 0; i < enemies.size(); ++i) {
@@ -42,14 +48,20 @@ public class Level1State extends BasicGameState {
                 enemies.get(i).fire(controlledPlayer);
                 enemies.get(i).checkAttack(controlledPlayer);
             }
-            enemies.get(i).faceTo(controlledPlayer);
-            enemies.get(i).update(gc);
+            if(enemies.get(i).isCrashing()){
+                explosions.add(new Explosion(enemies.get(i)));
+                enemies.get(i).kill();
+            }
             if (enemies.get(i).isDead()) {
+                if(!explosions.isEmpty()) continue;
                 enemies.remove(i--);
                 if(enemies.isEmpty()) {
                     game.enterState(2);
                     return;
                 }
+            } else {
+                enemies.get(i).faceTo(controlledPlayer);
+                enemies.get(i).update(gc);
             }
         }
     }
@@ -57,8 +69,13 @@ public class Level1State extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, org.newdawn.slick.Graphics g) {
         background.draw(0, 0);
         controlledPlayer.render(renderer);
+
         for(Enemy e:enemies){
             e.render(renderer);
+        }
+        for(int i = 0; i < explosions.size(); ++i){
+            if(explosions.get(i).done()) explosions.remove(i--);
+            else explosions.get(i).render(renderer);
         }
         renderer.renderCursor();
     }

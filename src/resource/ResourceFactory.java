@@ -11,10 +11,8 @@ public class ResourceFactory {
     static Image bomberShip = null;
 	
     public static Animation getExplosion() {
-	if(explosion == null){
-            explosion = ResourceLoader.getAnimation("enemy/explosion.png", 64, 64, 5, 20);
-            explosion.setLooping(false);
-	}
+        explosion = ResourceLoader.getAnimation("enemy/explosion.png", 64, 64, 5, 20);
+        explosion.setLooping(false);
 
         return explosion;
     }
