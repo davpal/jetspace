@@ -45,6 +45,10 @@ public class Level1State extends BasicGameState {
             enemies.get(i).update(gc);
             if (enemies.get(i).isDead()) {
                 enemies.remove(i--);
+                if(enemies.isEmpty()) {
+                    game.enterState(2);
+                    return;
+                }
             }
         }
     }

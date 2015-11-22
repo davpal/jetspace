@@ -26,7 +26,8 @@ public class Renderer {
     private Font titleFont = ResourceLoader.getFont("fonts/modern_caveman.ttf", 36f);
     private Font itemFont  = ResourceLoader.getFont("fonts/modern_caveman.ttf", 28f);
 
-    private boolean explosionRunning;
+    private boolean explosionRunningForEnemy;
+    private boolean explosionRunningForPlayer;
 
     public Renderer(GameContainer gc) {
         this.gc = gc;
@@ -47,9 +48,9 @@ public class Renderer {
                     5 * player.getHealth(), 5);
             g.popTransform();
         } else {
-            if (explosionRunning) {
+            if (explosionRunningForPlayer) {
                 explosion.start();
-                explosionRunning = true;
+                explosionRunningForPlayer = true;
             }
             explosion.draw((float) player.getX(), (float) player.getY());
             if (explosion.isStopped()) {
@@ -79,22 +80,30 @@ public class Renderer {
     }
 
     public void renderBomber(Bomber bomber){
-        if(bomber.isCrashing()){
-            explosion.draw((float)bomber.getX(), (float)bomber.getY());
-            return;
-        } else {
+        if(!bomber.isCrashing()) {
             g.pushTransform();
-            g.rotate((float) bomber.getCenterX(), (float) bomber.getCenterY(), 
-                (float) Math.toDegrees(bomber.getAngle()));
+            g.rotate((float) bomber.getCenterX(), (float) bomber.getCenterY(),
+                    (float) Math.toDegrees(bomber.getAngle()));
             g.drawImage(bomberShip, (float) bomber.getX(), (float) bomber.getY());
             g.popTransform();
             g.pushTransform();
             g.setColor(new Color((10 - bomber.getHealth()) * 25, bomber.getHealth() * 25, 0, 230));
-            g.fillRect((float) ((int) bomber.getX() + (bomber.getWidth() - 50) / 2), 
-                (int) bomber.getY() - 10, 5 * bomber.getHealth(), 5);
+            g.fillRect((int) (bomber.getX() + (bomber.getWidth() - 50) / 2),
+                    (int) (bomber.getY() + bomber.getHeight() - 2),
+                    5 * bomber.getHealth(), 5);
             g.popTransform();
         }
-        
+        else {
+            if (explosionRunningForEnemy) {
+                explosion.start();
+                explosionRunningForEnemy = true;
+            }
+            explosion.draw((float) bomber.getX(), (float) bomber.getY());
+            if (explosion.isStopped()) {
+                bomber.kill();
+            }
+        }
+
         for (Weapon w : bomber.getWeapons()) w.render(this);
     }
     
