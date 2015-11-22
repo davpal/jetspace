@@ -13,6 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import rendering.Renderer;
 
 import java.util.ArrayList;
+import resource.ResourceLoader;
 
 public class Level1State extends BasicGameState {
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
@@ -56,21 +57,21 @@ public class Level1State extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, org.newdawn.slick.Graphics g) {
         background.draw(0, 0);
         controlledPlayer.render(renderer);
-
         for(Enemy e:enemies){
             e.render(renderer);
         }
+        renderer.renderCursor();
     }
 
     public boolean isAcceptingInput() {
         return true;
     }
 
-
     public void init(GameContainer gc, StateBasedGame game)
             throws SlickException {
 
         background = ImageLoader.loadImage("backgrounds/level1.png");
+        gc.setMouseGrabbed(true);
     }
 
     @Override

@@ -25,6 +25,7 @@ public class Renderer {
     private Animation explosion = ResourceFactory.getExplosion();
     private Font titleFont = ResourceLoader.getFont("fonts/modern_caveman.ttf", 36f);
     private Font itemFont  = ResourceLoader.getFont("fonts/modern_caveman.ttf", 28f);
+    Image cursor = ResourceLoader.getImage("player/crosshair.png");
 
     private boolean explosionRunningForEnemy;
     private boolean explosionRunningForPlayer;
@@ -63,6 +64,10 @@ public class Renderer {
         }
     }
 
+    public void renderCursor(){
+        cursor.draw(gc.getInput().getMouseX() - 14, gc.getInput().getMouseY() - 14);
+    }
+    
     public void renderPlayerLaser(Laser laser){
         renderLaser(laser, playerLaser);
     }
