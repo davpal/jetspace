@@ -3,59 +3,38 @@ package game;
 import java.awt.event.KeyEvent;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import resource.ResourceLoader;
+import menu.*;
 
 public class MenuState extends BasicGameState {
-    ArrayList<String> menuItems = new ArrayList<String>();
-    int selected;
+    Menu menu = new Menu();
     Image background = ResourceLoader.getImage("backgrounds/menu.png");
 
     StateBasedGame game;
 
     public MenuState(GameContainer gc, StateBasedGame g) {
         game = g;
-        menuItems.add("Single player");
-        menuItems.add("Multi player");
-        menuItems.add("Options");
-        menuItems.add("Quit");
-
-        selected = 0;
-    }
-    
-    public int getSelected(){
-        return selected;
-    }
-    
-    public void nextItem(){
-        ++selected;
-        if (selected > menuItems.size() - 1) selected = 0;
-    }
-    
-    public void prevItem(){
-        --selected;
-        if (selected < 0) selected = menuItems.size() - 1;
+        MenuItem singlePlayer = new SinglePlayer();
+        singlePlayer.select();
+        menu.addItem(singlePlayer);
+        menu.addItem(new MenuItem("Multi player"));
+        menu.addItem(new MenuItem("Options"));
+        menu.addItem(new Quit());
     }
 
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            switch (selected) {
-                case 0:
-                    game.enterState(1);
-                    break;
-                case 2:
-                    System.exit(0);
-            }
+            Command command = (Command)menu.getSelected();
+            command.execute(game);
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN)
-            ++selected;
+            menu.nextItem();
         else if (e.getKeyCode() == KeyEvent.VK_UP)
-            --selected;
-
-        if (selected < 0) selected = menuItems.size() - 1;
-        else if (selected > menuItems.size() - 1) selected = 0;
+            menu.prevItem();
     }
     
     @Override
@@ -85,16 +64,17 @@ public class MenuState extends BasicGameState {
         g.setFont(ttf);
 
         int position = (gc.getHeight() - 100) / 2;
-        for (int i = 0; i < menuItems.size(); ++i) {
+        Iterator it = menu.iterator();
+        while(it.hasNext()){
             g.setColor(new Color(0, 0, 0, 200));
             g.fillRect((gc.getWidth() - 300) / 2, position - 20, 300, 50);
             g.setColor(new Color(190, 210, 220, 255));
-            String label = menuItems.get(i);
-            if (selected == i){
+            MenuItem item = ((MenuItem)it.next());
+            if(item.isSelected()){
                 g.setColor(new Color(255, 0, 0, 255));
             }
             g.drawRect((gc.getWidth() - 300) / 2, position - 20, 300, 50);
-            g.drawString(label, (gc.getWidth() - 250) / 2, position - 10);
+            g.drawString(item.toString(), (gc.getWidth() - 250) / 2, position - 10);
             position += 60;
         }
     }
@@ -102,20 +82,12 @@ public class MenuState extends BasicGameState {
     @Override
     public void keyPressed(int key, char c) {
         if (key == Input.KEY_RETURN) {
-            switch (selected) {
-                case 0:
-                    game.enterState(1);
-                    break;
-                case 3:
-                    System.exit(0);
-            }
+            Command command = (Command)menu.getSelected();
+            command.execute(game);
         } else if (key == Input.KEY_DOWN)
-            ++selected;
+            menu.nextItem();
         else if (key == Input.KEY_UP)
-            --selected;
-
-        if (selected < 0) selected = menuItems.size() - 1;
-        else if (selected > menuItems.size() - 1) selected = 0;
+            menu.prevItem();
     }
 
     @Override
