@@ -71,8 +71,6 @@ public class Level1State extends BasicGameState {
             throws SlickException {
 
         background = ImageLoader.loadImage("backgrounds/level1.png");
-        Image cursor = ImageLoader.loadImage("player/crosshair.png");
-        gc.setMouseCursor(cursor, 16, 16);
     }
 
     @Override
