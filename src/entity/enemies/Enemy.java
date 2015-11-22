@@ -1,7 +1,7 @@
 package entity.enemies;
 
+import entity.ControlledPlayer;
 import entity.GameObject;
-import entity.Player;
 
 import java.util.ArrayList;
 
@@ -29,8 +29,8 @@ public abstract class Enemy extends GameObject {
         }
     }
 
-    public abstract void fire(Player player);
-    public abstract void checkAttack(Player player);
+    public abstract void fire(ControlledPlayer controlledPlayer);
+    public abstract void checkAttack(ControlledPlayer controlledPlayer);
 
     public void faceTo(GameObject o) {
         angle = -Math.atan2(o.getCenterX() - x, o.getCenterY() - y);

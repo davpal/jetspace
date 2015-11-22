@@ -1,13 +1,13 @@
 package input;
 
-import entity.Player;
+import entity.ControlledPlayer;
 import org.newdawn.slick.Input;
 
 public class PlayerInputListener extends InputAdapter {
-    private Player player;
+    private ControlledPlayer controlledPlayer;
     
-    public PlayerInputListener(Player player){
-        this.player = player;
+    public PlayerInputListener(ControlledPlayer controlledPlayer){
+        this.controlledPlayer = controlledPlayer;
     }
 
     public boolean isAcceptingInput() {
@@ -15,33 +15,33 @@ public class PlayerInputListener extends InputAdapter {
     }
 
     public void mouseClicked(int arg0, int arg1, int arg2, int arg3) {
-        player.setShooting(true);
+        controlledPlayer.setShooting(true);
     }
 
     public void mouseMoved(int arg0, int arg1, int mx, int my) {
-        player.setAngle(-Math.atan2((player.getCenterX()) - mx, (player.getCenterY()) - my));
+        controlledPlayer.setAngle(-Math.atan2((controlledPlayer.getCenterX()) - mx, (controlledPlayer.getCenterY()) - my));
     }
 
     public void keyPressed(int key, char arg1) {
         switch (key) {
             case Input.KEY_D: {
-                player.setDx(player.getSpeed());
+                controlledPlayer.setDx(controlledPlayer.getSpeed());
                 break;
             }
             case Input.KEY_A: {
-                player.setDx(-player.getSpeed());
+                controlledPlayer.setDx(-controlledPlayer.getSpeed());
                 break;
             }
             case Input.KEY_W: {
-                player.setDy(-player.getSpeed());
+                controlledPlayer.setDy(-controlledPlayer.getSpeed());
                 break;
             }
             case Input.KEY_S: {
-                player.setDy(player.getSpeed());
+                controlledPlayer.setDy(controlledPlayer.getSpeed());
                 break;
             }
             case Input.KEY_SPACE: {
-                player.setShooting(true);
+                controlledPlayer.setShooting(true);
                 break;
             }
         }
@@ -50,23 +50,23 @@ public class PlayerInputListener extends InputAdapter {
     public void keyReleased(int key, char arg1) {
         switch (key) {
             case Input.KEY_D: {
-                player.setDx(0);
+                controlledPlayer.setDx(0);
                 break;
             }
             case Input.KEY_A: {
-                player.setDx(0);
+                controlledPlayer.setDx(0);
                 break;
             }
             case Input.KEY_W: {
-                player.setDy(0);
+                controlledPlayer.setDy(0);
                 break;
             }
             case Input.KEY_S: {
-                player.setDy(0);
+                controlledPlayer.setDy(0);
                 break;
             }
             case Input.KEY_SPACE: {
-                player.setShooting(false);
+                controlledPlayer.setShooting(false);
                 break;
             }
         }

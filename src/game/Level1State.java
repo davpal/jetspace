@@ -1,7 +1,7 @@
 package game;
 
+import entity.ControlledPlayer;
 import entity.ImageLoader;
-import entity.Player;
 import entity.enemies.Bomber;
 import entity.enemies.Enemy;
 import input.PlayerInputListener;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class Level1State extends BasicGameState {
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    private Player player;
+    private ControlledPlayer controlledPlayer;
     private Image background;
     private Renderer renderer;
     
@@ -25,11 +25,11 @@ public class Level1State extends BasicGameState {
     }
 
     public void update(GameContainer gc, StateBasedGame game, int delta) {
-        player.update(gc);
+        controlledPlayer.update(gc);
 
-        if (!player.isDead()) {
-            player.checkCollision(enemies);
-            player.checkAttack(enemies);
+        if (!controlledPlayer.isDead()) {
+            controlledPlayer.checkCollision(enemies);
+            controlledPlayer.checkAttack(enemies);
         } else {
             game.enterState(2);
             return;
@@ -37,11 +37,11 @@ public class Level1State extends BasicGameState {
 
         for (int i = 0; i < enemies.size(); ++i) {
             enemies.get(i).checkCollision(enemies);
-            if (!player.isDead()) {
-                enemies.get(i).fire(player);
-                enemies.get(i).checkAttack(player);
+            if (!controlledPlayer.isDead()) {
+                enemies.get(i).fire(controlledPlayer);
+                enemies.get(i).checkAttack(controlledPlayer);
             }
-            enemies.get(i).faceTo(player);
+            enemies.get(i).faceTo(controlledPlayer);
             enemies.get(i).update(gc);
             if (enemies.get(i).isDead()) {
                 enemies.remove(i--);
@@ -55,7 +55,7 @@ public class Level1State extends BasicGameState {
 
     public void render(GameContainer gc, StateBasedGame sbg, org.newdawn.slick.Graphics g) {
         background.draw(0, 0);
-        player.render(renderer);
+        controlledPlayer.render(renderer);
 
         for(Enemy e:enemies){
             e.render(renderer);
@@ -76,8 +76,8 @@ public class Level1State extends BasicGameState {
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
         enemies.clear();
-        player = new Player(gc.getWidth() / 2 - 100, gc.getHeight() / 2);
-        PlayerInputListener playerListener = new PlayerInputListener(player);
+        controlledPlayer = new ControlledPlayer(gc.getWidth() / 2 - 100, gc.getHeight() / 2);
+        PlayerInputListener playerListener = new PlayerInputListener(controlledPlayer);
         gc.getInput().addKeyListener(playerListener);
         gc.getInput().addMouseListener(playerListener);
         enemies.add(new Bomber(25, 50, 0));
