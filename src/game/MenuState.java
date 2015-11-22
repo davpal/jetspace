@@ -20,7 +20,7 @@ public class MenuState extends BasicGameState {
         singlePlayer.select();
         menu.addItem(singlePlayer);
         menu.addItem(new Multiplayer());
-        menu.addItem(new MenuItem("Options"));
+        menu.addItem(new Options());
         menu.addItem(new Quit());
         
         renderer = new Renderer(gc);
