@@ -1,5 +1,6 @@
 package game;
 
+import menu.Menu;
 import java.awt.event.KeyEvent;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -8,15 +9,16 @@ import java.util.Iterator;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import rendering.Renderer;
 import resource.ResourceLoader;
 import menu.*;
 
 public class MenuState extends BasicGameState {
     Menu menu = new Menu();
     Image background = ResourceLoader.getImage("backgrounds/menu.png");
-
+    Renderer renderer;
     StateBasedGame game;
-
+    
     public MenuState(GameContainer gc, StateBasedGame g) {
         game = g;
         MenuItem singlePlayer = new SinglePlayer();
@@ -25,36 +27,14 @@ public class MenuState extends BasicGameState {
         menu.addItem(new MenuItem("Multi player"));
         menu.addItem(new MenuItem("Options"));
         menu.addItem(new Quit());
+        
+        renderer = new Renderer(gc);
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame game1, Graphics g)
             throws SlickException {
-        Font titleFont = ResourceLoader.getFont("fonts/modern_caveman.ttf", 36f);
-        Font itemFont  = ResourceLoader.getFont("fonts/modern_caveman.ttf", 28f);
-        
-        background.draw(0, 0);
-        g.setColor(new Color(190, 210, 220, 255));
-        g.setFont(titleFont);
-        g.drawString("JetSpace v0.2",
-                (gc.getWidth() - titleFont.getWidth("JetSpace v0.2")) / 2, (gc.getHeight() - 400) / 2);
-
-        g.setFont(itemFont);
-
-        int position = (gc.getHeight() - 100) / 2;
-        Iterator it = menu.iterator();
-        while(it.hasNext()){
-            g.setColor(new Color(0, 0, 0, 200));
-            g.fillRect((gc.getWidth() - 300) / 2, position - 20, 300, 50);
-            g.setColor(new Color(190, 210, 220, 255));
-            MenuItem item = ((MenuItem)it.next());
-            if(item.isSelected()){
-                g.setColor(new Color(255, 0, 0, 255));
-            }
-            g.drawRect((gc.getWidth() - 300) / 2, position - 20, 300, 50);
-            g.drawString(item.toString(), (gc.getWidth() - 250) / 2, position - 10);
-            position += 60;
-        }
+        renderer.renderMenu(menu);
     }
 
     @Override
