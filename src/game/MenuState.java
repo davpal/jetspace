@@ -19,7 +19,7 @@ public class MenuState extends BasicGameState {
         MenuItem singlePlayer = new SinglePlayer();
         singlePlayer.select();
         menu.addItem(singlePlayer);
-        menu.addItem(new MenuItem("Multi player"));
+        menu.addItem(new Multiplayer());
         menu.addItem(new MenuItem("Options"));
         menu.addItem(new Quit());
         
