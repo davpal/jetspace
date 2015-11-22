@@ -27,16 +27,6 @@ public class MenuState extends BasicGameState {
         menu.addItem(new Quit());
     }
 
-    public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            Command command = (Command)menu.getSelected();
-            command.execute(game);
-        } else if (e.getKeyCode() == KeyEvent.VK_DOWN)
-            menu.nextItem();
-        else if (e.getKeyCode() == KeyEvent.VK_UP)
-            menu.prevItem();
-    }
-    
     @Override
     public void render(GameContainer gc, StateBasedGame game1, Graphics g)
             throws SlickException {
