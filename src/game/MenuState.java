@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.event.KeyEvent;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.newdawn.slick.*;
@@ -60,14 +61,27 @@ public class MenuState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame game1, Graphics g)
             throws SlickException {
+        Font font2 = null;
+        try {
+            InputStream inputStream = 
+                org.newdawn.slick.util.ResourceLoader.getResourceAsStream("fonts/modern_caveman.ttf");
+
+            java.awt.Font awtFont2 = 
+                java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, inputStream);
+            awtFont2 = awtFont2.deriveFont(32f); // set font size
+            font2 = new TrueTypeFont(awtFont2, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }	
+        
         background.draw(0, 0);
         g.setColor(new Color(190, 210, 220, 255));
+        g.setFont(font2);
+        g.drawString("JetSpace v0.2",
+                (gc.getWidth() - font2.getWidth("JetSpace v0.2")) / 2, (gc.getHeight() - 400) / 2);
+
         java.awt.Font f = new java.awt.Font("Candara", java.awt.Font.BOLD, 30);
         TrueTypeFont ttf = new TrueTypeFont(f, true);
-        g.setFont(ttf);
-        g.drawString("JetSpace v0.2",
-                (gc.getWidth() - 220) / 2, (gc.getHeight() - 400) / 2);
-
         g.setFont(ttf);
 
         int position = (gc.getHeight() - 100) / 2;
