@@ -15,7 +15,6 @@ import menu.*;
 
 public class MenuState extends BasicGameState {
     Menu menu = new Menu();
-    Image background = ResourceLoader.getImage("backgrounds/menu.png");
     Renderer renderer;
     StateBasedGame game;
     
