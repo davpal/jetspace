@@ -1,8 +1,7 @@
 package input;
 
-import org.newdawn.slick.*;
-
 import entity.Player;
+import org.newdawn.slick.Input;
 
 public class PlayerInputListener extends InputAdapter {
     private Player player;

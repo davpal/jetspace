@@ -1,13 +1,11 @@
 package resource;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import javax.imageio.ImageIO;
-
 import org.newdawn.slick.*;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class ResourceLoader {
     public static org.newdawn.slick.Image getImage(String path) {

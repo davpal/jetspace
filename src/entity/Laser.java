@@ -1,5 +1,6 @@
 package entity;
-import org.newdawn.slick.*;
+
+import org.newdawn.slick.GameContainer;
 import rendering.Renderer;
 
 public class Laser extends Weapon {

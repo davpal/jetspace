@@ -1,9 +1,9 @@
 package entity.enemies;
 
-import java.util.ArrayList;
-
 import entity.GameObject;
 import entity.Player;
+
+import java.util.ArrayList;
 
 public abstract class Enemy extends GameObject {
     protected boolean collision;

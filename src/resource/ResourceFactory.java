@@ -2,7 +2,6 @@ package resource;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
 public class ResourceFactory {
     static Animation explosion;
@@ -16,7 +15,7 @@ public class ResourceFactory {
             explosion = ResourceLoader.getAnimation("enemy/explosion.png", 64, 64, 5, 20);
             explosion.setLooping(false);
 	}
-		
+
         return explosion;
     }
 

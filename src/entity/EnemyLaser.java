@@ -1,7 +1,5 @@
 package entity;
 
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import rendering.Renderer;
 
 public class EnemyLaser extends Laser {

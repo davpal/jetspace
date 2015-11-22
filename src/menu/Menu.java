@@ -2,8 +2,6 @@ package menu;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.state.StateBasedGame;
 
 public class Menu {
     private ArrayList<MenuItem> items = new ArrayList<>();

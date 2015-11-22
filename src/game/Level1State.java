@@ -1,19 +1,18 @@
 package game;
 
-import java.util.ArrayList;
-
 import entity.ImageLoader;
+import entity.Player;
+import entity.enemies.Bomber;
+import entity.enemies.Enemy;
+import input.PlayerInputListener;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-
-import entity.Player;
-import entity.enemies.Bomber;
-import entity.enemies.Enemy;
-import input.PlayerInputListener;
 import rendering.Renderer;
+
+import java.util.ArrayList;
 
 public class Level1State extends BasicGameState {
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
@@ -53,6 +52,7 @@ public class Level1State extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, org.newdawn.slick.Graphics g) {
         background.draw(0, 0);
         player.render(renderer);
+
         for(Enemy e:enemies){
             e.render(renderer);
         }

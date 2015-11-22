@@ -1,14 +1,13 @@
 package entity.enemies;
 
-import java.util.ArrayList;
-import java.util.Random;
 import entity.EnemyLaser;
-import entity.ImageLoader;
 import entity.Player;
 import entity.Weapon;
-import org.newdawn.slick.*;
+import org.newdawn.slick.GameContainer;
 import rendering.Renderer;
-import resource.ResourceLoader;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Bomber extends Enemy {
     int fireRate;

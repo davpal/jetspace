@@ -1,9 +1,9 @@
 package entity;
 
-import java.awt.Rectangle;
-
-import org.newdawn.slick.*;
+import org.newdawn.slick.GameContainer;
 import rendering.Renderer;
+
+import java.awt.*;
 
 public abstract class GameObject {
     protected double x, y, dx, dy, speed, angle;

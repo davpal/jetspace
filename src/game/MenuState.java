@@ -1,17 +1,13 @@
 package game;
 
-import menu.Menu;
-import java.awt.event.KeyEvent;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import org.newdawn.slick.*;
+import menu.*;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import rendering.Renderer;
-import resource.ResourceLoader;
-import menu.*;
 
 public class MenuState extends BasicGameState {
     Menu menu = new Menu();

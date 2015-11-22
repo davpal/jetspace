@@ -2,26 +2,16 @@ package rendering;
 
 import entity.EnemyLaser;
 import entity.Laser;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Animation;
-
 import entity.Player;
 import entity.Weapon;
 import entity.enemies.Bomber;
 import menu.Menu;
-import java.io.InputStream;
-import java.util.Iterator;
 import menu.MenuItem;
-import org.lwjgl.util.Rectangle;
-import org.newdawn.slick.Font;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.*;
 import resource.ResourceFactory;
 import resource.ResourceLoader;
+
+import java.util.Iterator;
 
 public class Renderer {
     private GameContainer gc;
