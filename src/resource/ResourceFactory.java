@@ -2,9 +2,11 @@ package resource;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.openal.Audio;
 
 public class ResourceFactory {
     static Animation explosion;
+    static Audio explosionSound = explosionSound = ResourceLoader.getAudio("WAV", "audio/explosion.wav");
     static Image ship = ResourceLoader.getImage("player/ship.png");
     static Image playerLaser = ResourceLoader.getImage("player/laser.png");;
     static Image enemyLaser = ResourceLoader.getImage("enemy/laser.png");
@@ -15,6 +17,10 @@ public class ResourceFactory {
         explosion.setLooping(false);
 
         return explosion;
+    }
+    
+    public static Audio getExplosionSound() {
+        return explosionSound;
     }
 
     public static Image getPlayerShip() {
