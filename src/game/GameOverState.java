@@ -1,17 +1,24 @@
 package game;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import resource.ResourceLoader;
 
 public class GameOverState extends BasicGameState {
     private StateBasedGame game;
+    org.newdawn.slick.Font font = ResourceLoader.getFont("fonts/modern_caveman.ttf", 50f);
+    private int textHeight;
+    private int textWidth;
 
     GameOverState(StateBasedGame g) {
         game = g;
+        textWidth = font.getWidth("Game Over");
+        textHeight = font.getHeight("Game Over");
     }
 
     public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
@@ -19,10 +26,9 @@ public class GameOverState extends BasicGameState {
     }
 
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
-        java.awt.Font f = new java.awt.Font("Palatino", java.awt.Font.BOLD, 30);
-        TrueTypeFont ttf = new TrueTypeFont(f, true);
-        g.setFont(ttf);
-        g.drawString("Game Over", (gc.getWidth() - 220) / 2, (gc.getHeight() - 180) / 2);
+        g.setColor(Color.red);
+        g.setFont(font);
+        g.drawString("Game Over", (gc.getWidth() - textWidth) / 2, (gc.getHeight() - textHeight) / 2);
     }
 
     public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
