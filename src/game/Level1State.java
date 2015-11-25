@@ -97,13 +97,16 @@ public class Level1State extends BasicGameState {
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
         enemies.clear();
-        controlledPlayer = new ControlledPlayer(gc.getWidth() / 2 - 100, gc.getHeight() / 2);
+        controlledPlayer = new ControlledPlayer(500, 220);
         PlayerInputListener playerListener = new PlayerInputListener(controlledPlayer);
         gc.getInput().addKeyListener(playerListener);
         gc.getInput().addMouseListener(playerListener);
-        enemies.add(new Bomber(25, 50, 0));
-        enemies.add(new Bomber(200, 100, 0));
-        enemies.add(new Bomber(100, 150, 0));
+        enemies.add(new Bomber(50, 50, 0));
+        enemies.add(new Bomber(50, 150, 0));
+        enemies.add(new Bomber(50, 250, 0));
+        enemies.add(new Bomber(250, 100, 0));
+        enemies.add(new Bomber(250, 200, 0));
+        enemies.add(new Bomber(250, 300, 0));
     }
 
     public int getID() {
