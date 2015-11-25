@@ -13,6 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import rendering.Renderer;
 
 import java.util.ArrayList;
+import org.newdawn.slick.openal.Audio;
 import rendering.Explosion;
 import resource.ResourceLoader;
 
@@ -22,8 +23,10 @@ public class Level1State extends BasicGameState {
     private ControlledPlayer controlledPlayer;
     private Image background;
     private Renderer renderer;
+    Audio music;
     
     public Level1State(GameContainer gc){
+        this.music = ResourceLoader.getAudio("WAV", "audio/battle.wav");
         renderer = new Renderer(gc);
     }
 
@@ -101,6 +104,7 @@ public class Level1State extends BasicGameState {
         enemies.add(new Bomber(25, 50, 0));
         enemies.add(new Bomber(200, 100, 0));
         enemies.add(new Bomber(100, 150, 0));
+        music.playAsMusic(1f, 1f, true);
     }
 
     public int getID() {

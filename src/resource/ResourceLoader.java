@@ -59,7 +59,7 @@ public class ResourceLoader {
         return animation;    
     }
 
-    static Audio getAudio(String format, String path) {
+    public static Audio getAudio(String format, String path) {
         Audio sound = null;
         try {
             sound = AudioLoader.getAudio(format, 
