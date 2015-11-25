@@ -6,6 +6,11 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import rendering.Explosion;
 
 public class ResourceLoader {
     public static org.newdawn.slick.Image getImage(String path) {
@@ -52,5 +57,16 @@ public class ResourceLoader {
         animation.setAutoUpdate(true);
         
         return animation;    
+    }
+
+    static Audio getAudio(String format, String path) {
+        Audio sound = null;
+        try {
+            sound = AudioLoader.getAudio(format, 
+                org.newdawn.slick.util.ResourceLoader.getResourceAsStream(path));
+        } catch (IOException ex) {
+           ex.printStackTrace();
+        }
+        return sound;
     }
 }
