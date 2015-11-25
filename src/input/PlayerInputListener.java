@@ -19,8 +19,9 @@ public class PlayerInputListener extends InputAdapter {
         return true;
     }
 
-    public void mouseClicked(int arg0, int arg1, int arg2, int arg3) {
-        shoot();
+    public void mouseClicked(int button, int arg1, int arg2, int arg3) {
+        if(button == 0)
+            shoot();
     }
 
     public void mouseMoved(int arg0, int arg1, int mx, int my) {
