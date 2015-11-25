@@ -2,9 +2,14 @@ package input;
 
 import entity.ControlledPlayer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.util.ResourceLoader;
+import resource.ResourceFactory;
 
 public class PlayerInputListener extends InputAdapter {
     private ControlledPlayer controlledPlayer;
+    private Audio shootEffect = ResourceFactory.getLaserSound();
     
     public PlayerInputListener(ControlledPlayer controlledPlayer){
         this.controlledPlayer = controlledPlayer;
@@ -15,7 +20,7 @@ public class PlayerInputListener extends InputAdapter {
     }
 
     public void mouseClicked(int arg0, int arg1, int arg2, int arg3) {
-        controlledPlayer.setShooting(true);
+        shoot();
     }
 
     public void mouseMoved(int arg0, int arg1, int mx, int my) {
@@ -41,10 +46,15 @@ public class PlayerInputListener extends InputAdapter {
                 break;
             }
             case Input.KEY_SPACE: {
-                controlledPlayer.setShooting(true);
+                shoot();
                 break;
             }
         }
+    }
+    
+    private void shoot(){
+        controlledPlayer.setShooting(true);
+        shootEffect.playAsSoundEffect(1f, 1f, false);
     }
 
     public void keyReleased(int key, char arg1) {

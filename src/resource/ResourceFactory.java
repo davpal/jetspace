@@ -11,6 +11,7 @@ public class ResourceFactory {
     static Image playerLaser = ResourceLoader.getImage("player/laser.png");;
     static Image enemyLaser = ResourceLoader.getImage("enemy/laser.png");
     static Image bomberShip = ResourceLoader.getImage("enemy/bomber.png");
+    static Audio laserSound = ResourceLoader.getAudio("WAV", "audio/laser.wav");
 	
     public static Animation getExplosion() {
         explosion = ResourceLoader.getAnimation("enemy/explosion.png", 64, 64, 5, 20);
@@ -37,5 +38,9 @@ public class ResourceFactory {
 
     public static Image getBomberShip() {
         return bomberShip;
+    }
+
+    public static Audio getLaserSound() {
+        return laserSound;
     }
 }
