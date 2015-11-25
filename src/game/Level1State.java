@@ -90,7 +90,7 @@ public class Level1State extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame game)
             throws SlickException {
 
-        background = ImageLoader.loadImage("backgrounds/level1.png");
+        background = ImageLoader.loadImage("backgrounds/game.jpg");
         gc.setMouseGrabbed(true);
     }
 

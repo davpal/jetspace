@@ -8,9 +8,10 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class JetSpace extends StateBasedGame {
+    public static final String TITLE = "JetSpace v0.2.1";
     
     JetSpace(){
-        super("JetSpace");
+        super(TITLE);
     }
 
     public static void main(String[] args){

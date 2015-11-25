@@ -5,6 +5,7 @@ import entity.EnemyLaser;
 import entity.Laser;
 import entity.Weapon;
 import entity.enemies.Bomber;
+import game.JetSpace;
 import java.util.ArrayList;
 import menu.Menu;
 import menu.MenuItem;
@@ -17,13 +18,13 @@ import java.util.Iterator;
 public class Renderer {
     private GameContainer gc;
     private Graphics g;
-    
-    private Image menuBackground = ResourceLoader.getImage("backgrounds/menu.png");
+
+    private Image menuBackground = ResourceLoader.getImage("backgrounds/menu.jpg");
     private Image playerShip = ResourceFactory.getPlayerShip();
     private Image bomberShip = ResourceFactory.getBomberShip();
     private Image playerLaser = ResourceFactory.getPlayerLaser();
     private Image enemyLaser = ResourceFactory.getEnemyLaser();
-    private Font titleFont = ResourceLoader.getFont("fonts/modern_caveman.ttf", 36f);
+    private Font titleFont = ResourceLoader.getFont("fonts/modern_caveman.ttf", 48f);
     private Font itemFont  = ResourceLoader.getFont("fonts/modern_caveman.ttf", 28f);
     Image cursor = ResourceLoader.getImage("player/crosshair.png");
 
@@ -93,18 +94,19 @@ public class Renderer {
     }
     
     public void renderMenu(Menu menu){
-        menuBackground.draw(0, 0);
+        g.drawImage(menuBackground, 0, 0, gc.getWidth(), gc.getHeight(), 
+            0, 0, 1920, 1024);
         g.setColor(new Color(190, 210, 220, 255));
         g.setFont(titleFont);
-        g.drawString("JetSpace v0.2",
-                (gc.getWidth() - titleFont.getWidth("JetSpace v0.2")) / 2, (gc.getHeight() - 400) / 2);
+        g.drawString(JetSpace.TITLE,
+                (gc.getWidth() - titleFont.getWidth(JetSpace.TITLE)) / 2, 50);
 
         g.setFont(itemFont);
-
+        
         int position = (gc.getHeight() - 100) / 2;
         Iterator it = menu.iterator();
         while(it.hasNext()){
-            g.setColor(new Color(0, 0, 0, 200));
+            g.setColor(new Color(0, 0, 0, 100));
             g.fillRect((gc.getWidth() - 300) / 2, position - 20, 300, 50);
             g.setColor(new Color(190, 210, 220, 255));
             MenuItem item = ((MenuItem)it.next());
@@ -115,6 +117,7 @@ public class Renderer {
             g.drawString(item.toString(), (gc.getWidth() - 250) / 2, position - 10);
             position += 60;
         }
+        renderCursor();
     }
 
     public void renderExplosion(Explosion e) {
