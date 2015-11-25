@@ -5,14 +5,17 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import rendering.Renderer;
+import resource.ResourceLoader;
 
 public class MenuState extends BasicGameState {
     Menu menu = new Menu();
     Renderer renderer;
     StateBasedGame game;
+    Audio music;
     
     public MenuState(GameContainer gc, StateBasedGame g) {
         game = g;
@@ -22,7 +25,7 @@ public class MenuState extends BasicGameState {
         menu.addItem(new Multiplayer());
         menu.addItem(new Options());
         menu.addItem(new Quit());
-        
+        music = ResourceLoader.getAudio("WAV", "audio/battle.wav");
         renderer = new Renderer(gc);
     }
 
@@ -46,8 +49,7 @@ public class MenuState extends BasicGameState {
     @Override
     public void init(GameContainer arg0, StateBasedGame arg1)
             throws SlickException {
-        // TODO Auto-generated method stub
-        
+        music.playAsMusic(1f, 1f, true);
     }
 
 

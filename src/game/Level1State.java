@@ -104,7 +104,6 @@ public class Level1State extends BasicGameState {
         enemies.add(new Bomber(25, 50, 0));
         enemies.add(new Bomber(200, 100, 0));
         enemies.add(new Bomber(100, 150, 0));
-        music.playAsMusic(1f, 1f, true);
     }
 
     public int getID() {
