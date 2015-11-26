@@ -32,6 +32,7 @@ public class JetSpace extends StateBasedGame {
         addState(new MultiplayerState(gc));
         addState(new Level1State(gc));
         addState(new GameOverState(this));
+        addState(new WinnerState(this));
         
         enterState(0);
     }

@@ -59,7 +59,7 @@ public class Level1State extends BasicGameState {
                 if(!explosions.isEmpty()) continue;
                 enemies.remove(i--);
                 if(enemies.isEmpty()) {
-                    game.enterState(2);
+                    game.enterState(4);
                     return;
                 }
             } else {
