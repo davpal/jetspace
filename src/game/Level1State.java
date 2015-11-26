@@ -21,6 +21,7 @@ public class Level1State extends BasicGameState {
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private ArrayList<Explosion> explosions = new ArrayList<Explosion>();
     private ControlledPlayer controlledPlayer;
+    private PlayerInputListener playerListener = new PlayerInputListener();
     private Image background;
     private Renderer renderer;
     Audio music;
@@ -37,8 +38,7 @@ public class Level1State extends BasicGameState {
         }
         if (controlledPlayer.isDead()) {
             if(!explosions.isEmpty()) return;
-            game.enterState(2);
-            return;
+            lose(game);
         } else {
             controlledPlayer.checkCollision(enemies);
             controlledPlayer.checkAttack(enemies);
@@ -59,14 +59,23 @@ public class Level1State extends BasicGameState {
                 if(!explosions.isEmpty()) continue;
                 enemies.remove(i--);
                 if(enemies.isEmpty()) {
-                    game.enterState(4);
-                    return;
+                    win(game);
                 }
             } else {
                 enemies.get(i).faceTo(controlledPlayer);
                 enemies.get(i).update(gc);
             }
         }
+    }
+    
+    private void lose(StateBasedGame game){
+        game.enterState(2);
+        playerListener.disable();
+    }
+    
+    private void win(StateBasedGame game){
+        game.enterState(4);
+        playerListener.disable();
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, org.newdawn.slick.Graphics g) {
@@ -98,7 +107,8 @@ public class Level1State extends BasicGameState {
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
         enemies.clear();
         controlledPlayer = new ControlledPlayer(500, 220);
-        PlayerInputListener playerListener = new PlayerInputListener(controlledPlayer);
+        playerListener.setPlayer(controlledPlayer);
+        playerListener.enable();
         gc.getInput().addKeyListener(playerListener);
         gc.getInput().addMouseListener(playerListener);
         enemies.add(new Bomber(50, 50, 0));

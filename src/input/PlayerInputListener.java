@@ -10,13 +10,18 @@ import resource.ResourceFactory;
 public class PlayerInputListener extends InputAdapter {
     private ControlledPlayer controlledPlayer;
     private Audio shootEffect = ResourceFactory.getLaserSound();
+    boolean enabled;
+    
+    public PlayerInputListener(){
+        
+    }
     
     public PlayerInputListener(ControlledPlayer controlledPlayer){
         this.controlledPlayer = controlledPlayer;
     }
 
     public boolean isAcceptingInput() {
-        return true;
+        return enabled;
     }
 
     public void mouseClicked(int button, int arg1, int arg2, int arg3) {
@@ -81,5 +86,17 @@ public class PlayerInputListener extends InputAdapter {
                 break;
             }
         }
+    }
+
+    public void disable() {
+        enabled = false;
+    }
+    
+    public void enable() {
+        enabled = true;
+    }
+
+    public void setPlayer(ControlledPlayer controlledPlayer) {
+        this.controlledPlayer = controlledPlayer;
     }
 }
