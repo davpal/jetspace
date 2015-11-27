@@ -63,4 +63,17 @@ public class MenuTest {
         assertFalse(first.isSelected());
         assertTrue(next.isSelected());
     }
+
+    @Test
+    public void testEnterToSubmenu(){
+        Menu menu = new Menu();
+        Menu optionsMenu = new Menu();
+        optionsMenu.addItem(new MenuItem("Fullscreen"));
+        menu.addItem(optionsMenu);
+        MenuItem optionsItem = menu.getSelected();
+        Command options = (Command)optionsItem;
+        options.execute(null);
+
+        assertEquals(menu.getSelected().toString(), "Fullscreen");
+    }
 }

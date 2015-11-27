@@ -4,6 +4,10 @@ public class MenuItem {
     String title;
     boolean selected;
     
+    public MenuItem(){
+
+    }
+
     public MenuItem(String t){
         title = t;
     }

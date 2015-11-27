@@ -3,7 +3,7 @@ package menu;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Menu {
+public class Menu extends MenuItem {
     private ArrayList<MenuItem> items = new ArrayList<>();
     private int selected;
     
@@ -11,6 +11,10 @@ public class Menu {
         selected = 0;
     }
     
+    public Menu(String n) {
+        super(n);
+    }
+
     public void addItem(MenuItem i){
         if(items.isEmpty()) i.select();
         items.add(i);
