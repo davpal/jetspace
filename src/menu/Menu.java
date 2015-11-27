@@ -12,6 +12,7 @@ public class Menu {
     }
     
     public void addItem(MenuItem i){
+        if(items.isEmpty()) i.select();
         items.add(i);
     }
     
@@ -20,10 +21,12 @@ public class Menu {
     }
     
     public int getSelectedIndex(){
+        if(items.isEmpty()) return -1;
         return selected;
     }
     
     public MenuItem getSelected(){
+        if(items.isEmpty()) return null;
         return items.get(selected);
     }
 
