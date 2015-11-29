@@ -26,7 +26,11 @@ public class Menu {
     public MenuItem getSelected(){
         return items.get(selected);
     }
-    
+
+    public void setSelected(int selected) {
+        this.selected = selected;
+    }
+
     public void nextItem(){
         items.get(selected).deselect();
         ++selected;
