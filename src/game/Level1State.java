@@ -111,6 +111,7 @@ public class Level1State extends BasicGameState {
         playerListener.enable();
         gc.getInput().addKeyListener(playerListener);
         gc.getInput().addMouseListener(playerListener);
+        gc.getInput().removeAllMouseListeners();
         enemies.add(new Bomber(50, 50, 0));
         enemies.add(new Bomber(50, 150, 0));
         enemies.add(new Bomber(50, 250, 0));
