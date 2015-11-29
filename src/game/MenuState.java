@@ -25,7 +25,11 @@ public class MenuState extends BasicGameState {
         singlePlayer.select();
         menu.addItem(singlePlayer);
         menu.addItem(new Multiplayer());
-        menu.addItem(new Options());
+        Menu options = new Menu("Options");
+        options.addItem(new MenuItem("Fullscreen"));
+        options.addItem(new MenuItem("Resolution"));
+        options.addItem(new MenuItem("Back"));
+        menu.addItem(options);
         menu.addItem(new Quit());
         music = ResourceLoader.getAudio("WAV", "audio/battle.wav");
         renderer = new Renderer(gc);
@@ -40,7 +44,7 @@ public class MenuState extends BasicGameState {
     @Override
     public void keyPressed(int key, char c) {
         if (key == Input.KEY_RETURN) {
-            menu.getSelected().execute(game);
+            menu.execute(game);
         } else if (key == Input.KEY_DOWN)
             menu.nextItem();
         else if (key == Input.KEY_UP)
