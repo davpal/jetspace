@@ -30,6 +30,11 @@ public class MenuItem {
         selected = false;
     }
 
+    public boolean equals(Object o){
+        MenuItem i = (MenuItem)o;
+        return i.title.equals(title);
+    }
+
     public void execute(StateBasedGame g){
 
     }
