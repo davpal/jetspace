@@ -1,6 +1,5 @@
 package input;
 
-import menu.Command;
 import menu.Menu;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Input;
@@ -44,8 +43,7 @@ public class MenuInputListener extends InputAdapter {
         shootEffect.playAsSoundEffect(1f, 1f, false);
         if (selected) {
             selected = false;
-            Command command = (Command) menu.getSelected();
-            command.execute(game);
+            menu.getSelected().execute(game);
         }
     }
 
@@ -95,8 +93,7 @@ public class MenuInputListener extends InputAdapter {
     @Override
     public void keyPressed(int key, char c) {
         if (key == Input.KEY_RETURN) {
-            Command command = (Command) menu.getSelected();
-            command.execute(game);
+            menu.getSelected().execute(game);
         } else if (key == Input.KEY_DOWN)
             menu.nextItem();
         else if (key == Input.KEY_UP)
