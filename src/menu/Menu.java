@@ -38,8 +38,7 @@ public class Menu extends MenuItem {
     
     public Iterator<MenuItem> iterator(){
         if(inside){
-            Menu submenu = (Menu)items.get(selected);
-            return submenu.iterator();
+            return getSubmenu().iterator();
         }
         return items.iterator();
     }
@@ -52,8 +51,7 @@ public class Menu extends MenuItem {
     public MenuItem getSelected(){
         if(items.isEmpty()) return null;
         if(inside){
-            Menu submenu = (Menu)items.get(selected);
-            return submenu.getSelected();
+            return getSubmenu().getSelected();
         }
         return items.get(selected);
     }
@@ -64,8 +62,7 @@ public class Menu extends MenuItem {
 
     public void nextItem(){
         if(inside){
-            Menu submenu = (Menu)items.get(selected);
-            submenu.nextItem();
+            getSubmenu().nextItem();
         } else {
             items.get(selected).deselect();
             ++selected;
@@ -76,8 +73,7 @@ public class Menu extends MenuItem {
     
     public void prevItem(){
         if(inside){
-            Menu submenu = (Menu)items.get(selected);
-            submenu.prevItem();
+            getSubmenu().prevItem();
         } else {
             items.get(selected).deselect();
             --selected;
@@ -95,12 +91,19 @@ public class Menu extends MenuItem {
             Menu submenu = (Menu)items.get(selected);
             submenu.getParent().back();
         } else if(inside){
-            Menu submenu = (Menu)items.get(selected);
-            submenu.execute(g);
+            getSubmenu().execute(g);
         } else if(items.get(selected) instanceof Menu){
             inside = true;
         } else {
             getSelected().execute(g);
         }
+    }
+
+    private Menu getSubmenu(){
+        if(inside){
+            Menu submenu = (Menu)items.get(selected);
+            return submenu;
+        }
+        return this;
     }
 }
