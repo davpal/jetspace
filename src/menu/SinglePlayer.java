@@ -2,7 +2,7 @@ package menu;
 
 import org.newdawn.slick.state.StateBasedGame;
 
-public class SinglePlayer extends MenuItem implements Command {
+public class SinglePlayer extends MenuItem {
     public SinglePlayer(){
         super("Single player");
     }

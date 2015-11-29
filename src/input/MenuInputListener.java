@@ -1,6 +1,5 @@
 package input;
 
-import menu.Command;
 import menu.Menu;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Input;
@@ -42,11 +41,7 @@ public class MenuInputListener extends InputAdapter {
     @Override
     public void mouseClicked(int button, int arg1, int arg2, int arg3) {
         shootEffect.playAsSoundEffect(1f, 1f, false);
-        if (selected) {
-            selected = false;
-            Command command = (Command) menu.getSelected();
-            command.execute(game);
-        }
+        menu.execute(game);
     }
 
     @Override
@@ -59,23 +54,12 @@ public class MenuInputListener extends InputAdapter {
     private void chooseOption() {
         if (mouseRectangle.intersects(singlePlayerRectangle)) {
             menu.setSelected(0);
-            menu.getSelected().select();
-            selected = true;
         } else if (mouseRectangle.intersects(multiPlayerRectangle)) {
             menu.setSelected(1);
-            menu.getSelected().select();
-            selected = true;
         } else if (mouseRectangle.intersects(optionsRectangle)) {
             menu.setSelected(2);
-            menu.getSelected().select();
-            selected = true;
         } else if (mouseRectangle.intersects(quitRectangle)) {
             menu.setSelected(3);
-            menu.getSelected().select();
-            selected = true;
-        } else {
-            menu.getSelected().deselect();
-            selected = false;
         }
     }
 
@@ -90,17 +74,6 @@ public class MenuInputListener extends InputAdapter {
         mouseX = Mouse.getX();
         mouseY = Mouse.getY();
         mouseRectangle = new Rectangle((int) mouseX, (int) mouseY, 1, 1);
-    }
-
-    @Override
-    public void keyPressed(int key, char c) {
-        if (key == Input.KEY_RETURN) {
-            Command command = (Command) menu.getSelected();
-            command.execute(game);
-        } else if (key == Input.KEY_DOWN)
-            menu.nextItem();
-        else if (key == Input.KEY_UP)
-            menu.prevItem();
     }
 
     public void setGame(StateBasedGame game) {

@@ -11,7 +11,7 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author dave
  */
-public class Multiplayer extends MenuItem implements Command {
+public class Multiplayer extends MenuItem {
     public Multiplayer() {
         super("Multi player");
     }
