@@ -1,5 +1,6 @@
 package game;
 
+import input.MenuInputListener;
 import menu.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -12,11 +13,12 @@ import rendering.Renderer;
 import resource.ResourceLoader;
 
 public class MenuState extends BasicGameState {
-    Menu menu = new Menu();
-    Renderer renderer;
-    StateBasedGame game;
-    Audio music;
-    
+    private Menu menu = new Menu();
+    private Renderer renderer;
+    private StateBasedGame game;
+    private Audio music;
+    private MenuInputListener menuInputListener = new MenuInputListener();
+
     public MenuState(GameContainer gc, StateBasedGame g) {
         game = g;
         MenuItem singlePlayer = new SinglePlayer();
@@ -38,7 +40,7 @@ public class MenuState extends BasicGameState {
     @Override
     public void keyPressed(int key, char c) {
         if (key == Input.KEY_RETURN) {
-            Command command = (Command)menu.getSelected();
+            Command command = (Command) menu.getSelected();
             command.execute(game);
         } else if (key == Input.KEY_DOWN)
             menu.nextItem();
@@ -52,17 +54,20 @@ public class MenuState extends BasicGameState {
         music.playAsMusic(1f, 1f, true);
     }
 
-
-
     @Override
     public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
             throws SlickException {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
     public int getID() {
         return 0;
+    }
+
+    @Override
+    public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+        container.getInput().addMouseListener(menuInputListener);
+        menuInputListener.setMenu(menu);
+        menuInputListener.setGame(game);
     }
 }
