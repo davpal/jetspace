@@ -28,6 +28,7 @@ public class MenuState extends BasicGameState {
         Menu options = new Menu("Options");
         options.addItem(new MenuItem("Fullscreen"));
         options.addItem(new MenuItem("Resolution"));
+        options.addItem(new MenuItem("Sound"));
         options.addItem(new MenuItem("Back"));
         menu.addItem(options);
         menu.addItem(new Quit());

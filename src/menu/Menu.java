@@ -57,7 +57,13 @@ public class Menu extends MenuItem {
     }
 
     public void setSelected(int selected) {
-        this.selected = selected;
+        if(inside){
+            getSubmenu().setSelected(selected);
+        } else {
+            getSelected().deselect();
+            this.selected = selected;
+            items.get(selected).select();
+        }
     }
 
     public void nextItem(){

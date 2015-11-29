@@ -41,10 +41,7 @@ public class MenuInputListener extends InputAdapter {
     @Override
     public void mouseClicked(int button, int arg1, int arg2, int arg3) {
         shootEffect.playAsSoundEffect(1f, 1f, false);
-        if (selected) {
-            selected = false;
-            menu.getSelected().execute(game);
-        }
+        menu.execute(game);
     }
 
     @Override
@@ -57,23 +54,12 @@ public class MenuInputListener extends InputAdapter {
     private void chooseOption() {
         if (mouseRectangle.intersects(singlePlayerRectangle)) {
             menu.setSelected(0);
-            menu.getSelected().select();
-            selected = true;
         } else if (mouseRectangle.intersects(multiPlayerRectangle)) {
             menu.setSelected(1);
-            menu.getSelected().select();
-            selected = true;
         } else if (mouseRectangle.intersects(optionsRectangle)) {
             menu.setSelected(2);
-            menu.getSelected().select();
-            selected = true;
         } else if (mouseRectangle.intersects(quitRectangle)) {
             menu.setSelected(3);
-            menu.getSelected().select();
-            selected = true;
-        } else {
-            menu.getSelected().deselect();
-            selected = false;
         }
     }
 

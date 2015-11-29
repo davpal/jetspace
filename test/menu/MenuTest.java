@@ -135,4 +135,11 @@ public class MenuTest {
         menu.execute(null);
         assertEquals("Options", menu.getSelected().toString());
     }
+
+    @Test
+    public void testRandomSelectMenuItem(){
+        menu.setSelected(2);
+        assertTrue(menu.getSelected().isSelected());
+        assertEquals("Options", menu.getSelected().toString());
+    }
 }
