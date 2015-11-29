@@ -1,8 +1,8 @@
 package rendering;
 
-import entity.ControlledPlayer;
 import entity.EnemyLaser;
 import entity.Laser;
+import entity.Player;
 import entity.Weapon;
 import entity.enemies.Bomber;
 import game.JetSpace;
@@ -35,22 +35,22 @@ public class Renderer {
         this.g = gc.getGraphics();
     }
 
-    public void renderPlayer(ControlledPlayer controlledPlayer) {
-        if (!controlledPlayer.isDead()) {
+    public void renderPlayer(Player player) {
+        if (!player.isDead()) {
             g.pushTransform();
-            g.rotate((float) controlledPlayer.getCenterX(), (float) controlledPlayer.getCenterY(),
-                    (float) Math.toDegrees(controlledPlayer.getAngle()));
-            g.drawImage(playerShip, (float) controlledPlayer.getX(), (float) controlledPlayer.getY());
+            g.rotate((float) player.getCenterX(), (float) player.getCenterY(),
+                    (float) Math.toDegrees(player.getAngle()));
+            g.drawImage(playerShip, (float) player.getX(), (float) player.getY());
             g.popTransform();
             g.pushTransform();
-            g.setColor(new Color((10 - controlledPlayer.getHealth()) * 25, controlledPlayer.getHealth() * 25, 0, 220));
-            g.fillRect((int) (controlledPlayer.getX() + (controlledPlayer.getWidth() - 50) / 2),
-                    (int) (controlledPlayer.getY() + controlledPlayer.getHeight() - 2),
-                    5 * controlledPlayer.getHealth(), 5);
+            g.setColor(new Color((10 - player.getHealth()) * 25, player.getHealth() * 25, 0, 220));
+            g.fillRect((int) (player.getX() + (player.getWidth() - 50) / 2),
+                    (int) (player.getY() + player.getHeight() - 2),
+                    5 * player.getHealth(), 5);
             g.popTransform();
         }
 
-        for (Weapon w : controlledPlayer.getWeapons()) {
+        for (Weapon w : player.getWeapons()) {
             w.render(this);
         }
     }
