@@ -42,16 +42,6 @@ public class MenuState extends BasicGameState {
     }
 
     @Override
-    public void keyPressed(int key, char c) {
-        if (key == Input.KEY_RETURN) {
-            menu.execute(game);
-        } else if (key == Input.KEY_DOWN)
-            menu.nextItem();
-        else if (key == Input.KEY_UP)
-            menu.prevItem();
-    }
-
-    @Override
     public void init(GameContainer arg0, StateBasedGame arg1)
             throws SlickException {
         music.playAsMusic(1f, 1f, true);

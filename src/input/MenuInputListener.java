@@ -90,16 +90,6 @@ public class MenuInputListener extends InputAdapter {
         mouseRectangle = new Rectangle((int) mouseX, (int) mouseY, 1, 1);
     }
 
-    @Override
-    public void keyPressed(int key, char c) {
-        if (key == Input.KEY_RETURN) {
-            menu.getSelected().execute(game);
-        } else if (key == Input.KEY_DOWN)
-            menu.nextItem();
-        else if (key == Input.KEY_UP)
-            menu.prevItem();
-    }
-
     public void setGame(StateBasedGame game) {
         this.game = game;
     }
