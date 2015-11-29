@@ -40,8 +40,7 @@ public class MenuState extends BasicGameState {
     @Override
     public void keyPressed(int key, char c) {
         if (key == Input.KEY_RETURN) {
-            Command command = (Command) menu.getSelected();
-            command.execute(game);
+            menu.getSelected().execute(game);
         } else if (key == Input.KEY_DOWN)
             menu.nextItem();
         else if (key == Input.KEY_UP)

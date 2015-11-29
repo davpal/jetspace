@@ -1,5 +1,7 @@
 package menu;
 
+import org.newdawn.slick.state.StateBasedGame;
+
 public class MenuItem {
     String title;
     boolean selected;
@@ -26,5 +28,9 @@ public class MenuItem {
     
     public void deselect(){
         selected = false;
+    }
+
+    public void execute(StateBasedGame g){
+
     }
 }

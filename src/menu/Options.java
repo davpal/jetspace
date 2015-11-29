@@ -2,7 +2,7 @@ package menu;
 
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Options extends MenuItem implements Command {
+public class Options extends MenuItem {
     public Options(){
         super("Options");
     }

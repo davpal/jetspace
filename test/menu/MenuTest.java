@@ -70,10 +70,8 @@ public class MenuTest {
         Menu optionsMenu = new Menu();
         optionsMenu.addItem(new MenuItem("Fullscreen"));
         menu.addItem(optionsMenu);
-        MenuItem optionsItem = menu.getSelected();
-        Command options = (Command)optionsItem;
-        options.execute(null);
+        menu.getSelected().execute(null);
 
-        assertEquals(menu.getSelected().toString(), "Fullscreen");
+        assertEquals("Fullscreen", menu.getSelected().toString());
     }
 }
