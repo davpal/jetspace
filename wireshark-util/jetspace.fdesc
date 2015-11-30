@@ -1,0 +1,27 @@
+enum16 jetspace_msg_code {
+  join    1000
+  accept  1001
+  sync    1002
+  move    1003
+  shoot   1004
+  hit     1005
+  dead    1006
+  quit    1007
+}
+
+struct jetspace_msg_header
+{
+  byte_order        big_endian;
+  jetspace_msg_code msg_code;
+  uint16          r;
+  uint32          player_id;
+}
+
+struct jetspace_msg
+{
+  jetspace_msg_header header;
+  uint16 x;
+  uint16 y;
+  uint32 angle;
+  uint32 data;
+}
