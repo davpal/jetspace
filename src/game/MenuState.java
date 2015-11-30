@@ -26,7 +26,7 @@ public class MenuState extends BasicGameState {
         menu.addItem(singlePlayer);
         menu.addItem(new Multiplayer());
         Menu options = new Menu("Options");
-        options.addItem(new MenuItem("Fullscreen"));
+        options.addItem(new Fullscreen());
         options.addItem(new MenuItem("Resolution"));
         options.addItem(new MenuItem("Sound"));
         options.addItem(new MenuItem("Back"));
