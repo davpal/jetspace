@@ -1,5 +1,7 @@
 package multi;
 
+import java.net.DatagramPacket;
+
 /**
  * Created by winio_000 on 2015-11-29.
  */
@@ -23,4 +25,10 @@ public class Message {
 
     }
 
+
+    public Message parsePacket(DatagramPacket packet) {
+        if(packet.getData() != null)
+            return new Message();
+        return null;
+    }
 }
