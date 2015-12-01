@@ -123,6 +123,12 @@ public abstract class GameObject {
         return a.intersects(b);
     }
 
+    protected void destroyOutside(GameContainer g){
+        if((x - width) > g.getWidth() || (y - height) > g.getHeight()
+            || (x + width) < 0 || (y + height) < 0)
+            kill();
+    }
+
     public abstract void update(GameContainer g);
     public abstract void render(Renderer r);
 }

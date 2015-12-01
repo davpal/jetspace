@@ -47,8 +47,7 @@ public class Laser extends Weapon {
         x += dx;
         y += dy;
         
-        if(x > g.getWidth() || y > g.getHeight() || x < 0 || y < 0)
-            kill();
+        destroyOutside(g);
     }
 
     public void render(Renderer r) {
