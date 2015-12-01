@@ -2,47 +2,73 @@ package multi;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import java.net.DatagramPacket;
+import java.nio.ByteBuffer;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.isNull;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
 public class MessageTest {
 
     private Message message;
+
     @Before
     public void initMessage() {
         message = new Message();
     }
 
-    @Mock
-    private DatagramPacket datagramPacket;
-
-    @Test
-    public void shouldParseNull() {
-        assertEquals(message.parsePacket(null), null);
-    }
-
-    @Test
-    public void shouldReturnNullWhenPacketIsEmpty() {
-        assertEquals(message.parsePacket(datagramPacket), null);
-    }
-
     @Test
     public void shouldReturnNewMessageWhenPacketHasContent() {
-        datagramPacket = new DatagramPacket(new byte[10], 10);
-        assertNotSame(message.parsePacket(datagramPacket), null);
+        byte[] content = new byte[] {123};
+        DatagramPacket packet = new DatagramPacket(content, 1);
+        Message messageTested = message.parsePacket(packet);
+        assertNotSame(messageTested, null);
     }
 
     @Test
-    public void shouldReturnMessageWithSHOOTCode() {
+    public void shouldHaveDefinedCode() {
+        byte[] code = new byte[]{11};
+        DatagramPacket packet = new DatagramPacket(code, 1);
+        Message messageWithCode = message.parsePacket(packet);
 
+        assertEquals(messageWithCode.getCode(), 11);
     }
+
+    @Test
+    public void shouldHaveDefinedX() {
+        byte code = 22;
+        int x = 123;
+        byte[] codeAndX = ByteBuffer.allocate(5).put(code).putInt(x).array();
+
+        DatagramPacket datagramPacket = new DatagramPacket(codeAndX, 5);
+        Message messageWithCodeAndX = message.parsePacket(datagramPacket);
+
+        assertEquals(messageWithCodeAndX.getCode(), 22);
+        assertEquals(messageWithCodeAndX.getX(), 123);
+    }
+
+    @Test
+    public void shouldHaveDefinedCodeAndXAndYAndAngle() {
+        int x = 155;//4 bajty
+        int y = 355;//4 bajty
+        byte code = 33;//1 bat
+        double angle = 12345.1234;//8 bajtów
+
+        byte[] codeAndXAndYAndAngle = ByteBuffer.allocate(17)
+                .put(code)
+                .putInt(x)
+                .putInt(y)
+                .putDouble(angle)
+                .array();
+        DatagramPacket datagramPacket = new DatagramPacket(codeAndXAndYAndAngle, 17);
+        Message messageWithCodeAndXAndYAndAngle = message.parsePacket(datagramPacket);
+
+        assertEquals(messageWithCodeAndXAndYAndAngle.getY(), 355);
+        assertEquals(messageWithCodeAndXAndYAndAngle.getAngle(), 12345.1234, 0.0);
+    }
+
+
 }
 
 
