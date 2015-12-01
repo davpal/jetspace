@@ -7,6 +7,7 @@ import java.net.DatagramPacket;
 import java.nio.ByteBuffer;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 
 public class MessageTest {
@@ -20,7 +21,7 @@ public class MessageTest {
 
     @Test
     public void shouldReturnNewMessageWhenPacketHasContent() {
-        byte[] content = new byte[] {123};
+        byte[] content = new byte[]{123};
         DatagramPacket packet = new DatagramPacket(content, 1);
         Message messageTested = message.parsePacket(packet);
         assertNotSame(messageTested, null);
@@ -66,6 +67,27 @@ public class MessageTest {
 
         assertEquals(messageWithCodeAndXAndYAndAngle.getY(), 355);
         assertEquals(messageWithCodeAndXAndYAndAngle.getAngle(), 12345.1234, 0.0);
+    }
+
+    @Test
+    public void shouldReturnPacketWithSomeContent() {
+        byte code = 55;
+        message = new Message(code, 0, 0, 0.0);
+        assertNotNull(message.toPacket());
+    }
+
+    @Test
+    public  void shouldParseWholeMessageToPacket() {
+        byte code = 66;
+        message = new Message(code, 15,234,123.123);
+
+        DatagramPacket datagramPacket = message.toPacket();
+        Message messageTested = Message.parsePacket(datagramPacket);
+
+        assertEquals(message.getCode(), messageTested.getCode());
+        assertEquals(message.getAngle(), messageTested.getAngle(), 0);
+        assertEquals(message.getX(), messageTested.getX());
+        assertEquals(message.getY(), messageTested.getY());
     }
 
 
