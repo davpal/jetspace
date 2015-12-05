@@ -1,0 +1,17 @@
+PROTONAME         jet space Protocol
+PROTOSHORTNAME    jet_space
+PROTOABBREV       jet_s
+
+# Specify when the protocol is used.
+# Change the port, at least, to see your data.
+PARENT_SUBFIELD          udp.port
+PARENT_SUBFIELD_VALUES   40000 41000
+
+MSG_HEADER_TYPE                        jetspace_msg_header
+MSG_ID_FIELD_NAME                      msg_code
+MSG_TOTAL_LENGTH                       20
+MSG_MAIN_TYPE                          jetspace_msg
+
+PROTO_TYPE_DEFINITIONS
+
+include jetspace.fdesc ;

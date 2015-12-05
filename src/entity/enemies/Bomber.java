@@ -106,7 +106,7 @@ public class Bomber extends Enemy {
             left = false;
         }
 
-        if(y > 600) kill();
+        destroyOutside(g);
     }
 
     @Override

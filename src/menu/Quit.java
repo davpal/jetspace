@@ -2,7 +2,7 @@ package menu;
 
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Quit extends MenuItem implements Command {
+public class Quit extends MenuItem {
     public Quit(){
         super("Quit");
     }

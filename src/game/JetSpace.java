@@ -8,7 +8,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class JetSpace extends StateBasedGame {
-    public static final String TITLE = "JetSpace v0.2.1";
+    public static final String TITLE = "JetSpace v0.2.2";
     
     JetSpace(){
         super(TITLE);

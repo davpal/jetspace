@@ -1,9 +1,15 @@
 package menu;
 
+import org.newdawn.slick.state.StateBasedGame;
+
 public class MenuItem {
     String title;
     boolean selected;
     
+    public MenuItem(){
+
+    }
+
     public MenuItem(String t){
         title = t;
     }
@@ -22,5 +28,14 @@ public class MenuItem {
     
     public void deselect(){
         selected = false;
+    }
+
+    public boolean equals(Object o){
+        MenuItem i = (MenuItem)o;
+        return i.title.equals(title);
+    }
+
+    public void execute(StateBasedGame g){
+
     }
 }
