@@ -12,6 +12,7 @@ import menu.Menu;
 import menu.MenuItem;
 import menu.Quit;
 import menu.SinglePlayer;
+import menu.multi.InterfaceMenu;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -22,6 +23,7 @@ import rendering.Renderer;
 
 public class MultiplayerState extends BasicGameState {
     private Renderer renderer;
+    private InterfaceMenu menu = new InterfaceMenu();
 
     public MultiplayerState(GameContainer gc) {
         renderer = new Renderer(gc);
@@ -39,7 +41,13 @@ public class MultiplayerState extends BasicGameState {
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-       renderer.renderCursor();
+        renderer.renderCursor();
+        renderer.renderMenu(menu);
+    }
+
+    @Override
+    public void enter(GameContainer gc, StateBasedGame sbg) {
+        MenuInputListener menuListener = new MenuInputListener(menu);
     }
 
     @Override
