@@ -1,23 +1,11 @@
 package multi;
 
 import input.MenuInputListener;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import menu.multi.InterfaceItem;
-import menu.Menu;
-import menu.MenuItem;
-import menu.Quit;
-import menu.SinglePlayer;
 import menu.multi.InterfaceMenu;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 import rendering.Renderer;
 
