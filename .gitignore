@@ -10,3 +10,6 @@ out/
 .project
 build.xml
 nbproject/
+dist/
+lib/
+manifest.mf
