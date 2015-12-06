@@ -21,11 +21,11 @@ import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 import rendering.Renderer;
 
-public class MultiplayerState extends BasicGameState {
+public class MultiplayerSetupState extends BasicGameState {
     private Renderer renderer;
     private InterfaceMenu menu = new InterfaceMenu();
 
-    public MultiplayerState(GameContainer gc) {
+    public MultiplayerSetupState(GameContainer gc) {
         renderer = new Renderer(gc);
     }
 
