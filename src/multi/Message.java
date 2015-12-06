@@ -63,6 +63,9 @@ public class Message {
 
     private DatagramPacket getDataFromMessage(ByteBuffer byteBuffer) {
         byteBuffer.put(code);
+        byteBuffer.putShort((short)X);
+        byteBuffer.putShort((short)Y);
+        byteBuffer.putShort((short)angle);
         return new DatagramPacket(byteBuffer.array(), byteBuffer.capacity());
     }
 

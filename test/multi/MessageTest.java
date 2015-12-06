@@ -2,13 +2,9 @@ package multi;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import java.net.DatagramPacket;
 import java.nio.ByteBuffer;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.*;
 
 public class MessageTest {
 
@@ -51,10 +47,10 @@ public class MessageTest {
 
     @Test
     public void shouldHaveDefinedCodeAndXAndYAndAngle() {
-        int x = 155;//4 bajty
-        int y = 355;//4 bajty
-        byte code = 33;//1 bat
-        double angle = 12345.1234;//8 bajtów
+        int x = 155;
+        int y = 355;
+        byte code = 33;
+        double angle = 12345.1234;
 
         byte[] codeAndXAndYAndAngle = ByteBuffer.allocate(17)
                 .put(code)
@@ -89,7 +85,6 @@ public class MessageTest {
         assertEquals(message.getX(), messageTested.getX());
         assertEquals(message.getY(), messageTested.getY());
     }
-
 
 }
 
