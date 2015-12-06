@@ -1,8 +1,9 @@
 package entity;
 
-import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import rendering.Renderer;
+
+import java.util.ArrayList;
 
 public class Player extends GameObject {
     protected boolean collision;

@@ -1,14 +1,9 @@
 package rendering;
 
 import entity.GameObject;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.openal.Audio;
-import org.newdawn.slick.openal.AudioLoader;
-import org.newdawn.slick.util.ResourceLoader;
 import resource.ResourceFactory;
 
 public class Explosion extends GameObject {

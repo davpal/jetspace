@@ -1,6 +1,5 @@
 package game;
 
-import menu.multi.Multiplayer;
 import multi.MultiplayerState;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;

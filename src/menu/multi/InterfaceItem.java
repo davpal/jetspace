@@ -1,8 +1,9 @@
 package menu.multi;
 
-import java.net.InetAddress;
 import menu.MenuItem;
 import org.newdawn.slick.state.StateBasedGame;
+
+import java.net.InetAddress;
 
 public class InterfaceItem extends MenuItem {
     InetAddress address;

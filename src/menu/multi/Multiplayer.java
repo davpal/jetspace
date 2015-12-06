@@ -5,15 +5,14 @@
  */
 package menu.multi;
 
-import input.MenuInputListener;
+import menu.Menu;
+import menu.MenuItem;
+
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
-import menu.Menu;
-import menu.MenuItem;
-import org.newdawn.slick.state.StateBasedGame;
 
 /**
  *

@@ -3,8 +3,6 @@ package input;
 import entity.Player;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.openal.Audio;
-import org.newdawn.slick.openal.AudioLoader;
-import org.newdawn.slick.util.ResourceLoader;
 import resource.ResourceFactory;
 
 public class PlayerInputListener extends InputAdapter {

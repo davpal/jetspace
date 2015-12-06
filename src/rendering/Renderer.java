@@ -6,13 +6,13 @@ import entity.Player;
 import entity.Weapon;
 import entity.enemies.Bomber;
 import game.JetSpace;
-import java.util.ArrayList;
 import menu.Menu;
 import menu.MenuItem;
 import org.newdawn.slick.*;
 import resource.ResourceFactory;
 import resource.ResourceLoader;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Renderer {
