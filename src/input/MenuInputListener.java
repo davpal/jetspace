@@ -8,6 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import resource.ResourceFactory;
 
 import java.awt.*;
+import org.newdawn.slick.util.InputAdapter;
 
 /**
  * Created by winio_000 on 2015-11-29.
