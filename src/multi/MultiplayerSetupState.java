@@ -1,7 +1,6 @@
 package multi;
 
 import input.MenuInputListener;
-import menu.multi.InterfaceMenu;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
@@ -16,7 +15,6 @@ import resource.ResourceLoader;
 
 public class MultiplayerSetupState extends BasicGameState {
     private Renderer renderer;
-    private InterfaceMenu menu = new InterfaceMenu();
     private Font font = ResourceLoader.getFont("fonts/modern_caveman.ttf", 28f);
     private Image menuBackground = ResourceLoader.getImage("backgrounds/menu.jpg");
     TextField t;
@@ -53,7 +51,6 @@ public class MultiplayerSetupState extends BasicGameState {
         t = new TextField(gc, font, 160, 160, 300, 49);
         t.setBorderColor(Color.red);
         t.setFocus(true);
-        MenuInputListener menuListener = new MenuInputListener(menu);
     }
 
     @Override
