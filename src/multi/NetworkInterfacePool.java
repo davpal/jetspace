@@ -12,11 +12,11 @@ public class NetworkInterfacePool {
 
     public static ArrayList<InetAddress> getInterfaces(){
         if(interfaces.isEmpty())
-            retriveInterfaces();
+            retrieveInterfaces();
         return interfaces;
     }
 
-    private static void retriveInterfaces(){
+    private static void retrieveInterfaces(){
         Enumeration<NetworkInterface> nics = null;
         try {
             nics = NetworkInterface.getNetworkInterfaces();
