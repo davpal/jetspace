@@ -3,6 +3,7 @@ package menu.multi;
 import java.net.InetAddress;
 import menu.MenuItem;
 import org.newdawn.slick.state.StateBasedGame;
+import rendering.Renderer;
 
 public class InterfaceItem extends MenuItem {
     InetAddress address;
@@ -22,5 +23,9 @@ public class InterfaceItem extends MenuItem {
 
     public void execute(StateBasedGame g) {
         g.enterState(3);
+    }
+
+    public void render(Renderer r){
+        r.renderInterfaceItem(this);
     }
 }
