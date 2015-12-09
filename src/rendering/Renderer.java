@@ -101,23 +101,24 @@ public class Renderer {
         g.drawString(JetSpace.TITLE,
                 (gc.getWidth() - titleFont.getWidth(JetSpace.TITLE)) / 2, 50);
 
-        g.setFont(itemFont);
-        
-        int position = (gc.getHeight() - 100) / 2;
         Iterator it = menu.iterator();
         while(it.hasNext()){
-            g.setColor(new Color(0, 0, 0, 100));
-            g.fillRect((gc.getWidth() - 300) / 2, position - 20, 300, 50);
-            g.setColor(new Color(190, 210, 220, 255));
             MenuItem item = ((MenuItem)it.next());
-            if(item.isSelected()){
-                g.setColor(new Color(255, 0, 0, 255));
-            }
-            g.drawRect((gc.getWidth() - 300) / 2, position - 20, 300, 50);
-            g.drawString(item.toString(), (gc.getWidth() - 250) / 2, position - 10);
-            position += 60;
+            item.render(this);
         }
         renderCursor();
+    }
+
+    public void renderMenuItem(MenuItem item){
+        g.setFont(itemFont);
+        g.setColor(new Color(0, 0, 0, 100));
+        g.fillRect(item.getX(), item.getY(), item.getWidth(), item.getHeight());
+        g.setColor(new Color(190, 210, 220, 255));
+        if(item.isSelected()){
+            g.setColor(new Color(255, 0, 0, 255));
+        }
+        g.drawRect(item.getX(), item.getY(), item.getWidth(), item.getHeight());
+        g.drawString(item.toString(), item.getX() + 20, item.getY() + 10);
     }
 
     public void renderExplosion(Explosion e) {
