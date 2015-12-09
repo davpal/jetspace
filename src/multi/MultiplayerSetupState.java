@@ -1,6 +1,8 @@
 package multi;
 
 import input.MenuInputListener;
+import menu.UIFactory;
+import menu.multi.InterfaceSelect;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
@@ -18,9 +20,11 @@ public class MultiplayerSetupState extends BasicGameState {
     private Font font = ResourceLoader.getFont("fonts/modern_caveman.ttf", 28f);
     private Image menuBackground = ResourceLoader.getImage("backgrounds/menu.jpg");
     TextField t;
+    private InterfaceSelect interfaceSelect;
 
     public MultiplayerSetupState(GameContainer gc) {
         renderer = new Renderer(gc);
+        interfaceSelect = UIFactory.createInterfaceSelect(gc);
     }
 
     @Override
@@ -42,6 +46,7 @@ public class MultiplayerSetupState extends BasicGameState {
 
         g.drawString("Choose interface:", 160, 250);
         t.render(gc, g);
+        interfaceSelect.render(renderer);
         renderer.renderCursor();
     }
 

@@ -1,6 +1,9 @@
 package menu;
 
 import menu.multi.Multiplayer;
+import menu.multi.InterfaceSelect;
+import multi.NetworkInterfacePool;
+import org.newdawn.slick.gui.GUIContext;
 
 public class UIFactory {
     public static Menu createMainMenu(int gcWidth, int gcHeight){
@@ -25,5 +28,14 @@ public class UIFactory {
         mainMenu.addItem(new Quit(x, y + 3 * dy, width, height));
 
         return mainMenu;
+    }
+
+    public static InterfaceSelect createInterfaceSelect(GUIContext gc){
+        int x = (gc.getWidth() - 300) / 2;
+        int y = (gc.getHeight() + 100) / 2;
+        int width = 300;
+        int height = 50;
+
+        return new InterfaceSelect(gc, x, y, width, height, NetworkInterfacePool.getInterfaces());
     }
 }

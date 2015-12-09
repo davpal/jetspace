@@ -124,6 +124,7 @@ public class Renderer {
 
     public void renderInterfaceSelect(InterfaceSelect item){
         g.drawRect(item.getX(), item.getY(), item.getWidth(), item.getHeight());
+        g.drawString(item.toString(), item.getX() + 20, item.getY() + 10);
     }
 
     public void renderExplosion(Explosion e) {
