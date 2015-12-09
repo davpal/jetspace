@@ -2,7 +2,7 @@ package menu;
 
 import menu.multi.Multiplayer;
 
-public class MenuFactory {
+public class UIFactory {
     public static Menu createMainMenu(int gcWidth, int gcHeight){
         int x = (gcWidth - 300) / 2;
         int y = (gcHeight - 100) / 2;

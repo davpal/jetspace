@@ -36,7 +36,7 @@ public class MenuState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame arg1)
             throws SlickException {
         music.playAsMusic(1f, 1f, true);
-        menu = MenuFactory.createMainMenu(gc.getWidth(), gc.getHeight());
+        menu = UIFactory.createMainMenu(gc.getWidth(), gc.getHeight());
     }
 
     @Override
