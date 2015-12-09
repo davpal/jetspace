@@ -14,7 +14,7 @@ import rendering.Renderer;
 import resource.ResourceLoader;
 
 public class MenuState extends BasicGameState {
-    private Menu menu = MenuFactory.createMainMenu();
+    private Menu menu;
     private Renderer renderer;
     private StateBasedGame game;
     private Audio music;
@@ -33,9 +33,10 @@ public class MenuState extends BasicGameState {
     }
 
     @Override
-    public void init(GameContainer arg0, StateBasedGame arg1)
+    public void init(GameContainer gc, StateBasedGame arg1)
             throws SlickException {
         music.playAsMusic(1f, 1f, true);
+        menu = MenuFactory.createMainMenu(gc.getWidth(), gc.getHeight());
     }
 
     @Override

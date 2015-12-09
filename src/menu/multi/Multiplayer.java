@@ -13,8 +13,8 @@ import org.newdawn.slick.state.StateBasedGame;
  * @author dave
  */
 public class Multiplayer extends MenuItem {
-    public Multiplayer(){
-        super("Multiplayer");
+    public Multiplayer(int x, int y, int width, int height){
+        super("Multiplayer", x, y, width, height);
     }
 
     public void execute(StateBasedGame g){

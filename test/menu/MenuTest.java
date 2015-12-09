@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 import menu.Menu;
 
 public class MenuTest {
-    Menu menu = new Menu();
+    Menu menu = new Menu("Main menu");
 
     @Before
     public void setUp() {
@@ -22,7 +22,7 @@ public class MenuTest {
 
     @Test
     public void testEmptyMenu(){
-        Menu emptyMenu = new Menu();
+        Menu emptyMenu = new Menu("Empty");
 
         assertEquals(null, emptyMenu.getSelected());
         assertEquals(-1, emptyMenu.getSelectedIndex());
@@ -56,7 +56,7 @@ public class MenuTest {
         menu.prevItem();
         assertEquals(3, menu.getSelectedIndex());
 
-        Menu oneItemMenu = new Menu();
+        Menu oneItemMenu = new Menu("Menu");
         oneItemMenu.addItem(new MenuItem("One item"));
         oneItemMenu.nextItem();
         assertEquals(0, oneItemMenu.getSelectedIndex());
@@ -74,8 +74,8 @@ public class MenuTest {
 
     @Test
     public void testEnterToSubmenu(){
-        Menu menu = new Menu();
-        Menu optionsMenu = new Menu();
+        Menu menu = new Menu("Main menu");
+        Menu optionsMenu = new Menu("Options");
         optionsMenu.addItem(new MenuItem("Fullscreen"));
         menu.addItem(optionsMenu);
         menu.execute(null);
@@ -85,8 +85,8 @@ public class MenuTest {
 
     @Test
     public void testNextPrevInSubmenu(){
-        Menu menu = new Menu();
-        Menu optionsMenu = new Menu();
+        Menu menu = new Menu("Main menu");
+        Menu optionsMenu = new Menu("Options");
         optionsMenu.addItem(new MenuItem("Fullscreen"));
         optionsMenu.addItem(new MenuItem("Resolution"));
         menu.addItem(optionsMenu);
@@ -100,7 +100,7 @@ public class MenuTest {
 
     @Test
     public void testBackFromSubmenu(){
-        Menu menu = new Menu();
+        Menu menu = new Menu("Main menu");
         Menu optionsMenu = new Menu("Options");
         optionsMenu.addItem(new MenuItem("Fullscreen"));
         optionsMenu.addItem(new MenuItem("Resolution"));
@@ -116,7 +116,7 @@ public class MenuTest {
 
     @Test
     public void testMoreSubmenus(){
-        Menu menu = new Menu();
+        Menu menu = new Menu("Main menu");
         Menu optionsMenu = new Menu("Options");
         optionsMenu.addItem(new MenuItem("Fullscreen"));
         Menu resolution = new Menu("Resolution");

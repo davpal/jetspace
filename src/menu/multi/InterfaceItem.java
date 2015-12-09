@@ -8,6 +8,7 @@ public class InterfaceItem extends MenuItem {
     InetAddress address;
 
     public InterfaceItem(InetAddress a){
+        super(a.toString());
         address = a;
     }
 

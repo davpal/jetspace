@@ -10,6 +10,7 @@ import menu.MenuItem;
 
 public class InterfaceMenu extends Menu {
     public InterfaceMenu() {
+        super("Interface menu");
         Enumeration<NetworkInterface> nics = null;
         try {
             nics = NetworkInterface.getNetworkInterfaces();

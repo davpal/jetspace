@@ -10,7 +10,8 @@ public class Menu extends MenuItem {
     private int selected;
     private boolean inside;
     
-    public Menu() {
+    public Menu(String title, int x, int y, int width, int height) {
+        super(title, x, y, width, height);
         parent = null;
         selected = 0;
     }
