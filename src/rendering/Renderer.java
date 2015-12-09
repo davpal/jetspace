@@ -14,7 +14,7 @@ import resource.ResourceFactory;
 import resource.ResourceLoader;
 
 import java.util.Iterator;
-import menu.multi.InterfaceItem;
+import menu.multi.InterfaceSelect;
 
 public class Renderer {
     private GameContainer gc;
@@ -122,7 +122,7 @@ public class Renderer {
         g.drawString(item.toString(), item.getX() + 20, item.getY() + 10);
     }
 
-    public void renderInterfaceItem(InterfaceItem item){
+    public void renderInterfaceSelect(InterfaceSelect item){
         g.drawRect(item.getX(), item.getY(), item.getWidth(), item.getHeight());
     }
 

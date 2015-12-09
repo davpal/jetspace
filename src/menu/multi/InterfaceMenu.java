@@ -34,7 +34,7 @@ public class InterfaceMenu extends Menu {
             if (!(address instanceof Inet4Address)) {
                 continue;
             }
-            addItem(new InterfaceItem(address));
+            addItem(new InterfaceSelect(address));
         }
         addItem(new MenuItem("Back"));
     }

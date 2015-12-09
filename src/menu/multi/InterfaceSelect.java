@@ -5,10 +5,10 @@ import menu.MenuItem;
 import org.newdawn.slick.state.StateBasedGame;
 import rendering.Renderer;
 
-public class InterfaceItem extends MenuItem {
+public class InterfaceSelect extends MenuItem {
     InetAddress address;
 
-    public InterfaceItem(InetAddress a){
+    public InterfaceSelect(InetAddress a){
         super(a.toString());
         address = a;
     }
@@ -26,6 +26,6 @@ public class InterfaceItem extends MenuItem {
     }
 
     public void render(Renderer r){
-        r.renderInterfaceItem(this);
+        r.renderInterfaceSelect(this);
     }
 }
