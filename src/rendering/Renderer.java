@@ -123,6 +123,9 @@ public class Renderer {
     }
 
     public void renderInterfaceSelect(InterfaceSelect item){
+        g.setColor(new Color(0, 0, 0, 100));
+        g.fillRect(item.getX(), item.getY(), item.getWidth(), item.getHeight());
+        g.setColor(new Color(190, 210, 220, 255));
         g.drawRect(item.getX(), item.getY(), item.getWidth(), item.getHeight());
         g.drawString(item.toString(), item.getX() + 20, item.getY() + 10);
         g.drawRect(item.getX() - 60, item.getY(), 40, item.getHeight());
