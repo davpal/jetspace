@@ -10,6 +10,12 @@ public class Player extends GameObject {
     protected int health, maxHealth;
     protected boolean shooting = false;
     protected ArrayList<Weapon> weapons = new ArrayList<Weapon>();
+    protected String name = "";
+
+    public Player(String name, double x, double y) {
+        this(x, y);
+        this.name = name;
+    }
 
     public Player(double x, double y) {
         super(x, y, Math.toRadians(90));
@@ -133,5 +139,9 @@ public class Player extends GameObject {
 
     public void render(Renderer r) {
         r.renderPlayer(this);
+    }
+
+    public String getName() {
+        return name;
     }
 }

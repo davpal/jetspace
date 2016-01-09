@@ -77,7 +77,7 @@ public class Message {
         byteBuffer.put(code);
         byteBuffer.putShort((short)X);
         byteBuffer.putShort((short)Y);
-        byteBuffer.putShort((short)angle);
+        byteBuffer.putDouble(angle);
         return new DatagramPacket(byteBuffer.array(), byteBuffer.capacity(),
             BROADCAST, MultiplayerConfiguration.SEND_PORT);
     }

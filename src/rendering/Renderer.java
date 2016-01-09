@@ -27,6 +27,7 @@ public class Renderer {
     private Image enemyLaser = ResourceFactory.getEnemyLaser();
     private Font titleFont = ResourceLoader.getFont("fonts/modern_caveman.ttf", 48f);
     private Font itemFont  = ResourceLoader.getFont("fonts/modern_caveman.ttf", 28f);
+    private Font nameFont = ResourceLoader.getFont("fonts/modern_caveman.ttf", 14f);
     Image cursor = ResourceLoader.getImage("player/crosshair.png");
 
     private ArrayList<Explosion> explosions = new ArrayList<>();
@@ -49,6 +50,9 @@ public class Renderer {
                     (int) (player.getY() + player.getHeight() - 2),
                     5 * player.getHealth(), 5);
             g.popTransform();
+            g.setFont(nameFont);
+            g.drawString(player.getName(), (float)player.getX() - 10,
+               (float)player.getY());
         }
 
         for (Weapon w : player.getWeapons()) {
