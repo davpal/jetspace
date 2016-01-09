@@ -8,14 +8,14 @@ import input.PlayerInputListener;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import rendering.Explosion;
 import rendering.Renderer;
+import resource.ResourceLoader;
 
 import java.util.ArrayList;
-import org.newdawn.slick.openal.Audio;
-import rendering.Explosion;
-import resource.ResourceLoader;
 
 public class Level1State extends BasicGameState {
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();

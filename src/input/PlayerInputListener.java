@@ -9,7 +9,7 @@ import org.newdawn.slick.util.ResourceLoader;
 import resource.ResourceFactory;
 
 public class PlayerInputListener extends InputAdapter {
-    private Player player;
+    protected Player player;
     private Audio shootEffect = ResourceFactory.getLaserSound();
     boolean enabled;
     

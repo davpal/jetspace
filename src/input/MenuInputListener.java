@@ -3,7 +3,6 @@ package input;
 import menu.Menu;
 import menu.MenuItem;
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.state.StateBasedGame;
 import resource.ResourceFactory;

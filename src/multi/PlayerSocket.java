@@ -13,15 +13,16 @@ public class PlayerSocket {
         socket = new DatagramSocket(port, address);
     }
 
-    public void send(DatagramPacket p) {
+    public void send(Message message) {
+        DatagramPacket datagramPacket = message.toPacket();
         try {
-            socket.send(p);
+            socket.send(datagramPacket);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public DatagramPacket receive() {
+    public Message receive() {
         byte[] data = new byte[PlayerSocket.PACKET_SIZE];
         DatagramPacket packet = new DatagramPacket(data, data.length);
         try {
@@ -29,7 +30,7 @@ public class PlayerSocket {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return packet;
+        return Message.parsePacket(packet);
     }
 
     public void close() {
