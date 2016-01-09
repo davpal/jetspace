@@ -1,6 +1,8 @@
 package multi;
 
 import input.MenuInputListener;
+import input.MultiSetupListener;
+import menu.MenuItem;
 import menu.UIFactory;
 import menu.multi.InterfaceSelect;
 import org.newdawn.slick.Color;
@@ -21,10 +23,13 @@ public class MultiplayerSetupState extends BasicGameState {
     private Image menuBackground = ResourceLoader.getImage("backgrounds/menu.jpg");
     TextField t;
     private InterfaceSelect interfaceSelect;
+    private MultiSetupListener listener;
+    private MenuItem start;
 
     public MultiplayerSetupState(GameContainer gc) {
         renderer = new Renderer(gc);
         interfaceSelect = UIFactory.createInterfaceSelect(gc);
+        listener = new MultiSetupListener(interfaceSelect);
     }
 
     @Override
@@ -56,6 +61,7 @@ public class MultiplayerSetupState extends BasicGameState {
         t = new TextField(gc, font, 160, 160, 300, 49);
         t.setBorderColor(Color.red);
         t.setFocus(true);
+        gc.getInput().addListener(listener);
     }
 
     @Override

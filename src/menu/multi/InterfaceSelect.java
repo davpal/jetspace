@@ -28,6 +28,7 @@ public class InterfaceSelect extends AbstractComponent {
         return addresses.get(selected);
     }
 
+    @Override
     public String toString(){
         return addresses.get(selected).toString();
     }
