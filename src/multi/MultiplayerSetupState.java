@@ -1,6 +1,5 @@
 package multi;
 
-import input.MenuInputListener;
 import input.MultiSetupListener;
 import menu.MenuItem;
 import menu.UIFactory;
@@ -40,7 +39,7 @@ public class MultiplayerSetupState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-
+        listener.setGame(sbg);
     }
 
     @Override

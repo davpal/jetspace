@@ -2,12 +2,14 @@ package input;
 
 import menu.MenuItem;
 import menu.multi.InterfaceSelect;
-import org.lwjgl.input.Mouse;
+import multi.MultiplayerConfiguration;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.InputAdapter;
 
 public class MultiSetupListener extends InputAdapter {
     private InterfaceSelect interfaceSelect;
+    private StateBasedGame game;
 
     private Rectangle prevInterface;
     private Rectangle nextInterface;
@@ -29,6 +31,12 @@ public class MultiSetupListener extends InputAdapter {
             interfaceSelect.next();
         } else if(mouse.intersects(start)) {
             // TODO: Multiplayer game entry point here
+            MultiplayerConfiguration.setInterface(interfaceSelect.getAddress());
+            game.enterState(10);
         }
+    }
+
+    public void setGame(StateBasedGame game) {
+        this.game = game;
     }
 }

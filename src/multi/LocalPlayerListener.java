@@ -6,11 +6,8 @@ import input.PlayerInputListener;
 public class LocalPlayerListener extends PlayerInputListener {
     PlayerSocket socket;
 
-    public LocalPlayerListener(Player player){
+    public LocalPlayerListener(Player player, PlayerSocket socket){
         super(player);
-    }
-
-    public LocalPlayerListener(PlayerSocket socket){
         this.socket = socket;
     }
 
