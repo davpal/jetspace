@@ -22,5 +22,5 @@ struct jetspace_msg
   jetspace_msg_header header;
   uint16 x;
   uint16 y;
-  float64 angle;
+  float64{byte_order=little_endian} angle;
 }
