@@ -1,6 +1,5 @@
 package multi;
 
-import input.MenuInputListener;
 import input.MultiSetupListener;
 import menu.MenuItem;
 import menu.UIFactory;
@@ -29,7 +28,8 @@ public class MultiplayerSetupState extends BasicGameState {
     public MultiplayerSetupState(GameContainer gc) {
         renderer = new Renderer(gc);
         interfaceSelect = UIFactory.createInterfaceSelect(gc);
-        listener = new MultiSetupListener(interfaceSelect);
+        start = UIFactory.createStartButton(gc);
+        listener = new MultiSetupListener(interfaceSelect, start);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class MultiplayerSetupState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-
+        listener.setGame(sbg);
     }
 
     @Override
@@ -51,6 +51,7 @@ public class MultiplayerSetupState extends BasicGameState {
 
         g.drawString("Choose interface:", 160, 250);
         t.render(gc, g);
+        start.render(renderer);
         interfaceSelect.render(renderer);
         renderer.renderCursor();
     }

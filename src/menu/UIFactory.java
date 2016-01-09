@@ -38,4 +38,13 @@ public class UIFactory {
 
         return new InterfaceSelect(gc, x, y, width, height, NetworkInterfacePool.getInterfaces());
     }
+
+    public static MenuItem createStartButton(GUIContext gc) {
+        int x = (gc.getWidth() - 300) / 2;
+        int y = (gc.getHeight() + 250) / 2;
+        int width = 300;
+        int height = 50;
+
+        return new MenuItem("Start game", x, y, width, height);
+    }
 }

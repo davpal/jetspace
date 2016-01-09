@@ -1,7 +1,7 @@
 package game;
 
-import menu.multi.Multiplayer;
 import multi.MultiplayerSetupState;
+import multi.MultiplayerState;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -30,6 +30,7 @@ public class JetSpace extends StateBasedGame {
     public void initStatesList(GameContainer gc) throws SlickException {
         addState(new MenuState(gc, this));
         addState(new MultiplayerSetupState(gc));
+        addState(new MultiplayerState(gc));
         addState(new Level1State(gc));
         addState(new GameOverState(this));
         addState(new WinnerState(this));

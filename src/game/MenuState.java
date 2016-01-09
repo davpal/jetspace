@@ -1,11 +1,10 @@
 package game;
 
-import menu.multi.Multiplayer;
 import input.MenuInputListener;
-import menu.*;
+import menu.Menu;
+import menu.UIFactory;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.state.BasicGameState;
