@@ -1,7 +1,7 @@
 package entity.enemies;
 
-import entity.ControlledPlayer;
 import entity.EnemyLaser;
+import entity.Player;
 import entity.Weapon;
 import org.newdawn.slick.GameContainer;
 import rendering.Renderer;
@@ -40,7 +40,7 @@ public class Bomber extends Enemy {
         r.renderBomber(this);
     }
 
-    public void fire(ControlledPlayer p) {
+    public void fire(Player p) {
         long elapsed = (System.nanoTime() - shootTime) / 1000000;
         Random rand = new Random();
         if (elapsed > rand.nextInt() % 200 + 1500) {
@@ -110,10 +110,10 @@ public class Bomber extends Enemy {
     }
 
     @Override
-    public void checkAttack(ControlledPlayer controlledPlayer) {
+    public void checkAttack(Player player) {
         for(int i = 0; i < lasers.size(); ++i){
-            if(lasers.get(i).intersect(controlledPlayer)){
-                controlledPlayer.setHit(true);
+            if(lasers.get(i).intersect(player)){
+                player.setHit(true);
                 lasers.get(i).kill();
             }
         }

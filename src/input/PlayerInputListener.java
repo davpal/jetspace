@@ -1,6 +1,6 @@
 package input;
 
-import entity.ControlledPlayer;
+import entity.Player;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
@@ -9,7 +9,7 @@ import org.newdawn.slick.util.ResourceLoader;
 import resource.ResourceFactory;
 
 public class PlayerInputListener extends InputAdapter {
-    private ControlledPlayer controlledPlayer;
+    private Player player;
     private Audio shootEffect = ResourceFactory.getLaserSound();
     boolean enabled;
     
@@ -17,8 +17,8 @@ public class PlayerInputListener extends InputAdapter {
         
     }
     
-    public PlayerInputListener(ControlledPlayer controlledPlayer){
-        this.controlledPlayer = controlledPlayer;
+    public PlayerInputListener(Player player){
+        this.player = player;
     }
 
     public boolean isAcceptingInput() {
@@ -31,25 +31,25 @@ public class PlayerInputListener extends InputAdapter {
     }
 
     public void mouseMoved(int arg0, int arg1, int mx, int my) {
-        controlledPlayer.setAngle(-Math.atan2((controlledPlayer.getCenterX()) - mx, (controlledPlayer.getCenterY()) - my));
+        player.setAngle(-Math.atan2((player.getCenterX()) - mx, (player.getCenterY()) - my));
     }
 
     public void keyPressed(int key, char arg1) {
         switch (key) {
             case Input.KEY_D: {
-                controlledPlayer.setDx(controlledPlayer.getSpeed());
+                player.setDx(player.getSpeed());
                 break;
             }
             case Input.KEY_A: {
-                controlledPlayer.setDx(-controlledPlayer.getSpeed());
+                player.setDx(-player.getSpeed());
                 break;
             }
             case Input.KEY_W: {
-                controlledPlayer.setDy(-controlledPlayer.getSpeed());
+                player.setDy(-player.getSpeed());
                 break;
             }
             case Input.KEY_S: {
-                controlledPlayer.setDy(controlledPlayer.getSpeed());
+                player.setDy(player.getSpeed());
                 break;
             }
             case Input.KEY_SPACE: {
@@ -60,30 +60,30 @@ public class PlayerInputListener extends InputAdapter {
     }
     
     private void shoot(){
-        controlledPlayer.setShooting(true);
+        player.setShooting(true);
         shootEffect.playAsSoundEffect(1f, 1f, false);
     }
 
     public void keyReleased(int key, char arg1) {
         switch (key) {
             case Input.KEY_D: {
-                controlledPlayer.setDx(0);
+                player.setDx(0);
                 break;
             }
             case Input.KEY_A: {
-                controlledPlayer.setDx(0);
+                player.setDx(0);
                 break;
             }
             case Input.KEY_W: {
-                controlledPlayer.setDy(0);
+                player.setDy(0);
                 break;
             }
             case Input.KEY_S: {
-                controlledPlayer.setDy(0);
+                player.setDy(0);
                 break;
             }
             case Input.KEY_SPACE: {
-                controlledPlayer.setShooting(false);
+                player.setShooting(false);
                 break;
             }
         }
@@ -97,7 +97,7 @@ public class PlayerInputListener extends InputAdapter {
         enabled = true;
     }
 
-    public void setPlayer(ControlledPlayer controlledPlayer) {
-        this.controlledPlayer = controlledPlayer;
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

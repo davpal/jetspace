@@ -1,8 +1,8 @@
 package rendering;
 
-import entity.ControlledPlayer;
 import entity.EnemyLaser;
 import entity.Laser;
+import entity.Player;
 import entity.Weapon;
 import entity.enemies.Bomber;
 import game.JetSpace;
@@ -14,6 +14,7 @@ import resource.ResourceFactory;
 import resource.ResourceLoader;
 
 import java.util.Iterator;
+import menu.multi.InterfaceSelect;
 
 public class Renderer {
     private GameContainer gc;
@@ -35,22 +36,22 @@ public class Renderer {
         this.g = gc.getGraphics();
     }
 
-    public void renderPlayer(ControlledPlayer controlledPlayer) {
-        if (!controlledPlayer.isDead()) {
+    public void renderPlayer(Player player) {
+        if (!player.isDead()) {
             g.pushTransform();
-            g.rotate((float) controlledPlayer.getCenterX(), (float) controlledPlayer.getCenterY(),
-                    (float) Math.toDegrees(controlledPlayer.getAngle()));
-            g.drawImage(playerShip, (float) controlledPlayer.getX(), (float) controlledPlayer.getY());
+            g.rotate((float) player.getCenterX(), (float) player.getCenterY(),
+                    (float) Math.toDegrees(player.getAngle()));
+            g.drawImage(playerShip, (float) player.getX(), (float) player.getY());
             g.popTransform();
             g.pushTransform();
-            g.setColor(new Color((10 - controlledPlayer.getHealth()) * 25, controlledPlayer.getHealth() * 25, 0, 220));
-            g.fillRect((int) (controlledPlayer.getX() + (controlledPlayer.getWidth() - 50) / 2),
-                    (int) (controlledPlayer.getY() + controlledPlayer.getHeight() - 2),
-                    5 * controlledPlayer.getHealth(), 5);
+            g.setColor(new Color((10 - player.getHealth()) * 25, player.getHealth() * 25, 0, 220));
+            g.fillRect((int) (player.getX() + (player.getWidth() - 50) / 2),
+                    (int) (player.getY() + player.getHeight() - 2),
+                    5 * player.getHealth(), 5);
             g.popTransform();
         }
 
-        for (Weapon w : controlledPlayer.getWeapons()) {
+        for (Weapon w : player.getWeapons()) {
             w.render(this);
         }
     }
@@ -101,23 +102,31 @@ public class Renderer {
         g.drawString(JetSpace.TITLE,
                 (gc.getWidth() - titleFont.getWidth(JetSpace.TITLE)) / 2, 50);
 
-        g.setFont(itemFont);
-        
-        int position = (gc.getHeight() - 100) / 2;
         Iterator it = menu.iterator();
         while(it.hasNext()){
-            g.setColor(new Color(0, 0, 0, 100));
-            g.fillRect((gc.getWidth() - 300) / 2, position - 20, 300, 50);
-            g.setColor(new Color(190, 210, 220, 255));
             MenuItem item = ((MenuItem)it.next());
-            if(item.isSelected()){
-                g.setColor(new Color(255, 0, 0, 255));
-            }
-            g.drawRect((gc.getWidth() - 300) / 2, position - 20, 300, 50);
-            g.drawString(item.toString(), (gc.getWidth() - 250) / 2, position - 10);
-            position += 60;
+            item.render(this);
         }
         renderCursor();
+    }
+
+    public void renderMenuItem(MenuItem item){
+        g.setFont(itemFont);
+        g.setColor(new Color(0, 0, 0, 100));
+        g.fillRect(item.getX(), item.getY(), item.getWidth(), item.getHeight());
+        g.setColor(new Color(190, 210, 220, 255));
+        if(item.isSelected()){
+            g.setColor(new Color(255, 0, 0, 255));
+        }
+        g.drawRect(item.getX(), item.getY(), item.getWidth(), item.getHeight());
+        g.drawString(item.toString(), item.getX() + 20, item.getY() + 10);
+    }
+
+    public void renderInterfaceSelect(InterfaceSelect item){
+        g.drawRect(item.getX(), item.getY(), item.getWidth(), item.getHeight());
+        g.drawString(item.toString(), item.getX() + 20, item.getY() + 10);
+        g.drawRect(item.getX() - 60, item.getY(), 40, item.getHeight());
+        g.drawRect(item.getX() + item.getWidth() + 20, item.getY(), 40, item.getHeight());
     }
 
     public void renderExplosion(Explosion e) {

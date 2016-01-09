@@ -1,6 +1,7 @@
 package input;
 
 import menu.Menu;
+import menu.MenuItem;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.openal.Audio;
@@ -14,7 +15,6 @@ import org.newdawn.slick.util.InputAdapter;
  * Created by winio_000 on 2015-11-29.
  */
 public class MenuInputListener extends InputAdapter {
-
     private Audio shootEffect = ResourceFactory.getLaserSound();
     private Menu menu;
     private StateBasedGame game;
@@ -26,6 +26,11 @@ public class MenuInputListener extends InputAdapter {
     private Rectangle multiPlayerRectangle;
     private Rectangle optionsRectangle;
     private Rectangle quitRectangle;
+    private MenuItem lastExecuted;
+
+    public MenuInputListener(Menu menu){
+        this.menu = menu;
+    }
 
     public MenuInputListener() {
 
@@ -42,6 +47,7 @@ public class MenuInputListener extends InputAdapter {
     @Override
     public void mouseClicked(int button, int arg1, int arg2, int arg3) {
         shootEffect.playAsSoundEffect(1f, 1f, false);
+        lastExecuted = menu.getSelected();
         menu.execute(game);
     }
 
@@ -79,5 +85,9 @@ public class MenuInputListener extends InputAdapter {
 
     public void setGame(StateBasedGame game) {
         this.game = game;
+    }
+
+    public MenuItem getLastExecutedItem(){
+        return lastExecuted;
     }
 }
