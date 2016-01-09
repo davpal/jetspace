@@ -20,7 +20,7 @@ public class MultiplayerSetupState extends BasicGameState {
     private Renderer renderer;
     private Font font = ResourceLoader.getFont("fonts/modern_caveman.ttf", 28f);
     private Image menuBackground = ResourceLoader.getImage("backgrounds/menu.jpg");
-    TextField t;
+    private TextField name;
     private InterfaceSelect interfaceSelect;
     private MultiSetupListener listener;
     private MenuItem start;
@@ -29,7 +29,6 @@ public class MultiplayerSetupState extends BasicGameState {
         renderer = new Renderer(gc);
         interfaceSelect = UIFactory.createInterfaceSelect(gc);
         start = UIFactory.createStartButton(gc);
-        listener = new MultiSetupListener(interfaceSelect, start);
     }
 
     @Override
@@ -39,7 +38,6 @@ public class MultiplayerSetupState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        listener.setGame(sbg);
     }
 
     @Override
@@ -50,7 +48,7 @@ public class MultiplayerSetupState extends BasicGameState {
         g.drawString("Enter your name:", 160, 100);
 
         g.drawString("Choose interface:", 160, 250);
-        t.render(gc, g);
+        name.render(gc, g);
         start.render(renderer);
         interfaceSelect.render(renderer);
         renderer.renderCursor();
@@ -59,9 +57,11 @@ public class MultiplayerSetupState extends BasicGameState {
     @Override
     public void enter(GameContainer gc, StateBasedGame sbg) {
         gc.getInput().removeAllListeners();
-        t = new TextField(gc, font, 160, 160, 300, 49);
-        t.setBorderColor(Color.red);
-        t.setFocus(true);
+        name = new TextField(gc, font, 160, 160, 300, 49);
+        name.setBorderColor(Color.red);
+        name.setFocus(true);
+        listener = new MultiSetupListener(interfaceSelect, start, name);
+        listener.setGame(sbg);
         gc.getInput().addListener(listener);
     }
 
