@@ -118,8 +118,8 @@ public class MultiplayerState extends BasicGameState {
         playerListener = new LocalPlayerListener(player, socket);
         playerListener.enable();
 
-        gc.getInput().addKeyListener(playerListener);
-        gc.getInput().addMouseListener(playerListener);
+        gc.getInput().removeAllMouseListeners();
+        gc.getInput().addListener(playerListener);
     }
 
     public int getID() {

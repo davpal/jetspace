@@ -1,6 +1,8 @@
 package multi;
 
 import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 
 /**
@@ -19,10 +21,12 @@ public class Message {
     public static final byte STOP = 111;
     public static final int MAX_SIZE = 1024;
 
-    private static byte code = 0;
-    private static int X = 0;
-    private static int Y = 0;
-    private static double angle = 0.0;
+    private static InetAddress BROADCAST;
+
+    private byte code = 0;
+    private int X = 0;
+    private int Y = 0;
+    private double angle = 0.0;
     private static ByteBuffer byteBuffer;
 
     public Message() {
@@ -34,12 +38,27 @@ public class Message {
         this.X = X;
         this.Y = Y;
         this.angle = angle;
+        try {
+            BROADCAST = InetAddress.getByName("255.255.255.255");
+        } catch (UnknownHostException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static Message parsePacket(DatagramPacket packet) {
+        byte code = 0;
+        int X = 0, Y = 0;
+        double angle = 0.0;
         if (packet.getData() != null) {
             byteBuffer = ByteBuffer.wrap(packet.getData());
-            getDataFromPacket(byteBuffer);
+            if (byteBuffer.hasRemaining())
+                code = byteBuffer.get();
+            if (byteBuffer.hasRemaining())
+                X = byteBuffer.getInt();
+            if (byteBuffer.hasRemaining())
+                Y = byteBuffer.getInt();
+            if (byteBuffer.hasRemaining())
+                angle = byteBuffer.getDouble();
         }
         return new Message(code, X, Y, angle);
     }
@@ -51,14 +70,7 @@ public class Message {
     }
 
     private static void getDataFromPacket(ByteBuffer byteBuffer) {
-        if (byteBuffer.hasRemaining())
-            code = byteBuffer.get();
-        if (byteBuffer.hasRemaining())
-            X = byteBuffer.getInt();
-        if (byteBuffer.hasRemaining())
-            Y = byteBuffer.getInt();
-        if (byteBuffer.hasRemaining())
-            angle = byteBuffer.getDouble();
+
     }
 
     private DatagramPacket getDataFromMessage(ByteBuffer byteBuffer) {
@@ -66,7 +78,8 @@ public class Message {
         byteBuffer.putShort((short)X);
         byteBuffer.putShort((short)Y);
         byteBuffer.putShort((short)angle);
-        return new DatagramPacket(byteBuffer.array(), byteBuffer.capacity());
+        return new DatagramPacket(byteBuffer.array(), byteBuffer.capacity(),
+            BROADCAST, MultiplayerConfiguration.SEND_PORT);
     }
 
     public byte getCode() {
