@@ -1,5 +1,6 @@
 package input;
 
+import menu.MenuItem;
 import menu.multi.InterfaceSelect;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.geom.Rectangle;
@@ -10,11 +11,13 @@ public class MultiSetupListener extends InputAdapter {
 
     private Rectangle prevInterface;
     private Rectangle nextInterface;
+    private Rectangle start;
 
-    public MultiSetupListener(InterfaceSelect is) {
+    public MultiSetupListener(InterfaceSelect is, MenuItem s) {
         this.interfaceSelect = is;
         prevInterface = new Rectangle(is.getX() - 60, is.getY(), 40, is.getHeight());
         nextInterface = new Rectangle(is.getX() + is.getWidth() + 20, is.getY(), 40, is.getHeight());
+        start = new Rectangle(s.getX(), s.getY(), s.getWidth(), s.getHeight());
     }
 
     @Override
@@ -24,6 +27,8 @@ public class MultiSetupListener extends InputAdapter {
             interfaceSelect.prev();
         } else if(mouse.intersects(nextInterface)) {
             interfaceSelect.next();
+        } else if(mouse.intersects(start)) {
+            // TODO: Multiplayer game entry point here
         }
     }
 }
