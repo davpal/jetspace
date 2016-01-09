@@ -79,7 +79,7 @@ public class Message {
         byteBuffer.putShort((short)Y);
         byteBuffer.putDouble(angle);
         return new DatagramPacket(byteBuffer.array(), byteBuffer.capacity(),
-            BROADCAST, MultiplayerConfiguration.SEND_PORT);
+            BROADCAST, MultiplayerConfiguration.RECV_PORT);
     }
 
     public byte getCode() {

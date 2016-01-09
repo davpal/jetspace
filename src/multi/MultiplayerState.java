@@ -108,16 +108,17 @@ public class MultiplayerState extends BasicGameState {
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
         player = new Player(MultiplayerConfiguration.getPlayerName(), 500, 220);
 
-        PlayerSocket socket = null;
+        PlayerSocket sendSocket = null;
+        PlayerSocket recvSocket = null;
         try {
-            socket = new PlayerSocket(MultiplayerConfiguration.SEND_PORT,
+            sendSocket = new PlayerSocket(MultiplayerConfiguration.SEND_PORT,
                 MultiplayerConfiguration.getInterface());
-            socket.send(new Message(Message.JOIN, (int)player.getX(), (int)player.getY(), player.getAngle()));
+            sendSocket.send(new Message(Message.JOIN, (int)player.getX(), (int)player.getY(), player.getAngle()));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-        playerListener = new LocalPlayerListener(player, socket);
+        playerListener = new LocalPlayerListener(player, sendSocket);
         playerListener.enable();
 
         gc.getInput().removeAllMouseListeners();

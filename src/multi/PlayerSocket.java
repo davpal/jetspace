@@ -9,6 +9,10 @@ public class PlayerSocket {
     public static final int PACKET_SIZE = 20;
     DatagramSocket socket;
 
+    PlayerSocket() throws Exception {
+        socket = new DatagramSocket();
+    }
+
     PlayerSocket(int port, InetAddress address) throws Exception {
         socket = new DatagramSocket(port, address);
     }
