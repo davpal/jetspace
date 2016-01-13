@@ -85,8 +85,8 @@ public class Message {
 
     private DatagramPacket getDataFromMessage(ByteBuffer byteBuffer) {
         byteBuffer.put(code);
-        byteBuffer.putShort((short)X);
-        byteBuffer.putShort((short)Y);
+        byteBuffer.putInt(X);
+        byteBuffer.putInt(Y);
         byteBuffer.putDouble(angle);
         return new DatagramPacket(byteBuffer.array(), byteBuffer.capacity(),
             BROADCAST, MultiplayerConfiguration.RECV_PORT);

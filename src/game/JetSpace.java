@@ -19,6 +19,8 @@ public class JetSpace extends StateBasedGame {
             AppGameContainer app = new AppGameContainer(new JetSpace());
             app.setDisplayMode(640, 480, false);
             app.setTargetFrameRate(60);
+            app.setUpdateOnlyWhenVisible(false);
+            app.setAlwaysRender(true);
             app.start();
         }
         catch (SlickException e){

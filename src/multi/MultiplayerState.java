@@ -27,6 +27,9 @@ public class MultiplayerState extends BasicGameState {
     private Renderer renderer;
     Audio music;
     private PacketReceiver receiver;
+    private boolean waiting = true;
+
+    private PlayerSocket sendSocket;
 
     public MultiplayerState(GameContainer gc) {
                 this.music = ResourceLoader.getAudio("WAV", "audio/battle.wav");
@@ -41,13 +44,45 @@ public class MultiplayerState extends BasicGameState {
         System.out.println("====                                ====");
         System.out.println("========================================");
 
+        switch(m.getCode()) {
+            case Message.ACCEPT:
+                networkPlayer = new NetworkPlayer("REMOTE", 300, 200);
+                break;
+            case Message.JOIN:
+                player.setX(300);
+                player.setY(200);
+                networkPlayer = new NetworkPlayer("REMOTE", 200, 300);
+                sendSocket.send(new Message(Message.ACCEPT, (int)player.getX(), (int)player.getY(), player.getAngle()));
+                break;
+            case Message.MOVE:
+                networkPlayer.setDx(m.getX());
+                networkPlayer.setDy(m.getY());
+                break;
+            case Message.SHOOT:
+                break;
+            case Message.HIT:
+                break;
+            case Message.STOP:
+                networkPlayer.setX(m.getX());
+                networkPlayer.setY(m.getY());
+                networkPlayer.setDx(0);
+                networkPlayer.setDy(0);
+                break;
+            case Message.QUIT:
+                break;
+            default:
+        }
     }
-    public void update(GameContainer gc, StateBasedGame game, int delta) {
-        Message m = receiver.poll();
 
+    public void update(GameContainer gc, StateBasedGame game, int delta) {
+        if(waiting) return;
+
+        Message m = receiver.poll();
         if(m != null) {
             processMessage(m);
         }
+
+        networkPlayer.update(gc);
 
         if(player.isCrashing()){
             explosions.add(new Explosion(player));
@@ -98,13 +133,16 @@ public class MultiplayerState extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, org.newdawn.slick.Graphics g) {
         background.draw(0, 0);
         player.render(renderer);
+        networkPlayer.render(renderer);
 
-        for(Enemy e:enemies){
-            e.render(renderer);
-        }
-        for(int i = 0; i < explosions.size(); ++i){
-            if(explosions.get(i).done()) explosions.remove(i--);
-            else explosions.get(i).render(renderer);
+        if(!waiting) {
+            for(Enemy e:enemies){
+                e.render(renderer);
+            }
+            for(int i = 0; i < explosions.size(); ++i){
+                if(explosions.get(i).done()) explosions.remove(i--);
+                else explosions.get(i).render(renderer);
+            }
         }
         renderer.renderCursor();
     }
@@ -122,9 +160,7 @@ public class MultiplayerState extends BasicGameState {
 
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
-        player = new Player(MultiplayerConfiguration.getPlayerName(), 500, 220);
-
-        PlayerSocket sendSocket = null;
+        player = new Player(MultiplayerConfiguration.getPlayerName(), 200, 300);
         PlayerSocket recvSocket = null;
         try {
             sendSocket = new PlayerSocket(MultiplayerConfiguration.SEND_PORT,
@@ -135,14 +171,22 @@ public class MultiplayerState extends BasicGameState {
             ex.printStackTrace();
         }
 
-        playerListener = new LocalPlayerListener(player, new PacketSender(sendSocket));
         receiver = new PacketReceiver(recvSocket);
 
-        playerListener.enable();
+        Message m = receiver.poll();
+        System.out.println("Waiting for players...");
+        while(m == null) {
+            m = receiver.poll();
+        }
 
+        processMessage(m);
+
+        playerListener = new LocalPlayerListener(player, new PacketSender(sendSocket));
+        playerListener.enable();
         gc.getInput().removeAllMouseListeners();
         gc.getInput().addListener(playerListener);
 
+        waiting = false;
     }
 
     public int getID() {
