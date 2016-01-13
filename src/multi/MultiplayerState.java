@@ -21,18 +21,34 @@ import resource.ResourceLoader;
 public class MultiplayerState extends BasicGameState {
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private ArrayList<Explosion> explosions = new ArrayList<Explosion>();
-    private Player player;
+    private Player player, networkPlayer;
     private PlayerInputListener playerListener = new LocalPlayerListener();
     private Image background;
     private Renderer renderer;
     Audio music;
+    private PacketReceiver receiver;
 
     public MultiplayerState(GameContainer gc) {
                 this.music = ResourceLoader.getAudio("WAV", "audio/battle.wav");
         renderer = new Renderer(gc);
     }
 
+    public void processMessage(Message m) {
+        // Debug received message
+        System.out.println("========================================");
+        System.out.println("====           RECEIVED             ====");
+        System.out.println("====    CODE: " + m.getCode());
+        System.out.println("====                                ====");
+        System.out.println("========================================");
+
+    }
     public void update(GameContainer gc, StateBasedGame game, int delta) {
+        Message m = receiver.poll();
+
+        if(m != null) {
+            processMessage(m);
+        }
+
         if(player.isCrashing()){
             explosions.add(new Explosion(player));
             player.kill();
@@ -114,15 +130,19 @@ public class MultiplayerState extends BasicGameState {
             sendSocket = new PlayerSocket(MultiplayerConfiguration.SEND_PORT,
                 MultiplayerConfiguration.getInterface());
             sendSocket.send(new Message(Message.JOIN, (int)player.getX(), (int)player.getY(), player.getAngle()));
+            recvSocket = new PlayerSocket(MultiplayerConfiguration.RECV_PORT);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-        playerListener = new LocalPlayerListener(player, sendSocket);
+        playerListener = new LocalPlayerListener(player, new PacketSender(sendSocket));
+        receiver = new PacketReceiver(recvSocket);
+
         playerListener.enable();
 
         gc.getInput().removeAllMouseListeners();
         gc.getInput().addListener(playerListener);
+
     }
 
     public int getID() {

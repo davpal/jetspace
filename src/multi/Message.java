@@ -28,6 +28,7 @@ public class Message {
     private int Y = 0;
     private double angle = 0.0;
     private static ByteBuffer byteBuffer;
+    private InetAddress source;
 
     public Message() {
 
@@ -45,6 +46,15 @@ public class Message {
         }
     }
 
+    public Message(InetAddress source, byte code, int x, int y, double angle) {
+        this(code, x, y, angle);
+        this.source = source;
+    }
+
+    public InetAddress getSource() {
+        return source;
+    }
+
     public static Message parsePacket(DatagramPacket packet) {
         byte code = 0;
         int X = 0, Y = 0;
@@ -60,7 +70,7 @@ public class Message {
             if (byteBuffer.hasRemaining())
                 angle = byteBuffer.getDouble();
         }
-        return new Message(code, X, Y, angle);
+        return new Message(packet.getAddress(), code, X, Y, angle);
     }
 
     public DatagramPacket toPacket() {

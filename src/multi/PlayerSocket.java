@@ -9,8 +9,8 @@ public class PlayerSocket {
     public static final int PACKET_SIZE = 20;
     DatagramSocket socket;
 
-    PlayerSocket() throws Exception {
-        socket = new DatagramSocket();
+    PlayerSocket(int port) throws Exception {
+        socket = new DatagramSocket(port);
     }
 
     PlayerSocket(int port, InetAddress address) throws Exception {
@@ -39,5 +39,9 @@ public class PlayerSocket {
 
     public void close() {
         socket.close();
+    }
+
+    public InetAddress getAddress() {
+        return socket.getLocalAddress();
     }
 }
