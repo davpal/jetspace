@@ -7,9 +7,9 @@ public class LocalPlayerListener extends PlayerInputListener {
     PlayerSocket socket;
     PacketSender sender;
 
-    public LocalPlayerListener(Player player, PlayerSocket socket){
+    public LocalPlayerListener(Player player, PacketSender sender){
         super(player);
-        sender = new PacketSender(socket);
+        this.sender = sender;
     }
 
     LocalPlayerListener() {
