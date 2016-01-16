@@ -57,6 +57,7 @@ public class MultiplayerState extends BasicGameState {
             case Message.MOVE:
                 networkPlayer.setDx(m.getX());
                 networkPlayer.setDy(m.getY());
+                networkPlayer.setAngle(m.getAngle());
                 break;
             case Message.SHOOT:
                 break;
@@ -67,6 +68,7 @@ public class MultiplayerState extends BasicGameState {
                 networkPlayer.setY(m.getY());
                 networkPlayer.setDx(0);
                 networkPlayer.setDy(0);
+                networkPlayer.setAngle(m.getAngle());
                 break;
             case Message.QUIT:
                 break;
