@@ -1,6 +1,8 @@
 package multi;
 
 import entity.Player;
+import java.net.Inet4Address;
+import java.net.InetAddress;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
@@ -68,5 +70,19 @@ public class MessageTest {
         assertEquals(18, move.getSize());
         assertEquals(3, move.getDx());
         assertEquals(4, move.getDy());
+    }
+
+    @Test
+    public void testBuildMessageWithSourceAddress() {
+        InetAddress address = Inet4Address.getLoopbackAddress();
+
+        Message remoteMessage = builder.code(Message.JOIN)
+                                       .pid((byte)1)
+                                       .source(address)
+                                       .build();
+
+        assertEquals(Message.JOIN, remoteMessage.getCode());
+        assertEquals(address, remoteMessage.getSource());
+        assertEquals(2, remoteMessage.getSize());
     }
 }

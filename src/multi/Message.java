@@ -26,6 +26,7 @@ public class Message {
     private String name;
     private int x, y, mouseX, mouseY, dx, dy;
     private int size;
+    private InetAddress sourceAddress;
 
     Message() {
 
@@ -109,5 +110,13 @@ public class Message {
 
     public int getDy() {
         return dy;
+    }
+
+    public void setSource(InetAddress address) {
+        sourceAddress = address;
+    }
+
+    public InetAddress getSource() {
+        return sourceAddress;
     }
 }

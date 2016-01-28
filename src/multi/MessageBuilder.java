@@ -1,5 +1,7 @@
 package multi;
 
+import java.net.InetAddress;
+
 class MessageBuilder {
     Message message;
 
@@ -47,6 +49,11 @@ class MessageBuilder {
         message.setDx((int)dx);
         message.setDy((int)dy);
         extend(8);
+        return this;
+    }
+
+    public MessageBuilder source(InetAddress address) {
+        message.setSource(address);
         return this;
     }
 
