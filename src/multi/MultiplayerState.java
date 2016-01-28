@@ -64,8 +64,8 @@ public class MultiplayerState extends BasicGameState {
                 sendSocket.send(accept);
                 break;
             case Message.MOVE:
-                networkPlayer.setDx(m.getX());
-                networkPlayer.setDy(m.getY());
+                networkPlayer.setDx(m.getDx());
+                networkPlayer.setDy(m.getDy());
                 break;
             case Message.SHOOT:
                 break;
