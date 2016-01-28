@@ -13,7 +13,7 @@ class MessageBuilder {
 
     public MessageBuilder code(byte code) {
         message.setCode(code);
-        extend(1);
+        message.setSize(1);
         return this;
     }
 
@@ -39,6 +39,13 @@ class MessageBuilder {
     public MessageBuilder mousePosition(int x, int y) {
         message.setMouseX(x);
         message.setMouseY(y);
+        extend(8);
+        return this;
+    }
+
+    public MessageBuilder shifts(double dx, double dy) {
+        message.setDx((int)dx);
+        message.setDy((int)dy);
         extend(8);
         return this;
     }

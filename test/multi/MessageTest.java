@@ -52,4 +52,21 @@ public class MessageTest {
         assertEquals(300, sync.getX());
         assertEquals(400, sync.getY());
     }
+
+    @Test
+    public void testBuildMoveMessage() {
+        player.setDx(3);
+        player.setDy(4);
+
+        Message move = builder.code(Message.MOVE)
+                              .pid(player.getPid())
+                              .shifts(player.getDx(), player.getDy())
+                              .mousePosition(0, 0)
+                              .build();
+
+        assertEquals(Message.MOVE, move.getCode());
+        assertEquals(18, move.getSize());
+        assertEquals(3, move.getDx());
+        assertEquals(4, move.getDy());
+    }
 }

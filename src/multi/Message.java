@@ -24,7 +24,7 @@ public class Message {
     private byte code;
     private byte pid;
     private String name;
-    private int x, y, mouseX, mouseY;
+    private int x, y, mouseX, mouseY, dx, dy;
     private int size;
 
     Message() {
@@ -93,5 +93,21 @@ public class Message {
 
     public int getMouseY() {
         return mouseY;
+    }
+
+    public void setDx(int dx) {
+        this.dx = dx;
+    }
+
+    public void setDy(int dy) {
+        this.dy = dy;
+    }
+
+    public int getDx() {
+        return dx;
+    }
+
+    public int getDy() {
+        return dy;
     }
 }
