@@ -52,6 +52,7 @@ class MessageConverter {
         if(code == Message.ACCEPT) {
             short nameLength = buffer.getShort();
             byte[] nameArray = new byte[nameLength];
+            buffer.get(nameArray);
             builder.name(new String(nameArray));
         }
 
@@ -60,6 +61,7 @@ class MessageConverter {
             builder.mousePosition(buffer.getInt(), buffer.getInt());
         }
 
+        builder.source(packet.getAddress());
         return builder.build();
     }
 }

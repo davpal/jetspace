@@ -2,6 +2,7 @@ package multi;
 
 import entity.Player;
 import java.net.DatagramPacket;
+import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.DoubleBuffer;
@@ -79,7 +80,17 @@ public class MessageConverterTest extends TestCase {
         buffer.putInt(13);
 
         DatagramPacket packet = new DatagramPacket(buffer.array(), buffer.capacity());
+        packet.setAddress(InetAddress.getLoopbackAddress());
 
         Message accept = MessageConverter.parsePacket(packet);
+
+        assertEquals(Message.ACCEPT, accept.getCode());
+        assertEquals(1, accept.getPid());
+        assertEquals("Packet", accept.getName());
+        assertEquals(3, accept.getX());
+        assertEquals(4, accept.getY());
+        assertEquals(11, accept.getMouseX());
+        assertEquals(13, accept.getMouseY());
+        assertEquals(InetAddress.getLoopbackAddress(), accept.getSource());
     }
 }
