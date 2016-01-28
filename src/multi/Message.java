@@ -21,90 +21,26 @@ public class Message {
     public static final byte STOP = 111;
     public static final int MAX_SIZE = 1024;
 
-    private static InetAddress BROADCAST;
+    private byte code;
+    private int size;
 
-    private byte code = 0;
-    private int X = 0;
-    private int Y = 0;
-    private double angle = 0.0;
-    private static ByteBuffer byteBuffer;
-    private InetAddress source;
-
-    public Message() {
+    Message() {
 
     }
 
-    public Message(byte code, int X, int Y, double angle) {
+    public void setCode(byte code) {
         this.code = code;
-        this.X = X;
-        this.Y = Y;
-        this.angle = angle;
-        try {
-            BROADCAST = InetAddress.getByName("255.255.255.255");
-        } catch (UnknownHostException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public Message(InetAddress source, byte code, int x, int y, double angle) {
-        this(code, x, y, angle);
-        this.source = source;
-    }
-
-    public InetAddress getSource() {
-        return source;
-    }
-
-    public static Message parsePacket(DatagramPacket packet) {
-        byte code = 0;
-        int X = 0, Y = 0;
-        double angle = 0.0;
-        if (packet.getData() != null) {
-            byteBuffer = ByteBuffer.wrap(packet.getData());
-            if (byteBuffer.hasRemaining())
-                code = byteBuffer.get();
-            if (byteBuffer.hasRemaining())
-                X = byteBuffer.getInt();
-            if (byteBuffer.hasRemaining())
-                Y = byteBuffer.getInt();
-            if (byteBuffer.hasRemaining())
-                angle = byteBuffer.getDouble();
-        }
-        return new Message(packet.getAddress(), code, X, Y, angle);
-    }
-
-    public DatagramPacket toPacket() {
-        byteBuffer = ByteBuffer.allocate(MAX_SIZE);
-        DatagramPacket datagramPacket = getDataFromMessage(byteBuffer);
-        return datagramPacket;
-    }
-
-    private static void getDataFromPacket(ByteBuffer byteBuffer) {
-
-    }
-
-    private DatagramPacket getDataFromMessage(ByteBuffer byteBuffer) {
-        byteBuffer.put(code);
-        byteBuffer.putInt(X);
-        byteBuffer.putInt(Y);
-        byteBuffer.putDouble(angle);
-        return new DatagramPacket(byteBuffer.array(), byteBuffer.capacity(),
-            BROADCAST, MultiplayerConfiguration.RECV_PORT);
     }
 
     public byte getCode() {
         return code;
     }
 
-    public int getX() {
-        return X;
+    public void setSize(int size) {
+        this.size = size;
     }
 
-    public int getY() {
-        return Y;
-    }
-
-    public double getAngle() {
-        return angle;
+    public int getSize() {
+        return size;
     }
 }
