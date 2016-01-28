@@ -14,9 +14,29 @@ import java.nio.ByteBuffer;
  */
 class MessageConverter {
     public static DatagramPacket toPacket(Message message) {
-        ByteBuffer buffer = ByteBuffer.allocate(message.getSize());
+        int size = message.getSize();
+        if(message.getCode() == Message.ACCEPT) size += 2;
+
+        ByteBuffer buffer = ByteBuffer.allocate(size);
         buffer.put(message.getCode());
-        DatagramPacket packet = new DatagramPacket(buffer.array(), buffer.limit());
+
+        if(message.getCode() != Message.JOIN) {
+            buffer.put(message.getPid());
+        }
+
+        if(message.getCode() == Message.ACCEPT) {
+            buffer.putShort((short)message.getName().length());
+            buffer.put(message.getName().getBytes());
+        }
+
+        if(message.getCode() != Message.JOIN) {
+            buffer.putInt(message.getX());
+            buffer.putInt(message.getY());
+            buffer.putInt(message.getMouseX());
+            buffer.putInt(message.getMouseY());
+        }
+
+        DatagramPacket packet = new DatagramPacket(buffer.array(), buffer.capacity());
         return packet;
     }
 }
