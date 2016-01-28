@@ -22,4 +22,19 @@ public class MessageTest {
         assertEquals(Message.JOIN, join.getCode());
         assertEquals(1, join.getSize());
     }
+
+    @Test
+    public void testBuildAcceptMessage() {
+        Message accept = builder.code(Message.ACCEPT)
+                                .pid(player.getPid())
+                                .name(player.getName())
+                                .position(player.getX(), player.getY())
+                                .mousePosition(0, 0)
+                                .build();
+
+        assertEquals(Message.ACCEPT, accept.getCode());
+        assertEquals(22, accept.getSize());
+        assertEquals(300, accept.getX());
+        assertEquals(400, accept.getY());
+    }
 }

@@ -144,4 +144,8 @@ public class Player extends GameObject {
     public String getName() {
         return name;
     }
+
+    public byte getPid() {
+        return 1;
+    }
 }

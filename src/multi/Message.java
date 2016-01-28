@@ -22,6 +22,9 @@ public class Message {
     public static final int MAX_SIZE = 1024;
 
     private byte code;
+    private byte pid;
+    private String name;
+    private int x, y, mouseX, mouseY;
     private int size;
 
     Message() {
@@ -42,5 +45,53 @@ public class Message {
 
     public int getSize() {
         return size;
+    }
+
+    public void setPid(byte pid) {
+        this.pid = pid;
+    }
+
+    public byte getPid() {
+        return pid;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setX(int  x) {
+        this.x = x;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setMouseX(int x) {
+        mouseX = x;
+    }
+
+    public int getMouseX() {
+        return mouseX;
+    }
+
+    public void setMouseY(int y) {
+        mouseY = y;
+    }
+
+    public int getMouseY() {
+        return mouseY;
     }
 }
