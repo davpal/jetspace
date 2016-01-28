@@ -37,4 +37,19 @@ public class MessageTest {
         assertEquals(300, accept.getX());
         assertEquals(400, accept.getY());
     }
+
+    @Test
+    public void testBuildSyncMessage() {
+        Message sync = builder.code(Message.SYNC)
+                                .pid(player.getPid())
+                                .name(player.getName())
+                                .position(player.getX(), player.getY())
+                                .mousePosition(0, 0)
+                                .build();
+
+        assertEquals(Message.SYNC, sync.getCode());
+        assertEquals(22, sync.getSize());
+        assertEquals(300, sync.getX());
+        assertEquals(400, sync.getY());
+    }
 }
