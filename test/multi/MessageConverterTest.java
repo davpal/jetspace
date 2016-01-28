@@ -25,7 +25,7 @@ public class MessageConverterTest extends TestCase {
     }
 
     @Test
-    public void testJoinConvertionToPacket() {
+    public void testJoinConversionToPacket() {
         Message join = builder.code(Message.JOIN).build();
         DatagramPacket packet = MessageConverter.toPacket(join);
 
@@ -36,7 +36,7 @@ public class MessageConverterTest extends TestCase {
     }
 
     @Test
-    public void testAcceptConvertionToPacket() {
+    public void testAcceptConversionToPacket() {
         Message accept = builder.code(Message.ACCEPT)
                                 .pid(player.getPid())
                                 .name(player.getName())
