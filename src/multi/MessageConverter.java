@@ -6,6 +6,8 @@
 package multi;
 
 import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 
 /**
@@ -36,7 +38,14 @@ class MessageConverter {
             buffer.putInt(message.getMouseY());
         }
 
-        DatagramPacket packet = new DatagramPacket(buffer.array(), buffer.capacity());
+        InetAddress broadcast = null;
+        try {
+            broadcast = InetAddress.getByName("255.255.255.255");
+        } catch (UnknownHostException ex) {
+        }
+
+        DatagramPacket packet = new DatagramPacket(buffer.array(), buffer.capacity(),
+                broadcast, MultiplayerConfiguration.RECV_PORT);
         return packet;
     }
 

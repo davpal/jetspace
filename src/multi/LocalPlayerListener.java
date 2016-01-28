@@ -9,6 +9,7 @@ public class LocalPlayerListener extends PlayerInputListener {
     PlayerSocket socket;
     PacketSender sender;
     private ArrayList<Integer> pressedKeys = new ArrayList<>();
+    private MessageBuilder builder = new MessageBuilder();
 
     public LocalPlayerListener(Player player, PacketSender sender){
         super(player);
@@ -47,22 +48,48 @@ public class LocalPlayerListener extends PlayerInputListener {
             }
         }
 
-        sender.add(new Message(Message.MOVE, (int)dx, (int)dy, player.getAngle()));
+        Message move = builder.code(Message.MOVE)
+                              .pid(player.getPid())
+                              .shifts(dx, dy)
+                              .mousePosition(0, 0)
+                              .build();
+        sender.add(move);
     }
 
     public void keyReleased(int key, char arg1) {
         super.keyReleased(key, arg1);
         pressedKeys.remove(Integer.valueOf(key));
-        sender.add(new Message(Message.STOP, (int) player.getX(), (int) player.getY(), player.getAngle()));
+
+        Message stop = builder.code(Message.STOP)
+                              .pid(player.getPid())
+                              .position(player.getX(), player.getY())
+                              .mousePosition(0, 0)
+                              .build();
+
+        sender.add(stop);
     }
 
     public void mouseMoved(int arg0, int arg1, int mx, int my) {
         super.mouseMoved(arg0, arg1, mx, my);
-        sender.add(new Message(Message.MOVE, (int) 0, (int) 0, player.getAngle()));
+
+        Message move = builder.code(Message.MOVE)
+                              .pid(player.getPid())
+                              .shifts(0, 0)
+                              .mousePosition(0, 0)
+                              .build();
+
+        sender.add(move);
     }
 
     public void mouseClicked(int button, int arg1, int arg2, int arg3) {
         super.mouseClicked(button, arg1, arg2, arg3);
-        sender.add(new Message(Message.SHOOT, (int) player.getX(), (int) player.getY(), player.getAngle()));
+
+        Message shoot = builder.code(Message.SHOOT)
+                               .pid(player.getPid())
+                               .position(player.getX(), player.getY())
+                               .mousePosition(0, 0)
+                               .build();
+
+        sender.add(shoot);
     }
 }

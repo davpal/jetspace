@@ -30,6 +30,7 @@ public class MultiplayerState extends BasicGameState {
     private boolean waiting = true;
 
     private PlayerSocket sendSocket;
+    private MessageBuilder builder = new MessageBuilder();
 
     public MultiplayerState(GameContainer gc) {
                 this.music = ResourceLoader.getAudio("WAV", "audio/battle.wav");
@@ -52,12 +53,19 @@ public class MultiplayerState extends BasicGameState {
                 player.setX(300);
                 player.setY(200);
                 networkPlayer = new NetworkPlayer("REMOTE", 200, 300);
-                sendSocket.send(new Message(Message.ACCEPT, (int)player.getX(), (int)player.getY(), player.getAngle()));
+
+                Message accept = builder.code(Message.ACCEPT)
+                                        .pid(player.getPid())
+                                        .name(player.getName())
+                                        .position(player.getX(), player.getY())
+                                        .mousePosition(0, 0)
+                                        .build();
+
+                sendSocket.send(accept);
                 break;
             case Message.MOVE:
                 networkPlayer.setDx(m.getX());
                 networkPlayer.setDy(m.getY());
-                networkPlayer.setAngle(m.getAngle());
                 break;
             case Message.SHOOT:
                 break;
@@ -68,7 +76,6 @@ public class MultiplayerState extends BasicGameState {
                 networkPlayer.setY(m.getY());
                 networkPlayer.setDx(0);
                 networkPlayer.setDy(0);
-                networkPlayer.setAngle(m.getAngle());
                 break;
             case Message.QUIT:
                 break;
@@ -167,7 +174,11 @@ public class MultiplayerState extends BasicGameState {
         try {
             sendSocket = new PlayerSocket(MultiplayerConfiguration.SEND_PORT,
                 MultiplayerConfiguration.getInterface());
-            sendSocket.send(new Message(Message.JOIN, (int)player.getX(), (int)player.getY(), player.getAngle()));
+
+            Message join = builder.code(Message.JOIN).pid(player.getPid()).build();
+
+            sendSocket.send(join);
+
             recvSocket = new PlayerSocket(MultiplayerConfiguration.RECV_PORT);
         } catch (Exception ex) {
             ex.printStackTrace();
