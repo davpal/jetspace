@@ -65,4 +65,21 @@ public class MessageConverterTest extends TestCase {
         assertEquals(300, x);
         assertEquals(400, y);
     }
+
+    @Test
+    public void testPacketConversionToMessage() {
+        ByteBuffer buffer = ByteBuffer.allocate(26);
+        buffer.put(Message.ACCEPT);
+        buffer.put((byte)1);
+        buffer.putShort((short)6);
+        buffer.put("Packet".getBytes());
+        buffer.putInt(3);
+        buffer.putInt(4);
+        buffer.putInt(11);
+        buffer.putInt(13);
+
+        DatagramPacket packet = new DatagramPacket(buffer.array(), buffer.capacity());
+
+        Message accept = MessageConverter.parsePacket(packet);
+    }
 }

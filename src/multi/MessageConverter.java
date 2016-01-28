@@ -39,4 +39,27 @@ class MessageConverter {
         DatagramPacket packet = new DatagramPacket(buffer.array(), buffer.capacity());
         return packet;
     }
+
+    public static Message parsePacket(DatagramPacket packet) {
+        MessageBuilder builder = new MessageBuilder();
+
+        ByteBuffer buffer = ByteBuffer.wrap(packet.getData());
+        byte code = buffer.get();
+        byte pid = buffer.get();
+        builder.code(code)
+               .pid(pid);
+
+        if(code == Message.ACCEPT) {
+            short nameLength = buffer.getShort();
+            byte[] nameArray = new byte[nameLength];
+            builder.name(new String(nameArray));
+        }
+
+        if(code != Message.JOIN) {
+            builder.position(buffer.getInt(), buffer.getInt());
+            builder.mousePosition(buffer.getInt(), buffer.getInt());
+        }
+
+        return builder.build();
+    }
 }
