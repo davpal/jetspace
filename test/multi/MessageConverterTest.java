@@ -93,4 +93,22 @@ public class MessageConverterTest extends TestCase {
         assertEquals(13, accept.getMouseY());
         assertEquals(InetAddress.getLoopbackAddress(), accept.getSource());
     }
+
+    @Test
+    public void testRawDataConversionToMessage() {
+        byte[] raw = new byte[] {
+            0x16, 0x01,
+            0x00, 0x04,
+            0x64, 0x61, 0x76, 0x65,
+            0x00, 0x00, 0x01, 0x2C, 0x00, 0x00, 0x00, (byte)0xC8,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+        };
+
+        DatagramPacket packet = new DatagramPacket(raw, raw.length);
+
+        Message result = MessageConverter.parsePacket(packet);
+
+        assertEquals(300, result.getX());
+        assertEquals(200, result.getY());
+    }
 }
