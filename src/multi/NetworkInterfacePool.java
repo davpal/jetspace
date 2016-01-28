@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 
 public class NetworkInterfacePool {
@@ -33,14 +34,9 @@ public class NetworkInterfacePool {
 
             }
             Enumeration<InetAddress> addresses = nic.getInetAddresses();
-            if (!addresses.hasMoreElements()) {
-                continue;
+            for (InetAddress addr : Collections.list(addresses)) {
+                if(addr instanceof Inet4Address) interfaces.add(addr);
             }
-            InetAddress address = addresses.nextElement();
-            if (!(address instanceof Inet4Address)) {
-                continue;
-            }
-            interfaces.add(address);
         }
     }
 }

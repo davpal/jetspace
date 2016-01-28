@@ -62,7 +62,7 @@ public class MessageTest {
         Message messageWithCodeAndXAndYAndAngle = message.parsePacket(datagramPacket);
 
         assertEquals(messageWithCodeAndXAndYAndAngle.getY(), 355);
-        assertEquals(messageWithCodeAndXAndYAndAngle.getAngle(), 12345.1234, 0.0);
+        assertEquals(messageWithCodeAndXAndYAndAngle.getAngle(), 12345.1234, 0.000001);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class MessageTest {
         Message messageTested = Message.parsePacket(datagramPacket);
 
         assertEquals(message.getCode(), messageTested.getCode());
-        assertEquals(message.getAngle(), messageTested.getAngle(), 0);
+        assertEquals(message.getAngle(), messageTested.getAngle(), 0.000001);
         assertEquals(message.getX(), messageTested.getX());
         assertEquals(message.getY(), messageTested.getY());
     }

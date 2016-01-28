@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public class PacketSender implements Runnable {
     private PlayerSocket socket;
     private boolean running;
-    private Deque<Message> messages = new LinkedList<>();
+    private volatile Deque<Message> messages = new LinkedList<>();
 
     public PacketSender(PlayerSocket socket) {
         this.socket = socket;
