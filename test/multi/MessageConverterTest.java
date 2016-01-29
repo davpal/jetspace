@@ -67,6 +67,30 @@ public class MessageConverterTest extends TestCase {
         assertEquals(400, y);
     }
 
+        @Test
+    public void testMoveConversionToPacket() {
+        Message move = builder.code(Message.MOVE)
+                                .pid(player.getPid())
+                                .shifts(5, -5)
+                                .mousePosition(0, 0)
+                                .build();
+
+        DatagramPacket packet = MessageConverter.toPacket(move);
+
+        ByteBuffer buffer = ByteBuffer.wrap(packet.getData());
+
+        int code = buffer.get();
+        int pid = buffer.get();
+        int dx = buffer.getInt();
+        int dy = buffer.getInt();
+
+        assertEquals(18, buffer.capacity());
+        assertEquals(Message.MOVE, code);
+        assertEquals(1, pid);
+        assertEquals(5, dx);
+        assertEquals(-5, dy);
+    }
+
     @Test
     public void testPacketConversionToMessage() {
         ByteBuffer buffer = ByteBuffer.allocate(26);

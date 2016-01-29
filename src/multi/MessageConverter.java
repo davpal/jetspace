@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package multi;
 
 import java.net.DatagramPacket;
@@ -10,10 +5,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 
-/**
- *
- * @author dave
- */
 class MessageConverter {
     public static DatagramPacket toPacket(Message message) {
         int size = message.getSize();
@@ -32,8 +23,13 @@ class MessageConverter {
         }
 
         if(message.getCode() != Message.JOIN) {
-            buffer.putInt(message.getX());
-            buffer.putInt(message.getY());
+            if(message.getCode() == Message.MOVE) {
+                buffer.putInt(message.getDx());
+                buffer.putInt(message.getDy());
+            } else {
+                buffer.putInt(message.getX());
+                buffer.putInt(message.getY());
+            }
             buffer.putInt(message.getMouseX());
             buffer.putInt(message.getMouseY());
         }
@@ -66,7 +62,10 @@ class MessageConverter {
         }
 
         if(code != Message.JOIN) {
-            builder.position(buffer.getInt(), buffer.getInt());
+            if(code == Message.MOVE)
+                builder.shifts(buffer.getInt(), buffer.getInt());
+            else
+                builder.position(buffer.getInt(), buffer.getInt());
             builder.mousePosition(buffer.getInt(), buffer.getInt());
         }
 
