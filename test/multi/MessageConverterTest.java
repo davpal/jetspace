@@ -128,4 +128,24 @@ public class MessageConverterTest extends TestCase {
         assertEquals(300, result.getX());
         assertEquals(200, result.getY());
     }
+
+    @Test
+    public void testPacketConversionToMoveMessage() {
+        ByteBuffer buffer = ByteBuffer.allocate(26)
+                                      .put(Message.MOVE)
+                                      .put((byte)1)
+                                      .putInt(3)
+                                      .putInt(4)
+                                      .putInt(11)
+                                      .putInt(13);
+
+        DatagramPacket packet = new DatagramPacket(buffer.array(), buffer.capacity());
+
+        Message move = MessageConverter.parsePacket(packet);
+
+        assertEquals(3, move.getDx());
+        assertEquals(4, move.getDy());
+        assertEquals(11, move.getMouseX());
+        assertEquals(13, move.getMouseY());
+    }
 }
