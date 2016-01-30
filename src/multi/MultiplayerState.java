@@ -86,7 +86,7 @@ public class MultiplayerState extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame game, int delta) {
         if(waiting) return;
 
-        Message m = receiver.poll();
+        Message m = receiver.receive();
         if(m != null) {
             processMessage(m);
         }
@@ -186,10 +186,10 @@ public class MultiplayerState extends BasicGameState {
 
         receiver = new PacketReceiver(recvSocket);
 
-        Message m = receiver.poll();
+        Message m = receiver.receive();
         System.out.println("Waiting for players...");
         while(m == null) {
-            m = receiver.poll();
+            m = receiver.receive();
         }
 
         processMessage(m);

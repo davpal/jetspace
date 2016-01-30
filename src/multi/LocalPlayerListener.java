@@ -53,7 +53,7 @@ public class LocalPlayerListener extends PlayerInputListener {
                               .shifts(dx, dy)
                               .mousePosition(0, 0)
                               .build();
-        sender.add(move);
+        sender.send(move);
     }
 
     public void keyReleased(int key, char arg1) {
@@ -66,7 +66,7 @@ public class LocalPlayerListener extends PlayerInputListener {
                               .mousePosition(0, 0)
                               .build();
 
-        sender.add(stop);
+        sender.send(stop);
     }
 
     public void mouseMoved(int arg0, int arg1, int mx, int my) {
@@ -78,7 +78,7 @@ public class LocalPlayerListener extends PlayerInputListener {
                               .mousePosition(0, 0)
                               .build();
 
-        sender.add(move);
+        sender.send(move);
     }
 
     public void mouseClicked(int button, int arg1, int arg2, int arg3) {
@@ -90,6 +90,6 @@ public class LocalPlayerListener extends PlayerInputListener {
                                .mousePosition(0, 0)
                                .build();
 
-        sender.add(shoot);
+        sender.send(shoot);
     }
 }
