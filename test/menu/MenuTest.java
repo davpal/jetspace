@@ -1,13 +1,8 @@
 package menu;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
-import menu.Menu;
 
 public class MenuTest {
     Menu menu = new Menu("Main menu");

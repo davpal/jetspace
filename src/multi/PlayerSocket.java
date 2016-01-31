@@ -6,7 +6,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class PlayerSocket {
-    public static final int PACKET_SIZE = 20;
+    public static final int PACKET_SIZE = 40;
     DatagramSocket socket;
 
     PlayerSocket(int port) throws Exception {
@@ -18,7 +18,7 @@ public class PlayerSocket {
     }
 
     public void send(Message message) {
-        DatagramPacket datagramPacket = message.toPacket();
+        DatagramPacket datagramPacket = MessageConverter.toPacket(message);
         try {
             socket.send(datagramPacket);
         } catch (IOException e) {
@@ -34,7 +34,7 @@ public class PlayerSocket {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Message.parsePacket(packet);
+        return MessageConverter.parsePacket(packet);
     }
 
     public void close() {

@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class PacketReceiver implements Runnable {
+public class PacketReceiver implements Receiver, Runnable {
     private PlayerSocket socket;
     private boolean running;
     private volatile Deque<Message> messages = new LinkedList<>();
@@ -24,7 +24,8 @@ public class PacketReceiver implements Runnable {
         }
     }
 
-    public synchronized Message poll() {
+    @Override
+    public synchronized Message receive() {
         return messages.poll();
     }
 }

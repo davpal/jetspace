@@ -3,7 +3,7 @@ package multi;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class PacketSender implements Runnable {
+public class PacketSender implements Sender, Runnable {
     private PlayerSocket socket;
     private boolean running;
     private volatile Deque<Message> messages = new LinkedList<>();
@@ -14,7 +14,8 @@ public class PacketSender implements Runnable {
         new Thread(this).start();
     }
 
-    public synchronized void add(Message m){
+    @Override
+    public synchronized void send(Message m){
         messages.add(m);
     }
 
