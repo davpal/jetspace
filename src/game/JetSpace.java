@@ -1,6 +1,6 @@
 package game;
 
-import menu.Multiplayer;
+import multi.MultiplayerSetupState;
 import multi.MultiplayerState;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -8,8 +8,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class JetSpace extends StateBasedGame {
-    public static final String TITLE = "JetSpace v0.2.2";
-    
+    public static final String TITLE = "JetSpace v0.2.3";
+
     JetSpace(){
         super(TITLE);
     }
@@ -19,6 +19,8 @@ public class JetSpace extends StateBasedGame {
             AppGameContainer app = new AppGameContainer(new JetSpace());
             app.setDisplayMode(640, 480, false);
             app.setTargetFrameRate(60);
+            app.setUpdateOnlyWhenVisible(false);
+            app.setAlwaysRender(true);
             app.start();
         }
         catch (SlickException e){
@@ -29,6 +31,7 @@ public class JetSpace extends StateBasedGame {
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
         addState(new MenuState(gc, this));
+        addState(new MultiplayerSetupState(gc));
         addState(new MultiplayerState(gc));
         addState(new Level1State(gc));
         addState(new GameOverState(this));

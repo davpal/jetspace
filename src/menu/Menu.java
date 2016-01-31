@@ -1,8 +1,9 @@
 package menu;
 
+import org.newdawn.slick.state.StateBasedGame;
+
 import java.util.ArrayList;
 import java.util.Iterator;
-import org.newdawn.slick.state.StateBasedGame;
 
 public class Menu extends MenuItem {
     private ArrayList<MenuItem> items = new ArrayList<>();
@@ -10,7 +11,8 @@ public class Menu extends MenuItem {
     private int selected;
     private boolean inside;
     
-    public Menu() {
+    public Menu(String title, int x, int y, int width, int height) {
+        super(title, x, y, width, height);
         parent = null;
         selected = 0;
     }

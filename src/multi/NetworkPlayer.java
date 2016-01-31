@@ -2,20 +2,15 @@ package multi;
 
 import entity.Player;
 import org.newdawn.slick.GameContainer;
-import rendering.Renderer;
 
 public class NetworkPlayer extends Player {
-    protected NetworkPlayer(double d, double e, double a) {
-        super(d, e, a);
+    public NetworkPlayer(String name, double x, double y) {
+        super(name, x, y);
     }
 
     @Override
-    public void update(GameContainer g) {
-
-    }
-
-    @Override
-    public void render(Renderer r) {
-
+    public void update(GameContainer gc) {
+        x += dx;
+        y += dy;
     }
 }
