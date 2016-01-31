@@ -148,4 +148,30 @@ public class MessageConverterTest extends TestCase {
         assertEquals(11, move.getMouseX());
         assertEquals(13, move.getMouseY());
     }
+
+    @Test
+    public void testPacketConversionToStopMessage() {
+        ByteBuffer buffer = ByteBuffer.allocate(18);
+        buffer.put(Message.STOP);
+        buffer.put((byte)1);
+        buffer.putInt(3);
+        buffer.putInt(4);
+        buffer.putInt(11);
+        buffer.putInt(13);
+
+        DatagramPacket packet = new DatagramPacket(buffer.array(), buffer.capacity());
+        packet.setAddress(InetAddress.getLoopbackAddress());
+
+        Message accept = MessageConverter.parsePacket(packet);
+
+        assertEquals(Message.STOP, accept.getCode());
+        assertEquals(1, accept.getPid());
+        assertEquals(3, accept.getX());
+        assertEquals(4, accept.getY());
+        assertEquals(0, accept.getDx());
+        assertEquals(0, accept.getDy());
+        assertEquals(11, accept.getMouseX());
+        assertEquals(13, accept.getMouseY());
+        assertEquals(InetAddress.getLoopbackAddress(), accept.getSource());
+    }
 }
