@@ -21,13 +21,14 @@ public class MessageConverterTest extends TestCase {
 
     @Test
     public void testJoinConversionToPacket() {
-        Message join = builder.code(Message.JOIN).build();
+        Message join = builder.code(Message.JOIN).pid((byte)1).build();
         DatagramPacket packet = MessageConverter.toPacket(join);
 
         ByteBuffer buffer = ByteBuffer.wrap(packet.getData());
 
-        assertEquals(buffer.limit(), 1);
+        assertEquals(buffer.capacity(), 2);
         assertEquals(Message.JOIN, buffer.get());
+        assertEquals(1, buffer.get());
     }
 
     @Test
@@ -66,7 +67,7 @@ public class MessageConverterTest extends TestCase {
         Message move = builder.code(Message.MOVE)
                                 .pid(player.getPid())
                                 .shifts(5, -5)
-                                .mousePosition(0, 0)
+                                .mousePosition(4, 7)
                                 .build();
 
         DatagramPacket packet = MessageConverter.toPacket(move);
@@ -77,12 +78,16 @@ public class MessageConverterTest extends TestCase {
         int pid = buffer.get();
         int dx = buffer.getInt();
         int dy = buffer.getInt();
+        int mx = buffer.getInt();
+        int my = buffer.getInt();
 
         assertEquals(18, buffer.capacity());
         assertEquals(Message.MOVE, code);
         assertEquals(1, pid);
         assertEquals(5, dx);
         assertEquals(-5, dy);
+        assertEquals(4, mx);
+        assertEquals(7, my);
     }
 
     @Test

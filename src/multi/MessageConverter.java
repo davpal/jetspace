@@ -12,10 +12,7 @@ public final class MessageConverter {
 
         ByteBuffer buffer = ByteBuffer.allocate(size);
         buffer.put(message.getCode());
-
-        if(message.getCode() != Message.JOIN) {
-            buffer.put(message.getPid());
-        }
+        buffer.put(message.getPid());
 
         if(message.getCode() == Message.ACCEPT) {
             buffer.putShort((short)message.getName().length());

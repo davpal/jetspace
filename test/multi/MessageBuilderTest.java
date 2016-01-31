@@ -19,10 +19,11 @@ public class MessageBuilderTest {
 
     @Test
     public void testBuildJoinMessage() {
-        Message join = builder.code(Message.JOIN).build();
+        Message join = builder.code(Message.JOIN).pid((byte)1).build();
 
         assertEquals(Message.JOIN, join.getCode());
-        assertEquals(1, join.getSize());
+        assertEquals(2, join.getSize());
+        assertEquals(1, join.getPid());
     }
 
     @Test
