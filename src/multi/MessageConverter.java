@@ -43,7 +43,7 @@ public final class MessageConverter {
     }
 
     public static Message parsePacket(DatagramPacket packet) {
-        MessageBuilder builder = new MessageBuilder();
+        Message.Builder builder = new Message.Builder();
 
         ByteBuffer buffer = ByteBuffer.wrap(packet.getData());
         byte code = buffer.get();

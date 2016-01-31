@@ -27,7 +27,6 @@ public class MultiplayerState extends BasicGameState {
     private boolean waiting = true;
 
     private PlayerSocket sendSocket;
-    private MessageBuilder builder = new MessageBuilder();
 
     public MultiplayerState(GameContainer gc) {
                 this.music = ResourceLoader.getAudio("WAV", "audio/battle.wav");
@@ -51,7 +50,7 @@ public class MultiplayerState extends BasicGameState {
                 player.setY(200);
                 networkPlayer = new NetworkPlayer("REMOTE", 200, 300);
 
-                Message accept = builder.code(Message.ACCEPT)
+                Message accept = new Message.Builder().code(Message.ACCEPT)
                                         .pid(player.getPid())
                                         .name(player.getName())
                                         .position(player.getX(), player.getY())
@@ -99,7 +98,7 @@ public class MultiplayerState extends BasicGameState {
 
         if(player.intersect(networkPlayer)) {
             player.setHit(true);
-            Message hit = builder.code(Message.HIT)
+            Message hit = new Message.Builder().code(Message.HIT)
                                  .pid(player.getPid())
                                  .build();
             sendSocket.send(hit);
@@ -165,7 +164,7 @@ public class MultiplayerState extends BasicGameState {
             sendSocket = new PlayerSocket(MultiplayerConfiguration.SEND_PORT,
                 MultiplayerConfiguration.getInterface());
 
-            Message join = builder.code(Message.JOIN).pid(player.getPid()).build();
+            Message join = new Message.Builder().code(Message.JOIN).pid(player.getPid()).build();
 
             sendSocket.send(join);
 

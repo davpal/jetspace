@@ -116,4 +116,64 @@ public class Message {
     public InetAddress getSource() {
         return sourceAddress;
     }
+
+    public static class Builder {
+        Message message;
+
+        public Builder() {
+            message = new Message();
+        }
+
+        public void extend(int amount) {
+            message.setSize(message.getSize() + amount);
+        }
+
+        public Builder code(byte code) {
+            message.setCode(code);
+            message.setSize(1);
+            return this;
+        }
+
+        public Builder pid(byte pid) {
+            message.setPid(pid);
+            extend(1);
+            return this;
+        }
+
+        public Builder name(String name) {
+            message.setName(name);
+            extend(name.length());
+            return this;
+        }
+
+        public Builder position(double x, double y) {
+            message.setX((int)x);
+            message.setY((int)y);
+            extend(8);
+            return this;
+        }
+
+        public Builder mousePosition(int x, int y) {
+            message.setMouseX(x);
+            message.setMouseY(y);
+            extend(8);
+            return this;
+        }
+
+        public Builder shifts(double dx, double dy) {
+            message.setDx((int)dx);
+            message.setDy((int)dy);
+            extend(8);
+            return this;
+        }
+
+        public Builder source(InetAddress address) {
+            message.setSource(address);
+            return this;
+        }
+
+        public Message build() {
+            return message;
+        }
+    }
 }

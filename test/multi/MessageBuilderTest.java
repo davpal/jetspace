@@ -8,18 +8,19 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class MessageBuilderTest {
-    private MessageBuilder builder;
     private Player player;
 
     @Before
     public void setUp() {
         player = new Player("Test", 300, 400);
-        builder = new MessageBuilder();
     }
 
     @Test
     public void testBuildJoinMessage() {
-        Message join = builder.code(Message.JOIN).pid((byte)1).build();
+        Message join = new Message.Builder()
+                                  .code(Message.JOIN)
+                                  .pid((byte)1)
+                                  .build();
 
         assertEquals(Message.JOIN, join.getCode());
         assertEquals(2, join.getSize());
@@ -28,12 +29,13 @@ public class MessageBuilderTest {
 
     @Test
     public void testBuildAcceptMessage() {
-        Message accept = builder.code(Message.ACCEPT)
-                                .pid(player.getPid())
-                                .name(player.getName())
-                                .position(player.getX(), player.getY())
-                                .mousePosition(0, 0)
-                                .build();
+        Message accept = new Message.Builder()
+                                    .code(Message.ACCEPT)
+                                    .pid(player.getPid())
+                                    .name(player.getName())
+                                    .position(player.getX(), player.getY())
+                                    .mousePosition(0, 0)
+                                    .build();
 
         assertEquals(Message.ACCEPT, accept.getCode());
         assertEquals(22, accept.getSize());
@@ -43,12 +45,13 @@ public class MessageBuilderTest {
 
     @Test
     public void testBuildSyncMessage() {
-        Message sync = builder.code(Message.SYNC)
-                                .pid(player.getPid())
-                                .name(player.getName())
-                                .position(player.getX(), player.getY())
-                                .mousePosition(0, 0)
-                                .build();
+        Message sync = new Message.Builder()
+                                  .code(Message.SYNC)
+                                  .pid(player.getPid())
+                                  .name(player.getName())
+                                  .position(player.getX(), player.getY())
+                                  .mousePosition(0, 0)
+                                  .build();
 
         assertEquals(Message.SYNC, sync.getCode());
         assertEquals(22, sync.getSize());
@@ -61,11 +64,12 @@ public class MessageBuilderTest {
         player.setDx(3);
         player.setDy(4);
 
-        Message move = builder.code(Message.MOVE)
-                              .pid(player.getPid())
-                              .shifts(player.getDx(), player.getDy())
-                              .mousePosition(100, 200)
-                              .build();
+        Message move = new Message.Builder()
+                                  .code(Message.MOVE)
+                                  .pid(player.getPid())
+                                  .shifts(player.getDx(), player.getDy())
+                                  .mousePosition(100, 200)
+                                  .build();
 
         assertEquals(Message.MOVE, move.getCode());
         assertEquals(18, move.getSize());
@@ -79,10 +83,10 @@ public class MessageBuilderTest {
     public void testBuildMessageWithSourceAddress() {
         InetAddress address = Inet4Address.getLoopbackAddress();
 
-        Message remoteMessage = builder.code(Message.JOIN)
-                                       .pid((byte)1)
-                                       .source(address)
-                                       .build();
+        Message remoteMessage = new Message.Builder().code(Message.JOIN)
+                                           .pid((byte)1)
+                                           .source(address)
+                                           .build();
 
         assertEquals(Message.JOIN, remoteMessage.getCode());
         assertEquals(address, remoteMessage.getSource());
