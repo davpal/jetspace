@@ -8,7 +8,8 @@ import java.awt.*;
 public abstract class GameObject {
     protected double x, y, dx, dy, speed, angle;
     protected int width, height, collisionWidth, collisionHeight;
-    protected boolean left, right, up, down, hit;
+    protected boolean left, right, up, down, hit;    
+    protected boolean dead, crashing;
 
     public double getSpeed() {
         return speed;
@@ -33,8 +34,6 @@ public abstract class GameObject {
     public void setHeight(int height) {
         this.height = height;
     }
-
-    protected boolean dead, crashing;
 
     protected GameObject(double d, double e, double a) {
         this.x = d;

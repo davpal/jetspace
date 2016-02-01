@@ -13,6 +13,7 @@ public class MessageConverterTest extends TestCase {
     private Player player;
 
     @Before
+    @Override
     public void setUp() {
         builder = new MessageBuilder();
         player = new Player("Test", 300, 400);

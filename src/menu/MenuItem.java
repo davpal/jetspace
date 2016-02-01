@@ -42,7 +42,8 @@ public class MenuItem {
     }
 
     public void execute(StateBasedGame g){
-
+        // Derived classes override this method,
+        // MenuItem executed itself do nothing
     }
 
     public void render(Renderer r){

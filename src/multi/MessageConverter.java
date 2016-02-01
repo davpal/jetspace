@@ -5,7 +5,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 
-class MessageConverter {
+public final class MessageConverter {
     public static DatagramPacket toPacket(Message message) {
         int size = message.getSize();
         if(message.getCode() == Message.ACCEPT) size += 2;

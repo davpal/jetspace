@@ -20,11 +20,13 @@ public class LocalPlayerListener extends PlayerInputListener {
         super();
     }
 
+    @Override
     public void keyPressed(int key, char arg1) {
         super.keyPressed(key, arg1);
         pressedKeys.add(key);
 
-        double dx = 0, dy = 0;
+        double dx = 0;
+        double dy = 0;
         for(int k : pressedKeys) {
             switch (k) {
                 case Input.KEY_D: {
@@ -56,6 +58,7 @@ public class LocalPlayerListener extends PlayerInputListener {
         sender.send(move);
     }
 
+    @Override
     public void keyReleased(int key, char arg1) {
         super.keyReleased(key, arg1);
         pressedKeys.remove(Integer.valueOf(key));
@@ -69,6 +72,7 @@ public class LocalPlayerListener extends PlayerInputListener {
         sender.send(stop);
     }
 
+    @Override
     public void mouseMoved(int arg0, int arg1, int mx, int my) {
         super.mouseMoved(arg0, arg1, mx, my);
 
@@ -81,6 +85,7 @@ public class LocalPlayerListener extends PlayerInputListener {
         sender.send(move);
     }
 
+    @Override
     public void mouseClicked(int button, int arg1, int arg2, int arg3) {
         super.mouseClicked(button, arg1, arg2, arg3);
 

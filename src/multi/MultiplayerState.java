@@ -1,13 +1,9 @@
 package multi;
 
-import entity.ImageLoader;
 import entity.Player;
-import entity.enemies.Bomber;
 import entity.enemies.Enemy;
 import input.PlayerInputListener;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -163,7 +159,7 @@ public class MultiplayerState extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame game)
             throws SlickException {
 
-        background = ImageLoader.loadImage("backgrounds/game.jpg");
+        background = ResourceLoader.getImage("backgrounds/game.jpg");
         gc.setMouseGrabbed(true);
     }
 
