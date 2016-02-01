@@ -31,9 +31,7 @@ public class Renderer {
     private Font titleFont = ResourceLoader.getFont("fonts/modern_caveman.ttf", 48f);
     private Font itemFont  = ResourceLoader.getFont("fonts/modern_caveman.ttf", 28f);
     private Font nameFont = ResourceLoader.getFont("fonts/modern_caveman.ttf", 14f);
-    Image cursor = ResourceLoader.getImage("player/crosshair.png");
-
-    private ArrayList<Explosion> explosions = new ArrayList<>();
+    private Image cursor = ResourceLoader.getImage("player/crosshair.png");
 
     public Renderer(GameContainer gc) {
         this.gc = gc;

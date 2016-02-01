@@ -30,7 +30,7 @@ public class JetSpace extends StateBasedGame {
 
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
-        addState(new MenuState(gc, this));
+        addState(new MenuState(gc));
         addState(new MultiplayerSetupState(gc));
         addState(new MultiplayerState(gc));
         addState(new Level1State(gc));

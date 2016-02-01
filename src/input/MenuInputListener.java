@@ -17,9 +17,6 @@ public class MenuInputListener extends InputAdapter {
     private Audio shootEffect = ResourceFactory.getLaserSound();
     private Menu menu;
     private StateBasedGame game;
-    private int mouseX;
-    private int mouseY;
-    private boolean selected = false;
     private Rectangle mouseRectangle;
     private Rectangle singlePlayerRectangle;
     private Rectangle multiPlayerRectangle;
@@ -39,6 +36,7 @@ public class MenuInputListener extends InputAdapter {
         this.menu = menu;
     }
 
+    @Override
     public boolean isAcceptingInput() {
         return true;
     }
@@ -77,8 +75,8 @@ public class MenuInputListener extends InputAdapter {
     }
 
     private void setMouseCoordinates() {
-        mouseX = Mouse.getX();
-        mouseY = Mouse.getY();
+        int mouseX = Mouse.getX();
+        int mouseY = Mouse.getY();
         mouseRectangle = new Rectangle((int) mouseX, (int) mouseY, 1, 1);
     }
 

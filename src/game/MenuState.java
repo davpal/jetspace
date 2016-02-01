@@ -18,7 +18,7 @@ public class MenuState extends BasicGameState {
     private Audio music;
     private MenuInputListener menuInputListener = new MenuInputListener();
 
-    public MenuState(GameContainer gc, StateBasedGame g) {
+    public MenuState(GameContainer gc) {
         music = ResourceLoader.getAudio("WAV", "audio/battle.wav");
         renderer = new Renderer(gc);
     }

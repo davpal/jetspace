@@ -36,14 +36,16 @@ public class Bomber extends Enemy {
         left = true;
     }
 
+    @Override
     public void render(Renderer r) {
         r.renderBomber(this);
     }
 
+    @Override
     public void fire(Player p) {
         long elapsed = (System.nanoTime() - shootTime) / 1000000;
         Random rand = new Random();
-        if (elapsed > rand.nextInt() % 200 + 1500) {
+        if (elapsed > rand.nextInt() % 200 + fireRate) {
             shooting = true;
             shootTime = System.nanoTime();
         }
