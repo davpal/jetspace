@@ -25,8 +25,8 @@ public class LocalPlayerListener extends PlayerInputListener {
         super.keyPressed(key, arg1);
         pressedKeys.add(key);
 
-        double dx = 0;
-        double dy = 0;
+        double dx = player.getDx();
+        double dy = player.getDy();
         for(int k : pressedKeys) {
             switch (k) {
                 case Input.KEY_D: {
@@ -46,7 +46,7 @@ public class LocalPlayerListener extends PlayerInputListener {
                     break;
                 }
                 default:
-                    dx = dy = 0;
+                    break;
             }
         }
 
@@ -62,9 +62,25 @@ public class LocalPlayerListener extends PlayerInputListener {
     public void keyReleased(int key, char arg1) {
         super.keyReleased(key, arg1);
         pressedKeys.remove(Integer.valueOf(key));
+        double dx = player.getDx();
+        double dy = player.getDy();
+
+        switch (key) {
+            case Input.KEY_D:
+            case Input.KEY_A:
+                dx = 0;
+                break;
+            case Input.KEY_W:
+            case Input.KEY_S:
+                dy = 0;
+                break;
+            default:
+                break;
+        }
 
         Message stop = builder.code(Message.STOP)
                               .pid(player.getPid())
+                              .shifts(dx, dy)
                               .position(player.getX(), player.getY())
                               .mousePosition(0, 0)
                               .build();

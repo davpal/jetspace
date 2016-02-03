@@ -73,10 +73,10 @@ public class MultiplayerState extends BasicGameState {
             case Message.STOP:
                 networkPlayer.setX(m.getX());
                 networkPlayer.setY(m.getY());
-                networkPlayer.setDx(0);
-                networkPlayer.setDy(0);
                 networkPlayer.setMouseX(m.getMouseX());
                 networkPlayer.setMouseY(m.getMouseY());
+                networkPlayer.setDx(m.getDx());
+                networkPlayer.setDy(m.getDy());
                 break;
             case Message.QUIT:
                 break;
