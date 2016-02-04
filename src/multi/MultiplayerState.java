@@ -195,7 +195,7 @@ public class MultiplayerState extends BasicGameState {
 
         processMessage(m);
 
-        playerListener = new LocalPlayerListener(player, new PacketSender(sendSocket));
+        playerListener = new LocalPlayerListener(player, new PacketSender(sendSocket), gc);
         playerListener.enable();
         gc.getInput().removeAllMouseListeners();
         gc.getInput().addListener(playerListener);

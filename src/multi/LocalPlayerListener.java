@@ -3,6 +3,7 @@ package multi;
 import entity.Player;
 import input.PlayerInputListener;
 import java.util.ArrayList;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 
 public class LocalPlayerListener extends PlayerInputListener {
@@ -10,10 +11,12 @@ public class LocalPlayerListener extends PlayerInputListener {
     PacketSender sender;
     private ArrayList<Integer> pressedKeys = new ArrayList<>();
     private MessageBuilder builder = new MessageBuilder();
+    private GameContainer gc;
 
-    public LocalPlayerListener(Player player, PacketSender sender){
+    public LocalPlayerListener(Player player, PacketSender sender, GameContainer gc){
         super(player);
         this.sender = sender;
+        this.gc = gc;
     }
 
     LocalPlayerListener() {
@@ -50,10 +53,12 @@ public class LocalPlayerListener extends PlayerInputListener {
             }
         }
 
+        int mx = gc.getInput().getMouseX();
+        int my = gc.getInput().getMouseY();
         Message move = builder.code(Message.MOVE)
                               .pid(player.getPid())
                               .shifts(dx, dy)
-                              .mousePosition(0, 0)
+                              .mousePosition(mx, my)
                               .build();
         sender.send(move);
     }
@@ -88,8 +93,15 @@ public class LocalPlayerListener extends PlayerInputListener {
     }
 
     @Override
-    public void mouseMoved(int arg0, int arg1, int mx, int my) {
-        super.mouseMoved(arg0, arg1, mx, my);
+    public void mouseMoved(int ox, int oy, int nx, int ny) {
+        super.mouseMoved(ox, oy, nx, ny);
+
+        //
+        // FIXME: nx, ny are not proper values
+        // Get mouse posistion in direct way
+        //
+        int mx = gc.getInput().getMouseX();
+        int my = gc.getInput().getMouseY();
 
         Message move = builder.code(Message.MOVE)
                               .pid(player.getPid())
@@ -107,7 +119,7 @@ public class LocalPlayerListener extends PlayerInputListener {
         Message shoot = builder.code(Message.SHOOT)
                                .pid(player.getPid())
                                .position(player.getX(), player.getY())
-                               .mousePosition(mx, my)
+                               .mousePosition((int)player.getX() + mx, (int)player.getY() + my)
                                .build();
 
         sender.send(shoot);
