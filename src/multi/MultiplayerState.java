@@ -17,7 +17,8 @@ import resource.ResourceLoader;
 public class MultiplayerState extends BasicGameState {
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private ArrayList<Explosion> explosions = new ArrayList<Explosion>();
-    private Player player, networkPlayer;
+    private Player player;
+    private NetworkPlayer networkPlayer;
     private PlayerInputListener playerListener = new LocalPlayerListener();
     private Image background;
     private Renderer renderer;
@@ -33,7 +34,7 @@ public class MultiplayerState extends BasicGameState {
         renderer = new Renderer(gc);
     }
 
-    public void processMessage(Message m) {
+    public void processMessage(Message m, GameContainer gc) {
         // Debug received message
         System.out.println("========================================");
         System.out.println("====           RECEIVED             ====");
@@ -62,16 +63,21 @@ public class MultiplayerState extends BasicGameState {
             case Message.MOVE:
                 networkPlayer.setDx(m.getDx());
                 networkPlayer.setDy(m.getDy());
+                networkPlayer.setMouseX(m.getMouseX());
+                networkPlayer.setMouseY(m.getMouseY());
                 break;
             case Message.SHOOT:
+                networkPlayer.setShooting(true);
                 break;
             case Message.HIT:
                 break;
             case Message.STOP:
                 networkPlayer.setX(m.getX());
                 networkPlayer.setY(m.getY());
-                networkPlayer.setDx(0);
-                networkPlayer.setDy(0);
+                networkPlayer.setMouseX(m.getMouseX());
+                networkPlayer.setMouseY(m.getMouseY());
+                networkPlayer.setDx(m.getDx());
+                networkPlayer.setDy(m.getDy());
                 break;
             case Message.QUIT:
                 break;
@@ -84,7 +90,7 @@ public class MultiplayerState extends BasicGameState {
 
         Message m = receiver.receive();
         if(m != null) {
-            processMessage(m);
+            processMessage(m, gc);
         }
 
         networkPlayer.update(gc);
@@ -188,9 +194,9 @@ public class MultiplayerState extends BasicGameState {
             m = receiver.receive();
         }
 
-        processMessage(m);
+        processMessage(m, gc);
 
-        playerListener = new LocalPlayerListener(player, new PacketSender(sendSocket));
+        playerListener = new LocalPlayerListener(player, new PacketSender(sendSocket), gc);
         playerListener.enable();
         gc.getInput().removeAllMouseListeners();
         gc.getInput().addListener(playerListener);

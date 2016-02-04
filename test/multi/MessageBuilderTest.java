@@ -3,7 +3,6 @@ package multi;
 import entity.Player;
 import java.net.Inet4Address;
 import java.net.InetAddress;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -64,13 +63,15 @@ public class MessageBuilderTest {
         Message move = builder.code(Message.MOVE)
                               .pid(player.getPid())
                               .shifts(player.getDx(), player.getDy())
-                              .mousePosition(0, 0)
+                              .mousePosition(100, 200)
                               .build();
 
         assertEquals(Message.MOVE, move.getCode());
         assertEquals(18, move.getSize());
         assertEquals(3, move.getDx());
         assertEquals(4, move.getDy());
+        assertEquals(100, move.getMouseX());
+        assertEquals(200, move.getMouseY());
     }
 
     @Test
