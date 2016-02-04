@@ -82,7 +82,6 @@ public class LocalPlayerListener extends PlayerInputListener {
                               .pid(player.getPid())
                               .shifts(dx, dy)
                               .position(player.getX(), player.getY())
-                              .mousePosition(0, 0)
                               .build();
 
         sender.send(stop);
@@ -94,21 +93,21 @@ public class LocalPlayerListener extends PlayerInputListener {
 
         Message move = builder.code(Message.MOVE)
                               .pid(player.getPid())
-                              .shifts(0, 0)
-                              .mousePosition(0, 0)
+                              .shifts(player.getDx(), player.getDy())
+                              .mousePosition(mx, my)
                               .build();
 
         sender.send(move);
     }
 
     @Override
-    public void mouseClicked(int button, int arg1, int arg2, int arg3) {
-        super.mouseClicked(button, arg1, arg2, arg3);
+    public void mouseClicked(int button, int arg1, int mx, int my) {
+        super.mouseClicked(button, arg1, mx, my);
 
         Message shoot = builder.code(Message.SHOOT)
                                .pid(player.getPid())
                                .position(player.getX(), player.getY())
-                               .mousePosition(0, 0)
+                               .mousePosition(mx, my)
                                .build();
 
         sender.send(shoot);
