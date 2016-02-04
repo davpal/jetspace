@@ -119,7 +119,7 @@ public class LocalPlayerListener extends PlayerInputListener {
         Message shoot = builder.code(Message.SHOOT)
                                .pid(player.getPid())
                                .position(player.getX(), player.getY())
-                               .mousePosition((int)player.getX() + mx, (int)player.getY() + my)
+                               .mousePosition(mx, my)
                                .build();
 
         sender.send(shoot);

@@ -34,7 +34,7 @@ public class MultiplayerState extends BasicGameState {
         renderer = new Renderer(gc);
     }
 
-    public void processMessage(Message m) {
+    public void processMessage(Message m, GameContainer gc) {
         // Debug received message
         System.out.println("========================================");
         System.out.println("====           RECEIVED             ====");
@@ -67,6 +67,7 @@ public class MultiplayerState extends BasicGameState {
                 networkPlayer.setMouseY(m.getMouseY());
                 break;
             case Message.SHOOT:
+                networkPlayer.setShooting(true);
                 break;
             case Message.HIT:
                 break;
@@ -89,7 +90,7 @@ public class MultiplayerState extends BasicGameState {
 
         Message m = receiver.receive();
         if(m != null) {
-            processMessage(m);
+            processMessage(m, gc);
         }
 
         networkPlayer.update(gc);
@@ -193,7 +194,7 @@ public class MultiplayerState extends BasicGameState {
             m = receiver.receive();
         }
 
-        processMessage(m);
+        processMessage(m, gc);
 
         playerListener = new LocalPlayerListener(player, new PacketSender(sendSocket), gc);
         playerListener.enable();
