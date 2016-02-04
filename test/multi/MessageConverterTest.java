@@ -175,4 +175,18 @@ public class MessageConverterTest extends TestCase {
         assertEquals(13, accept.getMouseY());
         assertEquals(InetAddress.getLoopbackAddress(), accept.getSource());
     }
+
+    @Test
+    public void testAlotConversionToPacket() {
+        for(int i = 0; i < 1000; ++i) {
+            Message move = new Message.Builder()
+                                      .code(Message.MOVE)
+                                      .pid(player.getPid())
+                                      .shifts(5, -5)
+                                      .mousePosition(4, 7)
+                                      .build();
+
+            DatagramPacket packet = MessageConverter.toPacket(move);
+        }
+    }
 }

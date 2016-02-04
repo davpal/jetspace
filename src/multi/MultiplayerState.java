@@ -17,7 +17,8 @@ import resource.ResourceLoader;
 public class MultiplayerState extends BasicGameState {
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private ArrayList<Explosion> explosions = new ArrayList<Explosion>();
-    private Player player, networkPlayer;
+    private Player player;
+    private NetworkPlayer networkPlayer;
     private PlayerInputListener playerListener = new LocalPlayerListener();
     private Image background;
     private Renderer renderer;
@@ -62,6 +63,8 @@ public class MultiplayerState extends BasicGameState {
             case Message.MOVE:
                 networkPlayer.setDx(m.getDx());
                 networkPlayer.setDy(m.getDy());
+                networkPlayer.setMouseX(m.getMouseX());
+                networkPlayer.setMouseY(m.getMouseY());
                 break;
             case Message.SHOOT:
                 break;
@@ -72,6 +75,8 @@ public class MultiplayerState extends BasicGameState {
                 networkPlayer.setY(m.getY());
                 networkPlayer.setDx(0);
                 networkPlayer.setDy(0);
+                networkPlayer.setMouseX(m.getMouseX());
+                networkPlayer.setMouseY(m.getMouseY());
                 break;
             case Message.QUIT:
                 break;
