@@ -22,7 +22,7 @@ public final class MessageConverter {
             buffer.put(message.getName().getBytes());
         }
 
-        if(message.getCode() != Message.JOIN) {
+        if(message.getCode() != Message.JOIN && message.getCode() != Message.HIT) {
             if(message.getCode() == Message.MOVE) {
                 buffer.putInt(message.getDx());
                 buffer.putInt(message.getDy());

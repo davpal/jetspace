@@ -14,6 +14,21 @@ public class NetworkPlayer extends Player {
 
     @Override
     public void update(GameContainer g) {
+        if (collision) {
+            collision = false;
+            setHit(true);
+        }
+
+        if (isHit()) {
+            health -= 1;
+            setHit(false);
+        }
+
+        if (health <= 0) {
+            setCrashing();
+            hit = false;
+        }
+
         angle = -Math.atan2((x + width / 2) - mx, (y + height / 2) - my);
 
         x += dx;

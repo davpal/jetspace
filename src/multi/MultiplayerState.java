@@ -70,6 +70,7 @@ public class MultiplayerState extends BasicGameState {
                 networkPlayer.setShooting(true);
                 break;
             case Message.HIT:
+                networkPlayer.setHit(true);
                 break;
             case Message.STOP:
                 networkPlayer.setX(m.getX());
@@ -85,6 +86,7 @@ public class MultiplayerState extends BasicGameState {
         }
     }
 
+    @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) {
         if(waiting) return;
 
@@ -94,6 +96,14 @@ public class MultiplayerState extends BasicGameState {
         }
 
         networkPlayer.update(gc);
+
+        if(player.intersect(networkPlayer)) {
+            player.setHit(true);
+            Message hit = builder.code(Message.HIT)
+                                 .pid(player.getPid())
+                                 .build();
+            sendSocket.send(hit);
+        }
 
         if(player.isCrashing()){
             explosions.add(new Explosion(player));
@@ -106,28 +116,6 @@ public class MultiplayerState extends BasicGameState {
             player.checkCollision(enemies);
             player.checkAttack(enemies);
             player.update(gc);
-        }
-
-        for (int i = 0; i < enemies.size(); ++i) {
-            enemies.get(i).checkCollision(enemies);
-            if (!player.isDead()) {
-                enemies.get(i).fire(player);
-                enemies.get(i).checkAttack(player);
-            }
-            if(enemies.get(i).isCrashing()){
-                explosions.add(new Explosion(enemies.get(i)));
-                enemies.get(i).kill();
-            }
-            if (enemies.get(i).isDead()) {
-                if(!explosions.isEmpty()) continue;
-                enemies.remove(i--);
-                if(enemies.isEmpty()) {
-                    win(game);
-                }
-            } else {
-                enemies.get(i).faceTo(player);
-                enemies.get(i).update(gc);
-            }
         }
     }
 
