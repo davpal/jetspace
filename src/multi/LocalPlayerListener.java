@@ -29,6 +29,9 @@ public class LocalPlayerListener extends PlayerInputListener {
 
         double dx = player.getDx();
         double dy = player.getDy();
+        int mx = gc.getInput().getMouseX();
+        int my = gc.getInput().getMouseY();
+
         for(int k : pressedKeys) {
             switch (k) {
                 case Input.KEY_D: {
@@ -47,13 +50,15 @@ public class LocalPlayerListener extends PlayerInputListener {
                     dy = player.getSpeed();
                     break;
                 }
+                case Input.KEY_SPACE: {
+                    shoot(mx, my);
+                    break;
+                }
                 default:
                     break;
             }
         }
 
-        int mx = gc.getInput().getMouseX();
-        int my = gc.getInput().getMouseY();
         Message move = new Message.Builder().code(Message.MOVE)
                               .pid(player.getPid())
                               .shifts(dx, dy)
@@ -115,11 +120,16 @@ public class LocalPlayerListener extends PlayerInputListener {
     public void mouseClicked(int button, int arg1, int mx, int my) {
         super.mouseClicked(button, arg1, mx, my);
 
-        Message shoot = new Message.Builder().code(Message.SHOOT)
-                               .pid(player.getPid())
-                               .position(player.getX(), player.getY())
-                               .mousePosition(mx, my)
-                               .build();
+        shoot(mx, my);
+    }
+
+    private void shoot(int mx, int my) {
+        Message shoot = new Message.Builder()
+                                   .code(Message.SHOOT)
+                                   .pid(player.getPid())
+                                   .position(player.getX(), player.getY())
+                                   .mousePosition(mx, my)
+                                   .build();
 
         sender.send(shoot);
     }
