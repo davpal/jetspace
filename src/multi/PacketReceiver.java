@@ -17,7 +17,7 @@ public class PacketReceiver implements Receiver, Runnable {
     public void run() {
         while(running) {
             Message m = socket.receive();
-            if(!m.getSource().equals(MultiplayerConfiguration.getInterface()))
+            if(m != null && !m.getSource().equals(MultiplayerConfiguration.getInterface()))
                 messages.add(m);
         }
     }
@@ -25,5 +25,10 @@ public class PacketReceiver implements Receiver, Runnable {
     @Override
     public synchronized Message receive() {
         return messages.poll();
+    }
+
+    public void stop() {
+        running = false;
+        socket.close();
     }
 }

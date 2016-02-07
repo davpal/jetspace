@@ -32,7 +32,7 @@ public class PlayerSocket {
         try {
             socket.receive(packet);
         } catch (Exception e) {
-            e.printStackTrace();
+            return null;
         }
         return MessageConverter.parsePacket(packet);
     }

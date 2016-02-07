@@ -24,12 +24,13 @@ public class MultiplayerState extends BasicGameState {
     private Renderer renderer;
     Audio music;
     private PacketReceiver receiver;
+    private PacketSender sender;
     private boolean waiting = true;
 
     private PlayerSocket sendSocket;
 
     public MultiplayerState(GameContainer gc) {
-                this.music = ResourceLoader.getAudio("WAV", "audio/battle.wav");
+        this.music = ResourceLoader.getAudio("WAV", "audio/battle.wav");
         renderer = new Renderer(gc);
     }
 
@@ -127,11 +128,15 @@ public class MultiplayerState extends BasicGameState {
     private void lose(StateBasedGame game){
         game.enterState(2);
         playerListener.disable();
+        receiver.stop();
+        sender.stop();
     }
 
     private void win(StateBasedGame game){
         game.enterState(4);
         playerListener.disable();
+        receiver.stop();
+        sender.stop();
     }
 
     public void render(GameContainer gc, StateBasedGame sbg, org.newdawn.slick.Graphics g) {
@@ -189,10 +194,12 @@ public class MultiplayerState extends BasicGameState {
 
         processMessage(m, gc);
 
-        playerListener = new LocalPlayerListener(player, new PacketSender(sendSocket), gc);
+        sender = new PacketSender(sendSocket);
+        playerListener = new LocalPlayerListener(player, sender, gc);
         playerListener.enable();
+        gc.getInput().addKeyListener(playerListener);
+        gc.getInput().addMouseListener(playerListener);
         gc.getInput().removeAllMouseListeners();
-        gc.getInput().addListener(playerListener);
 
         waiting = false;
     }
