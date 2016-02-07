@@ -15,12 +15,10 @@ import resource.ResourceLoader;
 public class MenuState extends BasicGameState {
     private Menu menu;
     private Renderer renderer;
-    private StateBasedGame game;
     private Audio music;
     private MenuInputListener menuInputListener = new MenuInputListener();
 
     public MenuState(GameContainer gc, StateBasedGame g) {
-        game = g;
         music = ResourceLoader.getAudio("WAV", "audio/battle.wav");
         renderer = new Renderer(gc);
     }
@@ -41,6 +39,7 @@ public class MenuState extends BasicGameState {
     @Override
     public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
             throws SlickException {
+        // No need to update
     }
 
     @Override

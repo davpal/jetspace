@@ -5,24 +5,21 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 
-class MessageConverter {
+public final class MessageConverter {
     public static DatagramPacket toPacket(Message message) {
         int size = message.getSize();
         if(message.getCode() == Message.ACCEPT) size += 2;
 
         ByteBuffer buffer = ByteBuffer.allocate(size);
         buffer.put(message.getCode());
-
-        if(message.getCode() != Message.JOIN) {
-            buffer.put(message.getPid());
-        }
+        buffer.put(message.getPid());
 
         if(message.getCode() == Message.ACCEPT) {
             buffer.putShort((short)message.getName().length());
             buffer.put(message.getName().getBytes());
         }
 
-        if(message.getCode() != Message.JOIN) {
+        if(message.getCode() != Message.JOIN && message.getCode() != Message.HIT) {
             if(message.getCode() == Message.MOVE) {
                 buffer.putInt(message.getDx());
                 buffer.putInt(message.getDy());
@@ -46,7 +43,7 @@ class MessageConverter {
     }
 
     public static Message parsePacket(DatagramPacket packet) {
-        MessageBuilder builder = new MessageBuilder();
+        Message.Builder builder = new Message.Builder();
 
         ByteBuffer buffer = ByteBuffer.wrap(packet.getData());
         byte code = buffer.get();

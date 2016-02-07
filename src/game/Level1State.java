@@ -1,6 +1,5 @@
 package game;
 
-import entity.ImageLoader;
 import entity.Player;
 import entity.enemies.Bomber;
 import entity.enemies.Enemy;
@@ -99,7 +98,7 @@ public class Level1State extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame game)
             throws SlickException {
 
-        background = ImageLoader.loadImage("backgrounds/game.jpg");
+        background = ResourceLoader.getImage("backgrounds/game.jpg");
         gc.setMouseGrabbed(true);
     }
 
@@ -111,7 +110,7 @@ public class Level1State extends BasicGameState {
         playerListener.enable();
         gc.getInput().addKeyListener(playerListener);
         gc.getInput().addMouseListener(playerListener);
-        gc.getInput().removeAllMouseListeners();
+        gc.getInput().removeAllListeners();
         enemies.add(new Bomber(50, 50, 0));
         enemies.add(new Bomber(50, 150, 0));
         enemies.add(new Bomber(50, 250, 0));

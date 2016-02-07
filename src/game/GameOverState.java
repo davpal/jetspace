@@ -44,6 +44,11 @@ public class GameOverState extends BasicGameState {
     }
 
     @Override
+    public void enter(GameContainer gc, StateBasedGame game) {
+        gc.getInput().addKeyListener(this);
+    }
+
+    @Override
     public int getID() {
         return 2;
     }

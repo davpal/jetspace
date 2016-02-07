@@ -27,4 +27,9 @@ public class PacketSender implements Sender, Runnable {
             }
         }
     }
+
+    public void stop() {
+        running = false;
+        socket.close();
+    }
 }

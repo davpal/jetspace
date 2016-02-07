@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Bomber extends Enemy {
-    int fireRate;
+    private int fireRate;
     private boolean shooting;
-
-    ArrayList<Weapon> lasers = new ArrayList<Weapon>();
     private long shootTime;
     
+    private ArrayList<Weapon> lasers = new ArrayList<>();
+  
     public ArrayList<Weapon> getWeapons(){
         return lasers;
     }
@@ -50,20 +50,15 @@ public class Bomber extends Enemy {
     }
 
     public void update(GameContainer g) {
-        if (shooting) {
-            lasers.add(new EnemyLaser(x + 4, y + 30, this));
-            lasers.add(new EnemyLaser(x + 68, y + 30, this));
+        shoot();
+        updateWeapons(g);
+        checkAttack();
+        checkCollision();
+        move(g);
+        destroyOutside(g);
+    }
 
-            shooting = false;
-        }
-
-        for (int i = 0; i < lasers.size(); ++i) {
-            lasers.get(i).update(g);
-            if (lasers.get(i).isDead()) {
-                lasers.remove(i--);
-            }
-        }
-
+    private void checkAttack() {
         if (health <= 0) {
             setCrashing();
             setHit(false);
@@ -73,7 +68,23 @@ public class Bomber extends Enemy {
             health -= 1;
             setHit(false);
         }
+    }
 
+    private void move(GameContainer g) {
+        if (right) x += speed;
+        else if (left) x -= speed;
+        if (down) y += speed;
+
+        if (x > g.getWidth() - width) {
+            left = true;
+            right = false;
+        } else if (x < 0) {
+            right = true;
+            left = false;
+        }
+    }
+
+    private void checkCollision() {
         if (collision) {
             collision = false;
 
@@ -93,20 +104,23 @@ public class Bomber extends Enemy {
                 up = true;
             }
         }
+    }
 
-        if (right) x += speed;
-        else if (left) x -= speed;
-        if (down) y += speed;
-
-        if (x > g.getWidth() - width) {
-            left = true;
-            right = false;
-        } else if (x < 0) {
-            right = true;
-            left = false;
+    private void updateWeapons(GameContainer g) {
+        for (int i = 0; i < lasers.size(); ++i) {
+            lasers.get(i).update(g);
+            if (lasers.get(i).isDead()) {
+                lasers.remove(i--);
+            }
         }
+    }
 
-        destroyOutside(g);
+    private void shoot() {
+        if(shooting) {
+            lasers.add(new EnemyLaser(x + 4, y + 30, this));
+            lasers.add(new EnemyLaser(x + 68, y + 30, this));
+            shooting = false;
+        }
     }
 
     @Override
