@@ -9,35 +9,35 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class MessageConverterTest extends TestCase {
-    private MessageBuilder builder;
     private Player player;
 
     @Before
     @Override
     public void setUp() {
-        builder = new MessageBuilder();
         player = new Player("Test", 300, 400);
     }
 
     @Test
     public void testJoinConversionToPacket() {
-        Message join = builder.code(Message.JOIN).build();
+        Message join = new Message.Builder().code(Message.JOIN).pid((byte)1).build();
         DatagramPacket packet = MessageConverter.toPacket(join);
 
         ByteBuffer buffer = ByteBuffer.wrap(packet.getData());
 
-        assertEquals(buffer.limit(), 1);
+        assertEquals(buffer.capacity(), 2);
         assertEquals(Message.JOIN, buffer.get());
+        assertEquals(1, buffer.get());
     }
 
     @Test
     public void testAcceptConversionToPacket() {
-        Message accept = builder.code(Message.ACCEPT)
-                                .pid(player.getPid())
-                                .name(player.getName())
-                                .position(player.getX(), player.getY())
-                                .mousePosition(0, 0)
-                                .build();
+        Message accept = new Message.Builder()
+                                    .code(Message.ACCEPT)
+                                    .pid(player.getPid())
+                                    .name(player.getName())
+                                    .position(player.getX(), player.getY())
+                                    .mousePosition(0, 0)
+                                    .build();
 
         DatagramPacket packet = MessageConverter.toPacket(accept);
 
@@ -63,11 +63,12 @@ public class MessageConverterTest extends TestCase {
 
         @Test
     public void testMoveConversionToPacket() {
-        Message move = builder.code(Message.MOVE)
-                                .pid(player.getPid())
-                                .shifts(5, -5)
-                                .mousePosition(0, 0)
-                                .build();
+        Message move = new Message.Builder()
+                                  .code(Message.MOVE)
+                                  .pid(player.getPid())
+                                  .shifts(5, -5)
+                                  .mousePosition(4, 7)
+                                  .build();
 
         DatagramPacket packet = MessageConverter.toPacket(move);
 
@@ -77,12 +78,16 @@ public class MessageConverterTest extends TestCase {
         int pid = buffer.get();
         int dx = buffer.getInt();
         int dy = buffer.getInt();
+        int mx = buffer.getInt();
+        int my = buffer.getInt();
 
         assertEquals(18, buffer.capacity());
         assertEquals(Message.MOVE, code);
         assertEquals(1, pid);
         assertEquals(5, dx);
         assertEquals(-5, dy);
+        assertEquals(4, mx);
+        assertEquals(7, my);
     }
 
     @Test
@@ -179,7 +184,7 @@ public class MessageConverterTest extends TestCase {
     @Test
     public void testAlotConversionToPacket() {
         for(int i = 0; i < 1000; ++i) {
-            Message move = builder.code(Message.MOVE)
+            Message move = new Message.Builder().code(Message.MOVE)
                                   .pid(player.getPid())
                                   .shifts(5, -5)
                                   .mousePosition(4, 7)

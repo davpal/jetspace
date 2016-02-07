@@ -10,7 +10,6 @@ public class LocalPlayerListener extends PlayerInputListener {
     PlayerSocket socket;
     PacketSender sender;
     private ArrayList<Integer> pressedKeys = new ArrayList<>();
-    private MessageBuilder builder = new MessageBuilder();
     private GameContainer gc;
 
     public LocalPlayerListener(Player player, PacketSender sender, GameContainer gc){
@@ -55,7 +54,7 @@ public class LocalPlayerListener extends PlayerInputListener {
 
         int mx = gc.getInput().getMouseX();
         int my = gc.getInput().getMouseY();
-        Message move = builder.code(Message.MOVE)
+        Message move = new Message.Builder().code(Message.MOVE)
                               .pid(player.getPid())
                               .shifts(dx, dy)
                               .mousePosition(mx, my)
@@ -83,7 +82,7 @@ public class LocalPlayerListener extends PlayerInputListener {
                 break;
         }
 
-        Message stop = builder.code(Message.STOP)
+        Message stop = new Message.Builder().code(Message.STOP)
                               .pid(player.getPid())
                               .shifts(dx, dy)
                               .position(player.getX(), player.getY())
@@ -103,7 +102,7 @@ public class LocalPlayerListener extends PlayerInputListener {
         int mx = gc.getInput().getMouseX();
         int my = gc.getInput().getMouseY();
 
-        Message move = builder.code(Message.MOVE)
+        Message move = new Message.Builder().code(Message.MOVE)
                               .pid(player.getPid())
                               .shifts(player.getDx(), player.getDy())
                               .mousePosition(mx, my)
@@ -116,7 +115,7 @@ public class LocalPlayerListener extends PlayerInputListener {
     public void mouseClicked(int button, int arg1, int mx, int my) {
         super.mouseClicked(button, arg1, mx, my);
 
-        Message shoot = builder.code(Message.SHOOT)
+        Message shoot = new Message.Builder().code(Message.SHOOT)
                                .pid(player.getPid())
                                .position(player.getX(), player.getY())
                                .mousePosition(mx, my)

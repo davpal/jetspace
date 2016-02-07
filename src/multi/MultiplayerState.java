@@ -27,7 +27,6 @@ public class MultiplayerState extends BasicGameState {
     private boolean waiting = true;
 
     private PlayerSocket sendSocket;
-    private MessageBuilder builder = new MessageBuilder();
 
     public MultiplayerState(GameContainer gc) {
                 this.music = ResourceLoader.getAudio("WAV", "audio/battle.wav");
@@ -51,7 +50,7 @@ public class MultiplayerState extends BasicGameState {
                 player.setY(200);
                 networkPlayer = new NetworkPlayer("REMOTE", 200, 300);
 
-                Message accept = builder.code(Message.ACCEPT)
+                Message accept = new Message.Builder().code(Message.ACCEPT)
                                         .pid(player.getPid())
                                         .name(player.getName())
                                         .position(player.getX(), player.getY())
@@ -70,6 +69,7 @@ public class MultiplayerState extends BasicGameState {
                 networkPlayer.setShooting(true);
                 break;
             case Message.HIT:
+                networkPlayer.setHit(true);
                 break;
             case Message.STOP:
                 networkPlayer.setX(m.getX());
@@ -85,6 +85,7 @@ public class MultiplayerState extends BasicGameState {
         }
     }
 
+    @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) {
         if(waiting) return;
 
@@ -93,7 +94,23 @@ public class MultiplayerState extends BasicGameState {
             processMessage(m, gc);
         }
 
-        networkPlayer.update(gc);
+        if(networkPlayer.isCrashing()){
+            explosions.add(new Explosion(networkPlayer));
+            networkPlayer.kill();
+        }
+        if(networkPlayer.isDead()) {
+            if(!explosions.isEmpty()) return;
+            win(game);
+        } else {
+            networkPlayer.update(gc);
+        }
+        if(player.intersect(networkPlayer) || networkPlayer.checkAttack(player)) {
+            player.setHit(true);
+            Message hit = new Message.Builder().code(Message.HIT)
+                                 .pid(player.getPid())
+                                 .build();
+            sendSocket.send(hit);
+        }
 
         if(player.isCrashing()){
             explosions.add(new Explosion(player));
@@ -103,31 +120,7 @@ public class MultiplayerState extends BasicGameState {
             if(!explosions.isEmpty()) return;
             lose(game);
         } else {
-            player.checkCollision(enemies);
-            player.checkAttack(enemies);
             player.update(gc);
-        }
-
-        for (int i = 0; i < enemies.size(); ++i) {
-            enemies.get(i).checkCollision(enemies);
-            if (!player.isDead()) {
-                enemies.get(i).fire(player);
-                enemies.get(i).checkAttack(player);
-            }
-            if(enemies.get(i).isCrashing()){
-                explosions.add(new Explosion(enemies.get(i)));
-                enemies.get(i).kill();
-            }
-            if (enemies.get(i).isDead()) {
-                if(!explosions.isEmpty()) continue;
-                enemies.remove(i--);
-                if(enemies.isEmpty()) {
-                    win(game);
-                }
-            } else {
-                enemies.get(i).faceTo(player);
-                enemies.get(i).update(gc);
-            }
         }
     }
 
@@ -177,7 +170,7 @@ public class MultiplayerState extends BasicGameState {
             sendSocket = new PlayerSocket(MultiplayerConfiguration.SEND_PORT,
                 MultiplayerConfiguration.getInterface());
 
-            Message join = builder.code(Message.JOIN).pid(player.getPid()).build();
+            Message join = new Message.Builder().code(Message.JOIN).pid(player.getPid()).build();
 
             sendSocket.send(join);
 

@@ -14,6 +14,21 @@ public class NetworkPlayer extends Player {
 
     @Override
     public void update(GameContainer g) {
+        if (collision) {
+            collision = false;
+            setHit(true);
+        }
+
+        if (isHit()) {
+            health -= 1;
+            setHit(false);
+        }
+
+        if (health <= 0) {
+            setCrashing();
+            hit = false;
+        }
+
         angle = -Math.atan2((x + width / 2) - mx, (y + height / 2) - my);
 
         x += dx;
@@ -45,5 +60,18 @@ public class NetworkPlayer extends Player {
 
             setShooting(false);
         }
+    }
+
+    boolean checkAttack(Player player) {
+        boolean hit = false;
+        for (int j = 0; j < weapons.size(); ++j) {
+            if (!weapons.get(j).isDead()
+                    && weapons.get(j).intersect(player)) {
+                player.setHit(true);
+                hit = true;
+                weapons.get(j).kill();
+            }
+        }
+        return hit;
     }
 }
