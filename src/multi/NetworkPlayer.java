@@ -61,4 +61,17 @@ public class NetworkPlayer extends Player {
             setShooting(false);
         }
     }
+
+    boolean checkAttack(Player player) {
+        boolean hit = false;
+        for (int j = 0; j < weapons.size(); ++j) {
+            if (!weapons.get(j).isDead()
+                    && weapons.get(j).intersect(player)) {
+                player.setHit(true);
+                hit = true;
+                weapons.get(j).kill();
+            }
+        }
+        return hit;
+    }
 }

@@ -94,9 +94,17 @@ public class MultiplayerState extends BasicGameState {
             processMessage(m, gc);
         }
 
-        networkPlayer.update(gc);
-
-        if(player.intersect(networkPlayer)) {
+        if(networkPlayer.isCrashing()){
+            explosions.add(new Explosion(networkPlayer));
+            networkPlayer.kill();
+        }
+        if(networkPlayer.isDead()) {
+            if(!explosions.isEmpty()) return;
+            win(game);
+        } else {
+            networkPlayer.update(gc);
+        }
+        if(player.intersect(networkPlayer) || networkPlayer.checkAttack(player)) {
             player.setHit(true);
             Message hit = new Message.Builder().code(Message.HIT)
                                  .pid(player.getPid())
@@ -112,8 +120,6 @@ public class MultiplayerState extends BasicGameState {
             if(!explosions.isEmpty()) return;
             lose(game);
         } else {
-            player.checkCollision(enemies);
-            player.checkAttack(enemies);
             player.update(gc);
         }
     }
