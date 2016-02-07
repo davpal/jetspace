@@ -15,6 +15,9 @@ import resource.ResourceLoader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import menu.multi.InterfaceSelect;
+import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.Transform;
 
 public class Renderer {
     private GameContainer gc;
@@ -132,8 +135,21 @@ public class Renderer {
         g.setColor(new Color(190, 210, 220, 255));
         g.drawRect(item.getX(), item.getY(), item.getWidth(), item.getHeight());
         g.drawString(item.toString(), item.getX() + 20, item.getY() + 10);
-        g.drawRect(item.getX() - 60, item.getY(), 40, item.getHeight());
-        g.drawRect(item.getX() + item.getWidth() + 20, item.getY(), 40, item.getHeight());
+
+        float[] leftt = new float[] {
+            item.getX() - 60, item.getY() + item.getHeight() / 2,
+            item.getX() - 20, item.getY(),
+            item.getX() - 20, item.getY() + item.getHeight(),
+        };
+
+        float[] rightt = new float[] {
+            item.getX() + item.getWidth() + 20, item.getY(),
+            item.getX() + item.getWidth() + 60, item.getY() + item.getHeight() / 2,
+            item.getX() + item.getWidth() + 20, item.getY() + item.getHeight()
+        };
+
+        g.fill(new Polygon(leftt));
+        g.fill(new Polygon(rightt));
     }
 
     public void renderExplosion(Explosion e) {
