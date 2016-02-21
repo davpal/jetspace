@@ -5,6 +5,6 @@ public abstract class Weapon extends GameObject {
     
     protected Weapon(double x, double y, GameObject o) {
         super(x, y, o.getAngle());
-        owner = o;
+        this.owner = o;
     }
 }

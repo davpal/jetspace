@@ -38,6 +38,7 @@ public class MultiplayerSetupState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        // needn't init
     }
 
     @Override
@@ -67,5 +68,6 @@ public class MultiplayerSetupState extends BasicGameState {
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
+        // needn't update
     }
 }

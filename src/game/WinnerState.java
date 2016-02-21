@@ -14,7 +14,7 @@ public class WinnerState extends BasicGameState {
     org.newdawn.slick.Font smallFont = ResourceLoader.getFont("fonts/modern_caveman.ttf", 24f);
     private int textHeight;
     private int textWidth;
-    private final String pressAnyKey = "Press any key";
+    private static final String pressAnyKey = "Press any key";
 
     WinnerState(StateBasedGame g) {
         game = g;

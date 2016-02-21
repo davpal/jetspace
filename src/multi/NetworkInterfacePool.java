@@ -11,6 +11,8 @@ import java.util.Enumeration;
 public class NetworkInterfacePool {
     static ArrayList<InetAddress> interfaces = new ArrayList<>();
 
+    private NetworkInterfacePool() {}
+
     public static ArrayList<InetAddress> getInterfaces(){
         if(interfaces.isEmpty())
             retrieveInterfaces();

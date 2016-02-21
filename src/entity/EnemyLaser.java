@@ -12,6 +12,7 @@ public class EnemyLaser extends Laser {
         dy = - speed * Math.cos(angle);
     }
     
+    @Override
     public void render(Renderer r){
         r.renderEnemyLaser(this);
     }

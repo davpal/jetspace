@@ -70,11 +70,11 @@ public abstract class GameObject {
     }
 
     public double getCenterX() {
-        return x + width / 2;
+        return x + (double)width / 2;
     }
 
     public double getCenterY() {
-        return y + height / 2;
+        return y + (double)height / 2;
     }
 
     public double getWidth() {

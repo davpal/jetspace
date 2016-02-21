@@ -6,6 +6,8 @@ import multi.NetworkInterfacePool;
 import org.newdawn.slick.gui.GUIContext;
 
 public final class UIFactory {
+    private UIFactory() {}
+
     public static Menu createMainMenu(int gcWidth, int gcHeight){
         int x = (gcWidth - 300) / 2;
         int y = (gcHeight - 100) / 2;
